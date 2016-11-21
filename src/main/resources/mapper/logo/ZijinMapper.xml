@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fshl.xy.logo.dao.ZijinDao" >
+  <resultMap id="BaseResultMap" type="com.fshl.xy.logo.entity.Zijin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="main_in" property="mainIn" jdbcType="INTEGER" />
+    <result column="main_out" property="mainOut" jdbcType="INTEGER" />
+    <result column="main_pure_in" property="mainPureIn" jdbcType="INTEGER" />
+    <result column="person_in" property="personIn" jdbcType="INTEGER" />
+    <result column="person_out" property="personOut" jdbcType="INTEGER" />
+    <result column="person_pure_in" property="personPureIn" jdbcType="INTEGER" />
+    <result column="buy_big" property="buyBig" jdbcType="INTEGER" />
+    <result column="buy_small" property="buySmall" jdbcType="INTEGER" />
+    <result column="sell_big" property="sellBig" jdbcType="INTEGER" />
+    <result column="sell_small" property="sellSmall" jdbcType="INTEGER" />
+    <result column="day" property="day" jdbcType="DATE" />
+  </resultMap>
+  <sql id="BaseColumnList" >
+    id, name, code, type, main_in, main_out, main_pure_in, person_in, person_out, person_pure_in, 
+    buy_big, buy_small, sell_big, sell_small, day
+  </sql>
+  <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="BaseColumnList" />
+    from zijin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.Integer" >
+    delete from zijin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fshl.xy.logo.entity.Zijin" >
+    insert into zijin (id, name, code, 
+      type, main_in, main_out, 
+      main_pure_in, person_in, person_out, 
+      person_pure_in, buy_big, buy_small, 
+      sell_big, sell_small, day
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, 
+      #{type,jdbcType=CHAR}, #{mainIn,jdbcType=INTEGER}, #{mainOut,jdbcType=INTEGER}, 
+      #{mainPureIn,jdbcType=INTEGER}, #{personIn,jdbcType=INTEGER}, #{personOut,jdbcType=INTEGER}, 
+      #{personPureIn,jdbcType=INTEGER}, #{buyBig,jdbcType=INTEGER}, #{buySmall,jdbcType=INTEGER}, 
+      #{sellBig,jdbcType=INTEGER}, #{sellSmall,jdbcType=INTEGER}, #{day,jdbcType=DATE}
+      )
+  </insert>
+  <update id="updateByPK" parameterType="com.fshl.xy.logo.entity.Zijin" >
+    update zijin
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="mainIn != null" >
+        main_in = #{mainIn,jdbcType=INTEGER},
+      </if>
+      <if test="mainOut != null" >
+        main_out = #{mainOut,jdbcType=INTEGER},
+      </if>
+      <if test="mainPureIn != null" >
+        main_pure_in = #{mainPureIn,jdbcType=INTEGER},
+      </if>
+      <if test="personIn != null" >
+        person_in = #{personIn,jdbcType=INTEGER},
+      </if>
+      <if test="personOut != null" >
+        person_out = #{personOut,jdbcType=INTEGER},
+      </if>
+      <if test="personPureIn != null" >
+        person_pure_in = #{personPureIn,jdbcType=INTEGER},
+      </if>
+      <if test="buyBig != null" >
+        buy_big = #{buyBig,jdbcType=INTEGER},
+      </if>
+      <if test="buySmall != null" >
+        buy_small = #{buySmall,jdbcType=INTEGER},
+      </if>
+      <if test="sellBig != null" >
+        sell_big = #{sellBig,jdbcType=INTEGER},
+      </if>
+      <if test="sellSmall != null" >
+        sell_small = #{sellSmall,jdbcType=INTEGER},
+      </if>
+      <if test="day != null" >
+        day = #{day,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.logo.entity.Zijin" >
+    insert into zijin (id, name, code, 
+      type, main_in, main_out, 
+      main_pure_in, person_in, person_out, 
+      person_pure_in, buy_big, buy_small, 
+      sell_big, sell_small, day
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, 
+      #{type,jdbcType=CHAR}, #{mainIn,jdbcType=INTEGER}, #{mainOut,jdbcType=INTEGER}, 
+      #{mainPureIn,jdbcType=INTEGER}, #{personIn,jdbcType=INTEGER}, #{personOut,jdbcType=INTEGER}, 
+      #{personPureIn,jdbcType=INTEGER}, #{buyBig,jdbcType=INTEGER}, #{buySmall,jdbcType=INTEGER}, 
+      #{sellBig,jdbcType=INTEGER}, #{sellSmall,jdbcType=INTEGER}, #{day,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into zijin
+		(id,name,code,type,main_in,main_out,main_pure_in,person_in,person_out,person_pure_in,buy_big,buy_small,sell_big,sell_small,day)
+	values 
+	<foreach collection="list" item="item" separator="," index="index">
+		(#{item.id,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.code,jdbcType=CHAR},#{item.type,jdbcType=CHAR},#{item.mainIn,jdbcType=INTEGER},#{item.mainOut,jdbcType=INTEGER},#{item.mainPureIn,jdbcType=INTEGER},#{item.personIn,jdbcType=INTEGER},#{item.personOut,jdbcType=INTEGER},#{item.personPureIn,jdbcType=INTEGER},#{item.buyBig,jdbcType=INTEGER},#{item.buySmall,jdbcType=INTEGER},#{item.sellBig,jdbcType=INTEGER},#{item.sellSmall,jdbcType=INTEGER},#{item.day,jdbcType=DATE})
+	</foreach>
+  </insert>
+  <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from zijin	where id = #{pk, jdbcType=INTEGER}
+  </select>
+  <select id="getCntByPage" resultType="java.lang.Integer" >
+    select 
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		count(1)
+	from
+		zijin
+	<include refid="pageCondition" />
+  </select>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from zijin
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByEntity" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from zijin
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="entity.id != null" >
+				and id = #{entity.id,jdbcType=INTEGER}
+			</if>
+			<if test="entity.name != null" >
+				and name = #{entity.name,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.code != null" >
+				and code = #{entity.code,jdbcType=CHAR}
+			</if>
+			<if test="entity.type != null" >
+				and type = #{entity.type,jdbcType=CHAR}
+			</if>
+			<if test="entity.mainIn != null" >
+				and main_in = #{entity.mainIn,jdbcType=INTEGER}
+			</if>
+			<if test="entity.mainOut != null" >
+				and main_out = #{entity.mainOut,jdbcType=INTEGER}
+			</if>
+			<if test="entity.mainPureIn != null" >
+				and main_pure_in = #{entity.mainPureIn,jdbcType=INTEGER}
+			</if>
+			<if test="entity.personIn != null" >
+				and person_in = #{entity.personIn,jdbcType=INTEGER}
+			</if>
+			<if test="entity.personOut != null" >
+				and person_out = #{entity.personOut,jdbcType=INTEGER}
+			</if>
+			<if test="entity.personPureIn != null" >
+				and person_pure_in = #{entity.personPureIn,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyBig != null" >
+				and buy_big = #{entity.buyBig,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buySmall != null" >
+				and buy_small = #{entity.buySmall,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellBig != null" >
+				and sell_big = #{entity.sellBig,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellSmall != null" >
+				and sell_small = #{entity.sellSmall,jdbcType=INTEGER}
+			</if>
+			<if test="entity.day != null" >
+				and day = #{entity.day,jdbcType=DATE}
+			</if>
+		</trim>
+	</where>
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByPage" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from zijin
+		<include refid="pageCondition"/>
+		<if test="pageInfo != null and pageInfo.orderBySql != null">
+			${pageInfo.orderBySql}
+		</if>
+		<if test="pageInfo !=null">
+			limit ${pageInfo.startIndex}, ${pageInfo.pagesize}
+		</if>
+  </select>
+  <sql id="pageCondition" >
+    <where >
+      <trim suffixOverrides="and" >
+        <if test="entity != null" >
+          		<!-- 写where的判断条件,下边是样例
+			<if test="entity.nick != null">
+				and nick = #{entity.nick,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.company != null">
+				and company = '${entity.nick}'
+			</if>
+		-->
+        </if>
+        <if test="dynamicSql != null">
+			and ${dynamicSql}
+		</if>
+      </trim>
+    </where>
+  </sql>
+  
+  <delete id="deleteByDay" >
+    delete from zijin where day = #{day, jdbcType=TIMESTAMP}
+  </delete>
+  
+  <select id="findByCodeOrName" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList"/> from zijin 
+    where (name = #{codeOrName, jdbcType=VARCHAR} 
+       or code = #{codeOrName, jdbcType=CHAR})
+       and day > date_add(now(),INTERVAL -32 DAY);
+  </select>
+</mapper>

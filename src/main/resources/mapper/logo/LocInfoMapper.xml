@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fshl.xy.logo.dao.LocInfoDao" >
+  <resultMap id="BaseResultMap" type="com.fshl.xy.logo.entity.LocInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="lng" property="lng" jdbcType="INTEGER" />
+    <result column="lat" property="lat" jdbcType="INTEGER" />
+    <result column="base_type" property="baseType" jdbcType="INTEGER" />
+    <result column="def_img" property="defImg" jdbcType="VARCHAR" />
+    <result column="detail_uri" property="detailUri" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="BaseColumnList" >
+    id, city, name, lng, lat, base_type, def_img, detail_uri
+  </sql>
+  <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="BaseColumnList" />
+    from loc_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.Integer" >
+    delete from loc_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fshl.xy.logo.entity.LocInfo" >
+    insert into loc_info (id, city, name, lng, 
+      lat, base_type, def_img, 
+      detail_uri)
+    values (#{id,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{lng,jdbcType=INTEGER}, 
+      #{lat,jdbcType=INTEGER}, #{baseType,jdbcType=INTEGER}, #{defImg,jdbcType=VARCHAR}, 
+      #{detailUri,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPK" parameterType="com.fshl.xy.logo.entity.LocInfo" >
+    update loc_info
+    <set >
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=INTEGER},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=INTEGER},
+      </if>
+      <if test="baseType != null" >
+        base_type = #{baseType,jdbcType=INTEGER},
+      </if>
+      <if test="defImg != null" >
+        def_img = #{defImg,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUri != null" >
+        detail_uri = #{detailUri,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.logo.entity.LocInfo" >
+    insert into loc_info (id, city, name, lng, 
+      lat, base_type, def_img, 
+      detail_uri)
+    values (#{id,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{lng,jdbcType=INTEGER}, 
+      #{lat,jdbcType=INTEGER}, #{baseType,jdbcType=INTEGER}, #{defImg,jdbcType=VARCHAR}, 
+      #{detailUri,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into loc_info
+		(id,city, name,lng,lat,base_type,def_img,detail_uri)
+	values 
+	<foreach collection="list" item="item" separator="," index="index">
+		(#{item.id,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.lng,jdbcType=INTEGER},#{item.lat,jdbcType=INTEGER},#{item.baseType,jdbcType=INTEGER},#{item.defImg,jdbcType=VARCHAR},#{item.detailUri,jdbcType=VARCHAR})
+	</foreach>
+  </insert>
+  <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from loc_info	where id = #{pk, jdbcType=INTEGER}
+  </select>
+  <select id="getCntByPage" resultType="java.lang.Integer" >
+    select 
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		count(1)
+	from
+		loc_info
+	<include refid="pageCondition" />
+  </select>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from loc_info
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByEntity" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from loc_info
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="entity.id != null" >
+				and id = #{entity.id,jdbcType=INTEGER}
+			</if>
+			<if test="entity.city != null" >
+				and city = #{entity.city,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.name != null" >
+				and name = #{entity.name,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.lng != null" >
+				and lng = #{entity.lng,jdbcType=INTEGER}
+			</if>
+			<if test="entity.lat != null" >
+				and lat = #{entity.lat,jdbcType=INTEGER}
+			</if>
+			<if test="entity.baseType != null" >
+				and base_type = #{entity.baseType,jdbcType=INTEGER}
+			</if>
+			<if test="entity.defImg != null" >
+				and def_img = #{entity.defImg,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.detailUri != null" >
+				and detail_uri = #{entity.detailUri,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</where>
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByPage" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from loc_info
+		<include refid="pageCondition"/>
+		<if test="pageInfo != null and pageInfo.orderBySql != null">
+			${pageInfo.orderBySql}
+		</if>
+		<if test="pageInfo !=null">
+			limit ${pageInfo.startIndex}, ${pageInfo.pagesize}
+		</if>
+  </select>
+  <sql id="pageCondition" >
+    <where >
+      <trim suffixOverrides="and" >
+        <if test="entity != null" >
+          		<!-- 写where的判断条件,下边是样例
+			<if test="entity.nick != null">
+				and nick = #{entity.nick,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.company != null">
+				and company = '${entity.nick}'
+			</if>
+		-->
+        </if>
+        <if test="dynamicSql != null">
+			and ${dynamicSql}
+		</if>
+      </trim>
+    </where>
+  </sql>
+</mapper>

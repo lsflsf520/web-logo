@@ -1,0 +1,323 @@
+package com.fshl.xy.logo.web.action;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.fshl.xy.logo.entity.BusiLogo;
+import com.fshl.xy.logo.service.impl.BackupService;
+import com.fshl.xy.logo.service.impl.BusiLogoServiceImpl;
+import com.fshl.xy.logo.util.DocUtil;
+import com.google.gson.Gson;
+import com.yisi.stiku.common.bean.ResultModel;
+import com.yisi.stiku.common.utils.DateUtil;
+import com.yisi.stiku.common.utils.RegexUtil;
+import com.yisi.stiku.conf.BaseConfig;
+import com.yisi.stiku.web.util.WebUtils;
+
+@Controller
+@RequestMapping("/logo")
+public class LogoMgrController {
+	
+	private final static Logger LOG = LoggerFactory.getLogger(LogoMgrController.class);
+	
+	@Resource
+	private BusiLogoServiceImpl busiLogoServiceImpl;
+	
+	@Resource
+	private BackupService backupService;
+	
+//	private final static int COST_PRICE = Integer.valueOf(BaseConfig.getValue("logo.cost.price"));
+	private final static int BILL_PRICE = Integer.valueOf(BaseConfig.getValue("logo.bill.price"));
+	
+	private final static Map<Integer, String> statusMap = new HashMap<Integer, String>();
+	private final static Map<Integer, String> typeMap = new HashMap<Integer, String>();
+	private final static Map<Integer, Integer> typeCostMap = new HashMap<Integer, Integer>();
+	
+	static {
+		statusMap.put(0, "待结款");
+		statusMap.put(1, "待提局");
+		statusMap.put(2, "待受理");
+		statusMap.put(3, "待拿证");
+		statusMap.put(4, "已拿证");
+		statusMap.put(5, "已拒证");
+
+		typeMap.put(0, "商标注册");
+		typeMap.put(1, "商标异议");
+		typeMap.put(2, "著作权");
+		typeMap.put(3, "专利");
+		typeMap.put(4, "商标购买");
+		typeMap.put(5, "商标变更");
+		
+		for(Integer type : typeMap.keySet()){
+			String valStr = BaseConfig.getValue("logo."+type+".cost.price");
+			if(RegexUtil.isInt(valStr)){
+				typeCostMap.put(type, Integer.valueOf(valStr));
+			}
+		}
+	}
+	
+	@RequestMapping("/list")
+	public String list(HttpServletRequest request, String yearMonth, Integer status){
+//		if(StringUtils.isBlank(yearMonth)){
+//    		yearMonth = DateUtil.formatDate(new Date(), "yyyy-M");
+//    	}
+		String keyword = request.getParameter("keyword");
+		List<String> timeList = getLast3YearMonth();
+		if(StringUtils.isBlank(yearMonth)){
+			yearMonth =  timeList.get(0);
+		}else if ("-1".equals(yearMonth)) {
+		      yearMonth = null;
+	    }
+		List<BusiLogo> logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, status);
+		request.setAttribute("logoList", logoList);
+//		request.setAttribute("costPrice", COST_PRICE);
+		request.setAttribute("typeCostMap", new Gson().toJson(typeCostMap));
+		request.setAttribute("billPrice", BILL_PRICE);
+		request.setAttribute("yearMonth", StringUtils.isBlank(yearMonth) ? null : yearMonth);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("status", status);
+		request.setAttribute("statusMap", statusMap);
+		request.setAttribute("typeMap", typeMap);
+		
+		request.setAttribute("timeList", timeList);
+		
+		
+		int totalMoney = 0, totalProfit = 0, totalDesignFee = 0, totalDesignProfit = 0, hasGetProfit = 0, hasGetMoney = 0, logoNum = 0;
+		if(logoList != null && !logoList.isEmpty()){
+			for(BusiLogo logo : logoList){
+				int currTotalMoney = logo.getLogoFee() + logo.getDesignFee();
+				totalMoney += currTotalMoney;
+				totalProfit += logo.getTotalProfit();
+				totalDesignFee += logo.getDesignFee();
+				totalDesignProfit += logo.getDesignProfit();
+				logoNum += logo.getNum();
+				
+				if(logo.getStatus() > 0){
+					hasGetMoney += currTotalMoney;
+					
+					if(logo.getMyFeeStatus() == 1){
+						hasGetProfit += logo.getTotalProfit();
+					}
+				}
+			}
+		}
+		
+		request.setAttribute("totalMoney", totalMoney); //总流水
+		request.setAttribute("totalProfit", totalProfit); //总利润
+		request.setAttribute("totalDesignFee", totalDesignFee); //总的设计费
+		request.setAttribute("totalDesignProfit", totalDesignProfit); //总的设计利润
+		request.setAttribute("hasGetProfit", hasGetProfit); //已经收到的总利润，即实际到账的钱
+		request.setAttribute("hasGetMoney", hasGetMoney); //已经收到的总金额，即已经结清的订单的总金额
+		request.setAttribute("logoNum", logoNum); //商标总数
+		
+		return "logo/list";
+	}
+	
+	@RequestMapping("/saveLogo")
+	public void saveLogo(HttpServletRequest request, HttpServletResponse response, BusiLogo logo){
+		if(logo.getNum() == null || logo.getLogoFee() == null){
+			WebUtils.writeJson(new ResultModel("ILLEGAL_PARAM", "数量和商标费不能为空！"), request, response);
+			return ;
+		}
+		
+		BusiLogo dbData = null;
+		if(logo.getId() != null){
+			dbData = busiLogoServiceImpl.findById(logo.getId());
+		}
+		if(dbData == null){
+			logo.setCreateTime(new Date());
+		}
+		
+		//如果是全款缴清，则将订单状态直接置为 1，即“待提局”
+		if(dbData == null || dbData.getStatus() == null || dbData.getStatus() == 0){
+			if(logo.getLogoFee().equals(logo.getFirstPayment())){
+				logo.setStatus(1);
+			}else if(logo.getMyFeeStatus() == 1){
+				logo.setMyFeeTime(logo.getCreateTime());
+				logo.setStatus(1);
+			}if(logo.getChenFeeStatus() == 1){
+				logo.setChenFeeTime(logo.getCreateTime());
+				logo.setStatus(1);
+			}else{
+				logo.setStatus(0);
+			}
+		}else if(logo.getMyFeeStatus() == 0 && logo.getChenFeeStatus() == 0){
+			logo.setStatus(0);
+		}
+		
+		if(logo.getTotalProfit() == null && typeCostMap.get(logo.getOrderType()) != null){
+			logo.setTotalProfit(logo.getLogoFee() - logo.getNum() * ( typeCostMap.get(logo.getOrderType()) + logo.getBill() * BILL_PRICE)  + (logo.getDesignProfit() == null ? 0 : logo.getDesignProfit()));
+		}
+		
+		if(logo.getId() == null){
+			busiLogoServiceImpl.insert(logo);
+		}else{
+			busiLogoServiceImpl.update(logo);
+		}
+		
+		WebUtils.writeJson(new ResultModel("保存成功！"), request, response);
+	}
+	
+	@RequestMapping("/delOrder")
+	public void delOrder(HttpServletRequest request, HttpServletResponse response, int orderId){
+		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
+		if(logo == null){
+			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
+			return ;
+		}
+		
+		logo.setStatus(-1);
+		busiLogoServiceImpl.update(logo);
+		
+		WebUtils.writeJson(new ResultModel("删除成功！"), request, response);
+	}
+	
+	@RequestMapping("/payRemainFee")
+	public void payRemainFee(HttpServletRequest request, HttpServletResponse response, int orderId, int who){
+		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
+		if(logo == null){
+			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
+			return ;
+		}
+		
+		if(who == 0){
+			logo.setMyFeeStatus(1);
+			logo.setMyFeeTime(new Date());
+		}else{
+			logo.setChenFeeStatus(1);
+			logo.setChenFeeTime(new Date());
+		}
+		
+		if(logo.getStatus() == 0){
+			logo.setStatus(1);
+		}
+		
+		busiLogoServiceImpl.update(logo);
+		
+		WebUtils.writeJson(new ResultModel("操作成功！"), request, response);
+	}
+	
+	@RequestMapping("/downloadDoc")
+	public void downloadDoc(HttpServletRequest request, HttpServletResponse response, int orderId, String type){
+		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
+		if(logo == null){
+			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
+			return ;
+		}
+		
+		if("delegate".equals(type)){
+			//下载委托书
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			dataMap.put("company", logo.getCompany());
+			dataMap.put("logoName", logo.getLogoName());
+			dataMap.put("customerAddr", logo.getCustomerAddr());
+			dataMap.put("date", DateUtil.formatDate(logo.getCreateTime(), "yyyy 年  MM 月 dd 日"));
+			
+			try{
+				DocUtil.writeHttpResponse(response, "delegate", dataMap, logo.getLogoName() + "商标代理委托书");
+			}catch(Exception e){
+				WebUtils.writeJson(new ResultModel("DOWNLOAD_ERROR", logo.getLogoName() + "商标代理委托书 下载失败！"), request, response);
+				LOG.error(logo.getLogoName() + "商标代理委托书 下载失败！ orderId:" + orderId);
+			}
+		}else if("agent".equals(type)){
+			//下载协议书
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			dataMap.put("company", logo.getCompany());
+			dataMap.put("logoName", logo.getLogoName());
+			dataMap.put("customerAddr", logo.getCustomerAddr());
+			dataMap.put("phone", logo.getPhone());
+			dataMap.put("userName", logo.getUserName());
+			dataMap.put("num", logo.getNum());
+			int totalPrice = logo.getLogoFee();
+			dataMap.put("totalPrice", totalPrice + "");
+			dataMap.put("bigTotalPrice", DocUtil.digitUppercase(totalPrice));
+			dataMap.put("logoTypes", logo.getLogoTypes());
+			try{
+				DocUtil.writeHttpResponse(response, "agent", dataMap, logo.getLogoName() + "商标协议书");
+			}catch(Exception e){
+				WebUtils.writeJson(new ResultModel("DOWNLOAD_ERROR", logo.getLogoName() + "商标协议书 下载失败！"), request, response);
+				LOG.error(logo.getLogoName() + "商标协议书 下载失败！ orderId:" + orderId);
+			}
+		}else{
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			//dataMap.put("logoImg", DocUtil.getImageStr("d:/tieyuanmuge.png"));
+			dataMap.put("company", logo.getCompany());
+			dataMap.put("logoName", logo.getLogoName());
+			dataMap.put("customerAddr", logo.getCustomerAddr());
+			dataMap.put("logoTypes", logo.getLogoTypes());
+			try{
+				DocUtil.writeHttpResponse(response, "apply", dataMap, logo.getLogoName() + "商标申请书");
+			}catch(Exception e){
+				WebUtils.writeJson(new ResultModel("DOWNLOAD_ERROR", logo.getLogoName() + "商标申请书 下载失败！"), request, response);
+				LOG.error(logo.getLogoName() + "商标申请书 下载失败！ orderId:" + orderId);
+			}
+		}
+	}
+	
+	@RequestMapping("/updateStatus")
+	public void updateStatus(HttpServletRequest request, HttpServletResponse response, int orderId, int status){
+		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
+		if(logo == null){
+			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
+			return ;
+		}
+		
+		if(logo.getStatus() >= status || status > 5 || status < 0){
+			WebUtils.writeJson(new ResultModel("NOT_SUPPORT", "不支持的操作"), request, response);
+			return ;
+		}
+		
+		logo.setStatus(status);
+		
+        busiLogoServiceImpl.update(logo);
+		
+		WebUtils.writeJson(new ResultModel("操作成功！"), request, response);
+	}
+	
+	@RequestMapping("/backupData")
+	public void backupData(HttpServletRequest request, HttpServletResponse response){
+		
+		try{
+			
+			backupService.backupData();
+			WebUtils.writeJson(new ResultModel("备份成功"), request, response);
+		}catch(Exception e){
+			LOG.error("数据备份失败", e);
+			
+			WebUtils.writeJson(new ResultModel("BACKUP_ERROR", "备份失败"), request, response);
+		}
+		
+	}
+	
+	private List<String> getLast3YearMonth(){
+		Date currDate = new Date();
+		int year = Integer.valueOf(DateUtil.formatDate(currDate, "yyyy"));
+		int month = Integer.valueOf(DateUtil.formatDate(currDate, "M"));
+		
+		List<String> timeList = new ArrayList<String>();
+		for(int m = month; m > 0; m--){
+			timeList.add(year + "-" + m);
+		}
+		
+		for(int y = year - 1; y > year - 4; y--){
+			for(int m = 12; m > 0; m--){
+				timeList.add(y + "-" + m);
+			}
+		}
+		
+		return timeList;
+	}
+}

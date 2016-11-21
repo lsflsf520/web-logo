@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fshl.xy.logo.dao.GupiaoDao" >
+  <resultMap id="BaseResultMap" type="com.fshl.xy.logo.entity.Gupiao" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="curr_price" property="currPrice" jdbcType="INTEGER" />
+    <result column="yester_price" property="yesterPrice" jdbcType="INTEGER" />
+    <result column="open_price" property="openPrice" jdbcType="INTEGER" />
+    <result column="volume" property="volume" jdbcType="INTEGER" />
+    <result column="outer_volume" property="outerVolume" jdbcType="INTEGER" />
+    <result column="inner_volume" property="innerVolume" jdbcType="INTEGER" />
+    <result column="buy_one_price" property="buyOnePrice" jdbcType="INTEGER" />
+    <result column="buy_one_volume" property="buyOneVolume" jdbcType="INTEGER" />
+    <result column="buy_two_price" property="buyTwoPrice" jdbcType="INTEGER" />
+    <result column="buy_two_volume" property="buyTwoVolume" jdbcType="INTEGER" />
+    <result column="buy_three_price" property="buyThreePrice" jdbcType="INTEGER" />
+    <result column="buy_three_volume" property="buyThreeVolume" jdbcType="INTEGER" />
+    <result column="buy_four_price" property="buyFourPrice" jdbcType="INTEGER" />
+    <result column="buy_four_volume" property="buyFourVolume" jdbcType="INTEGER" />
+    <result column="buy_five_price" property="buyFivePrice" jdbcType="INTEGER" />
+    <result column="buy_five_volume" property="buyFiveVolume" jdbcType="INTEGER" />
+    <result column="sell_one_price" property="sellOnePrice" jdbcType="INTEGER" />
+    <result column="sell_one_volume" property="sellOneVolume" jdbcType="INTEGER" />
+    <result column="sell_two_price" property="sellTwoPrice" jdbcType="INTEGER" />
+    <result column="sell_two_volume" property="sellTwoVolume" jdbcType="INTEGER" />
+    <result column="sell_three_price" property="sellThreePrice" jdbcType="INTEGER" />
+    <result column="sell_three_volume" property="sellThreeVolume" jdbcType="INTEGER" />
+    <result column="sell_four_price" property="sellFourPrice" jdbcType="INTEGER" />
+    <result column="sell_four_volume" property="sellFourVolume" jdbcType="INTEGER" />
+    <result column="sell_five_price" property="sellFivePrice" jdbcType="INTEGER" />
+    <result column="sell_five_volume" property="sellFiveVolume" jdbcType="INTEGER" />
+    <result column="latest_deal" property="latestDeal" jdbcType="VARCHAR" />
+    <result column="inc_amount" property="incAmount" jdbcType="INTEGER" />
+    <result column="inc_percent" property="incPercent" jdbcType="INTEGER" />
+    <result column="max_price" property="maxPrice" jdbcType="INTEGER" />
+    <result column="min_price" property="minPrice" jdbcType="INTEGER" />
+    <result column="price_volume" property="priceVolume" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="change_percent" property="changePercent" jdbcType="INTEGER" />
+    <result column="pe_ratio" property="peRatio" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="swing" property="swing" jdbcType="INTEGER" />
+    <result column="market_value" property="marketValue" jdbcType="INTEGER" />
+    <result column="total_value" property="totalValue" jdbcType="INTEGER" />
+    <result column="market_percent" property="marketPercent" jdbcType="INTEGER" />
+    <result column="volume_ratio" property="volumeRatio" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="BaseColumnList" >
+    id, name, code, type, curr_price, yester_price, open_price, volume, outer_volume, 
+    inner_volume, buy_one_price, buy_one_volume, buy_two_price, buy_two_volume, buy_three_price, 
+    buy_three_volume, buy_four_price, buy_four_volume, buy_five_price, buy_five_volume, 
+    sell_one_price, sell_one_volume, sell_two_price, sell_two_volume, sell_three_price, 
+    sell_three_volume, sell_four_price, sell_four_volume, sell_five_price, sell_five_volume, 
+    latest_deal, inc_amount, inc_percent, max_price, min_price, price_volume, money, 
+    change_percent, pe_ratio, remark, swing, market_value, total_value, market_percent, 
+    volume_ratio, time
+  </sql>
+  <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="BaseColumnList" />
+    from gupiao
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.Integer" >
+    delete from gupiao
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fshl.xy.logo.entity.Gupiao" >
+    insert into gupiao (id, name, code, 
+      type, curr_price, yester_price, 
+      open_price, volume, outer_volume, 
+      inner_volume, buy_one_price, buy_one_volume, 
+      buy_two_price, buy_two_volume, buy_three_price, 
+      buy_three_volume, buy_four_price, buy_four_volume, 
+      buy_five_price, buy_five_volume, sell_one_price, 
+      sell_one_volume, sell_two_price, sell_two_volume, 
+      sell_three_price, sell_three_volume, sell_four_price, 
+      sell_four_volume, sell_five_price, sell_five_volume, 
+      latest_deal, inc_amount, inc_percent, 
+      max_price, min_price, price_volume, 
+      money, change_percent, pe_ratio, 
+      remark, swing, market_value, 
+      total_value, market_percent, volume_ratio, 
+      time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, 
+      #{type,jdbcType=CHAR}, #{currPrice,jdbcType=INTEGER}, #{yesterPrice,jdbcType=INTEGER}, 
+      #{openPrice,jdbcType=INTEGER}, #{volume,jdbcType=INTEGER}, #{outerVolume,jdbcType=INTEGER}, 
+      #{innerVolume,jdbcType=INTEGER}, #{buyOnePrice,jdbcType=INTEGER}, #{buyOneVolume,jdbcType=INTEGER}, 
+      #{buyTwoPrice,jdbcType=INTEGER}, #{buyTwoVolume,jdbcType=INTEGER}, #{buyThreePrice,jdbcType=INTEGER}, 
+      #{buyThreeVolume,jdbcType=INTEGER}, #{buyFourPrice,jdbcType=INTEGER}, #{buyFourVolume,jdbcType=INTEGER}, 
+      #{buyFivePrice,jdbcType=INTEGER}, #{buyFiveVolume,jdbcType=INTEGER}, #{sellOnePrice,jdbcType=INTEGER}, 
+      #{sellOneVolume,jdbcType=INTEGER}, #{sellTwoPrice,jdbcType=INTEGER}, #{sellTwoVolume,jdbcType=INTEGER}, 
+      #{sellThreePrice,jdbcType=INTEGER}, #{sellThreeVolume,jdbcType=INTEGER}, #{sellFourPrice,jdbcType=INTEGER}, 
+      #{sellFourVolume,jdbcType=INTEGER}, #{sellFivePrice,jdbcType=INTEGER}, #{sellFiveVolume,jdbcType=INTEGER}, 
+      #{latestDeal,jdbcType=VARCHAR}, #{incAmount,jdbcType=INTEGER}, #{incPercent,jdbcType=INTEGER}, 
+      #{maxPrice,jdbcType=INTEGER}, #{minPrice,jdbcType=INTEGER}, #{priceVolume,jdbcType=VARCHAR}, 
+      #{money,jdbcType=INTEGER}, #{changePercent,jdbcType=INTEGER}, #{peRatio,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{swing,jdbcType=INTEGER}, #{marketValue,jdbcType=INTEGER}, 
+      #{totalValue,jdbcType=INTEGER}, #{marketPercent,jdbcType=INTEGER}, #{volumeRatio,jdbcType=INTEGER}, 
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPK" parameterType="com.fshl.xy.logo.entity.Gupiao" >
+    update gupiao
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="currPrice != null" >
+        curr_price = #{currPrice,jdbcType=INTEGER},
+      </if>
+      <if test="yesterPrice != null" >
+        yester_price = #{yesterPrice,jdbcType=INTEGER},
+      </if>
+      <if test="openPrice != null" >
+        open_price = #{openPrice,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=INTEGER},
+      </if>
+      <if test="outerVolume != null" >
+        outer_volume = #{outerVolume,jdbcType=INTEGER},
+      </if>
+      <if test="innerVolume != null" >
+        inner_volume = #{innerVolume,jdbcType=INTEGER},
+      </if>
+      <if test="buyOnePrice != null" >
+        buy_one_price = #{buyOnePrice,jdbcType=INTEGER},
+      </if>
+      <if test="buyOneVolume != null" >
+        buy_one_volume = #{buyOneVolume,jdbcType=INTEGER},
+      </if>
+      <if test="buyTwoPrice != null" >
+        buy_two_price = #{buyTwoPrice,jdbcType=INTEGER},
+      </if>
+      <if test="buyTwoVolume != null" >
+        buy_two_volume = #{buyTwoVolume,jdbcType=INTEGER},
+      </if>
+      <if test="buyThreePrice != null" >
+        buy_three_price = #{buyThreePrice,jdbcType=INTEGER},
+      </if>
+      <if test="buyThreeVolume != null" >
+        buy_three_volume = #{buyThreeVolume,jdbcType=INTEGER},
+      </if>
+      <if test="buyFourPrice != null" >
+        buy_four_price = #{buyFourPrice,jdbcType=INTEGER},
+      </if>
+      <if test="buyFourVolume != null" >
+        buy_four_volume = #{buyFourVolume,jdbcType=INTEGER},
+      </if>
+      <if test="buyFivePrice != null" >
+        buy_five_price = #{buyFivePrice,jdbcType=INTEGER},
+      </if>
+      <if test="buyFiveVolume != null" >
+        buy_five_volume = #{buyFiveVolume,jdbcType=INTEGER},
+      </if>
+      <if test="sellOnePrice != null" >
+        sell_one_price = #{sellOnePrice,jdbcType=INTEGER},
+      </if>
+      <if test="sellOneVolume != null" >
+        sell_one_volume = #{sellOneVolume,jdbcType=INTEGER},
+      </if>
+      <if test="sellTwoPrice != null" >
+        sell_two_price = #{sellTwoPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sellTwoVolume != null" >
+        sell_two_volume = #{sellTwoVolume,jdbcType=INTEGER},
+      </if>
+      <if test="sellThreePrice != null" >
+        sell_three_price = #{sellThreePrice,jdbcType=INTEGER},
+      </if>
+      <if test="sellThreeVolume != null" >
+        sell_three_volume = #{sellThreeVolume,jdbcType=INTEGER},
+      </if>
+      <if test="sellFourPrice != null" >
+        sell_four_price = #{sellFourPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sellFourVolume != null" >
+        sell_four_volume = #{sellFourVolume,jdbcType=INTEGER},
+      </if>
+      <if test="sellFivePrice != null" >
+        sell_five_price = #{sellFivePrice,jdbcType=INTEGER},
+      </if>
+      <if test="sellFiveVolume != null" >
+        sell_five_volume = #{sellFiveVolume,jdbcType=INTEGER},
+      </if>
+      <if test="latestDeal != null" >
+        latest_deal = #{latestDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="incAmount != null" >
+        inc_amount = #{incAmount,jdbcType=INTEGER},
+      </if>
+      <if test="incPercent != null" >
+        inc_percent = #{incPercent,jdbcType=INTEGER},
+      </if>
+      <if test="maxPrice != null" >
+        max_price = #{maxPrice,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null" >
+        min_price = #{minPrice,jdbcType=INTEGER},
+      </if>
+      <if test="priceVolume != null" >
+        price_volume = #{priceVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="changePercent != null" >
+        change_percent = #{changePercent,jdbcType=INTEGER},
+      </if>
+      <if test="peRatio != null" >
+        pe_ratio = #{peRatio,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="swing != null" >
+        swing = #{swing,jdbcType=INTEGER},
+      </if>
+      <if test="marketValue != null" >
+        market_value = #{marketValue,jdbcType=INTEGER},
+      </if>
+      <if test="totalValue != null" >
+        total_value = #{totalValue,jdbcType=INTEGER},
+      </if>
+      <if test="marketPercent != null" >
+        market_percent = #{marketPercent,jdbcType=INTEGER},
+      </if>
+      <if test="volumeRatio != null" >
+        volume_ratio = #{volumeRatio,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.logo.entity.Gupiao" >
+    insert into gupiao (id, name, code, 
+      type, curr_price, yester_price, 
+      open_price, volume, outer_volume, 
+      inner_volume, buy_one_price, buy_one_volume, 
+      buy_two_price, buy_two_volume, buy_three_price, 
+      buy_three_volume, buy_four_price, buy_four_volume, 
+      buy_five_price, buy_five_volume, sell_one_price, 
+      sell_one_volume, sell_two_price, sell_two_volume, 
+      sell_three_price, sell_three_volume, sell_four_price, 
+      sell_four_volume, sell_five_price, sell_five_volume, 
+      latest_deal, inc_amount, inc_percent, 
+      max_price, min_price, price_volume, 
+      money, change_percent, pe_ratio, 
+      remark, swing, market_value, 
+      total_value, market_percent, volume_ratio, 
+      time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, 
+      #{type,jdbcType=CHAR}, #{currPrice,jdbcType=INTEGER}, #{yesterPrice,jdbcType=INTEGER}, 
+      #{openPrice,jdbcType=INTEGER}, #{volume,jdbcType=INTEGER}, #{outerVolume,jdbcType=INTEGER}, 
+      #{innerVolume,jdbcType=INTEGER}, #{buyOnePrice,jdbcType=INTEGER}, #{buyOneVolume,jdbcType=INTEGER}, 
+      #{buyTwoPrice,jdbcType=INTEGER}, #{buyTwoVolume,jdbcType=INTEGER}, #{buyThreePrice,jdbcType=INTEGER}, 
+      #{buyThreeVolume,jdbcType=INTEGER}, #{buyFourPrice,jdbcType=INTEGER}, #{buyFourVolume,jdbcType=INTEGER}, 
+      #{buyFivePrice,jdbcType=INTEGER}, #{buyFiveVolume,jdbcType=INTEGER}, #{sellOnePrice,jdbcType=INTEGER}, 
+      #{sellOneVolume,jdbcType=INTEGER}, #{sellTwoPrice,jdbcType=INTEGER}, #{sellTwoVolume,jdbcType=INTEGER}, 
+      #{sellThreePrice,jdbcType=INTEGER}, #{sellThreeVolume,jdbcType=INTEGER}, #{sellFourPrice,jdbcType=INTEGER}, 
+      #{sellFourVolume,jdbcType=INTEGER}, #{sellFivePrice,jdbcType=INTEGER}, #{sellFiveVolume,jdbcType=INTEGER}, 
+      #{latestDeal,jdbcType=VARCHAR}, #{incAmount,jdbcType=INTEGER}, #{incPercent,jdbcType=INTEGER}, 
+      #{maxPrice,jdbcType=INTEGER}, #{minPrice,jdbcType=INTEGER}, #{priceVolume,jdbcType=VARCHAR}, 
+      #{money,jdbcType=INTEGER}, #{changePercent,jdbcType=INTEGER}, #{peRatio,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{swing,jdbcType=INTEGER}, #{marketValue,jdbcType=INTEGER}, 
+      #{totalValue,jdbcType=INTEGER}, #{marketPercent,jdbcType=INTEGER}, #{volumeRatio,jdbcType=INTEGER}, 
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into gupiao
+		(id,name,code,type,curr_price,yester_price,open_price,volume,outer_volume,inner_volume,buy_one_price,buy_one_volume,buy_two_price,buy_two_volume,buy_three_price,buy_three_volume,buy_four_price,buy_four_volume,buy_five_price,buy_five_volume,sell_one_price,sell_one_volume,sell_two_price,sell_two_volume,sell_three_price,sell_three_volume,sell_four_price,sell_four_volume,sell_five_price,sell_five_volume,latest_deal,inc_amount,inc_percent,max_price,min_price,price_volume,money,change_percent,pe_ratio,remark,swing,market_value,total_value,market_percent,volume_ratio,time)
+	values 
+	<foreach collection="list" item="item" separator="," index="index">
+		(#{item.id,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.code,jdbcType=CHAR},#{item.type,jdbcType=CHAR},#{item.currPrice,jdbcType=INTEGER},#{item.yesterPrice,jdbcType=INTEGER},#{item.openPrice,jdbcType=INTEGER},#{item.volume,jdbcType=INTEGER},#{item.outerVolume,jdbcType=INTEGER},#{item.innerVolume,jdbcType=INTEGER},#{item.buyOnePrice,jdbcType=INTEGER},#{item.buyOneVolume,jdbcType=INTEGER},#{item.buyTwoPrice,jdbcType=INTEGER},#{item.buyTwoVolume,jdbcType=INTEGER},#{item.buyThreePrice,jdbcType=INTEGER},#{item.buyThreeVolume,jdbcType=INTEGER},#{item.buyFourPrice,jdbcType=INTEGER},#{item.buyFourVolume,jdbcType=INTEGER},#{item.buyFivePrice,jdbcType=INTEGER},#{item.buyFiveVolume,jdbcType=INTEGER},#{item.sellOnePrice,jdbcType=INTEGER},#{item.sellOneVolume,jdbcType=INTEGER},#{item.sellTwoPrice,jdbcType=INTEGER},#{item.sellTwoVolume,jdbcType=INTEGER},#{item.sellThreePrice,jdbcType=INTEGER},#{item.sellThreeVolume,jdbcType=INTEGER},#{item.sellFourPrice,jdbcType=INTEGER},#{item.sellFourVolume,jdbcType=INTEGER},#{item.sellFivePrice,jdbcType=INTEGER},#{item.sellFiveVolume,jdbcType=INTEGER},#{item.latestDeal,jdbcType=VARCHAR},#{item.incAmount,jdbcType=INTEGER},#{item.incPercent,jdbcType=INTEGER},#{item.maxPrice,jdbcType=INTEGER},#{item.minPrice,jdbcType=INTEGER},#{item.priceVolume,jdbcType=VARCHAR},#{item.money,jdbcType=INTEGER},#{item.changePercent,jdbcType=INTEGER},#{item.peRatio,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR},#{item.swing,jdbcType=INTEGER},#{item.marketValue,jdbcType=INTEGER},#{item.totalValue,jdbcType=INTEGER},#{item.marketPercent,jdbcType=INTEGER},#{item.volumeRatio,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP})
+	</foreach>
+  </insert>
+  <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from gupiao	where id = #{pk, jdbcType=INTEGER}
+  </select>
+  <select id="getCntByPage" resultType="java.lang.Integer" >
+    select 
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		count(1)
+	from
+		gupiao
+	<include refid="pageCondition" />
+  </select>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from gupiao
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByEntity" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from gupiao
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="entity.id != null" >
+				and id = #{entity.id,jdbcType=INTEGER}
+			</if>
+			<if test="entity.name != null" >
+				and name = #{entity.name,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.code != null" >
+				and code = #{entity.code,jdbcType=CHAR}
+			</if>
+			<if test="entity.type != null" >
+				and type = #{entity.type,jdbcType=CHAR}
+			</if>
+			<if test="entity.currPrice != null" >
+				and curr_price = #{entity.currPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.yesterPrice != null" >
+				and yester_price = #{entity.yesterPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.openPrice != null" >
+				and open_price = #{entity.openPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.volume != null" >
+				and volume = #{entity.volume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.outerVolume != null" >
+				and outer_volume = #{entity.outerVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.innerVolume != null" >
+				and inner_volume = #{entity.innerVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyOnePrice != null" >
+				and buy_one_price = #{entity.buyOnePrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyOneVolume != null" >
+				and buy_one_volume = #{entity.buyOneVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyTwoPrice != null" >
+				and buy_two_price = #{entity.buyTwoPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyTwoVolume != null" >
+				and buy_two_volume = #{entity.buyTwoVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyThreePrice != null" >
+				and buy_three_price = #{entity.buyThreePrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyThreeVolume != null" >
+				and buy_three_volume = #{entity.buyThreeVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyFourPrice != null" >
+				and buy_four_price = #{entity.buyFourPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyFourVolume != null" >
+				and buy_four_volume = #{entity.buyFourVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyFivePrice != null" >
+				and buy_five_price = #{entity.buyFivePrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.buyFiveVolume != null" >
+				and buy_five_volume = #{entity.buyFiveVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellOnePrice != null" >
+				and sell_one_price = #{entity.sellOnePrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellOneVolume != null" >
+				and sell_one_volume = #{entity.sellOneVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellTwoPrice != null" >
+				and sell_two_price = #{entity.sellTwoPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellTwoVolume != null" >
+				and sell_two_volume = #{entity.sellTwoVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellThreePrice != null" >
+				and sell_three_price = #{entity.sellThreePrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellThreeVolume != null" >
+				and sell_three_volume = #{entity.sellThreeVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellFourPrice != null" >
+				and sell_four_price = #{entity.sellFourPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellFourVolume != null" >
+				and sell_four_volume = #{entity.sellFourVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellFivePrice != null" >
+				and sell_five_price = #{entity.sellFivePrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.sellFiveVolume != null" >
+				and sell_five_volume = #{entity.sellFiveVolume,jdbcType=INTEGER}
+			</if>
+			<if test="entity.latestDeal != null" >
+				and latest_deal = #{entity.latestDeal,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.incAmount != null" >
+				and inc_amount = #{entity.incAmount,jdbcType=INTEGER}
+			</if>
+			<if test="entity.incPercent != null" >
+				and inc_percent = #{entity.incPercent,jdbcType=INTEGER}
+			</if>
+			<if test="entity.maxPrice != null" >
+				and max_price = #{entity.maxPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.minPrice != null" >
+				and min_price = #{entity.minPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.priceVolume != null" >
+				and price_volume = #{entity.priceVolume,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.money != null" >
+				and money = #{entity.money,jdbcType=INTEGER}
+			</if>
+			<if test="entity.changePercent != null" >
+				and change_percent = #{entity.changePercent,jdbcType=INTEGER}
+			</if>
+			<if test="entity.peRatio != null" >
+				and pe_ratio = #{entity.peRatio,jdbcType=INTEGER}
+			</if>
+			<if test="entity.remark != null" >
+				and remark = #{entity.remark,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.swing != null" >
+				and swing = #{entity.swing,jdbcType=INTEGER}
+			</if>
+			<if test="entity.marketValue != null" >
+				and market_value = #{entity.marketValue,jdbcType=INTEGER}
+			</if>
+			<if test="entity.totalValue != null" >
+				and total_value = #{entity.totalValue,jdbcType=INTEGER}
+			</if>
+			<if test="entity.marketPercent != null" >
+				and market_percent = #{entity.marketPercent,jdbcType=INTEGER}
+			</if>
+			<if test="entity.volumeRatio != null" >
+				and volume_ratio = #{entity.volumeRatio,jdbcType=INTEGER}
+			</if>
+			<if test="entity.time != null" >
+				and time = #{entity.time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</where>
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByPage" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from gupiao
+		<include refid="pageCondition"/>
+		<if test="pageInfo != null and pageInfo.orderBySql != null">
+			${pageInfo.orderBySql}
+		</if>
+		<if test="pageInfo !=null">
+			limit ${pageInfo.startIndex}, ${pageInfo.pagesize}
+		</if>
+  </select>
+  <sql id="pageCondition" >
+    <where >
+      <trim suffixOverrides="and" >
+        <if test="entity != null" >
+          		<!-- 写where的判断条件,下边是样例
+			<if test="entity.nick != null">
+				and nick = #{entity.nick,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.company != null">
+				and company = '${entity.nick}'
+			</if>
+		-->
+        </if>
+        <if test="dynamicSql != null">
+			and ${dynamicSql}
+		</if>
+      </trim>
+    </where>
+  </sql>
+  
+  <delete id="deleteByDay" >
+    delete from gupiao where time = #{day, jdbcType=TIMESTAMP}
+  </delete>
+  
+  <select id="findGapPiaos" resultMap="BaseResultMap">
+    <![CDATA[
+     select g.code, g.name, g.curr_price, g.open_price, g.yester_price, p.open_price yester_open_price, g.time 
+        from gupiao g, (select code, open_price from gupiao where time = date_add(#{day,jdbcType=TIMESTAMP}, INTERVAL -1 day)) p
+        where g.code = p.code and g.curr_price > g.open_price
+            and g.curr_price < g.yester_price 
+            and g.curr_price < p.open_price 
+            and time = #{day,jdbcType=TIMESTAMP} 
+        order by g.curr_price;
+    ]]>
+  </select>
+  
+</mapper>

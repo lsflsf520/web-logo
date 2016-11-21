@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fshl.xy.logo.dao.BusiLogoDao" >
+  <resultMap id="BaseResultMap" type="com.fshl.xy.logo.entity.BusiLogo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="customer_addr" property="customerAddr" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="logo_name" property="logoName" jdbcType="VARCHAR" />
+    <result column="logo_types" property="logoTypes" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="logo_fee" property="logoFee" jdbcType="INTEGER" />
+    <result column="design_fee" property="designFee" jdbcType="INTEGER" />
+    <result column="design_profit" property="designProfit" jdbcType="INTEGER" />
+    <result column="bill" property="bill" jdbcType="INTEGER" />
+    <result column="first_payment" property="firstPayment" jdbcType="INTEGER" />
+    <result column="total_profit" property="totalProfit" jdbcType="INTEGER" />
+    <result column="my_fee_status" property="myFeeStatus" jdbcType="INTEGER" />
+    <result column="my_fee_time" property="myFeeTime" jdbcType="TIMESTAMP" />
+    <result column="chen_fee_status" property="chenFeeStatus" jdbcType="INTEGER" />
+    <result column="chen_fee_time" property="chenFeeTime" jdbcType="TIMESTAMP" />
+    <result column="express_num" property="expressNum" jdbcType="VARCHAR" />
+    <result column="wx" property="wx" jdbcType="VARCHAR" />
+    <result column="rapid" property="rapid" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="BaseColumnList" >
+    id, create_time, company, customer_addr, user_name, phone, logo_name, logo_types, 
+    num, logo_fee, design_fee, design_profit, bill, first_payment, total_profit, my_fee_status, 
+    my_fee_time, chen_fee_status, chen_fee_time, express_num, wx, rapid, order_type, 
+    status, remark
+  </sql>
+  <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="BaseColumnList" />
+    from busi_logo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.Integer" >
+    delete from busi_logo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fshl.xy.logo.entity.BusiLogo" >
+    insert into busi_logo (id, create_time, company, 
+      customer_addr, user_name, phone, 
+      logo_name, logo_types, num, 
+      logo_fee, design_fee, design_profit, 
+      bill, first_payment, total_profit, 
+      my_fee_status, my_fee_time, chen_fee_status, 
+      chen_fee_time, express_num, wx, 
+      rapid, order_type, status, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, 
+      #{customerAddr,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{logoName,jdbcType=VARCHAR}, #{logoTypes,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{logoFee,jdbcType=INTEGER}, #{designFee,jdbcType=INTEGER}, #{designProfit,jdbcType=INTEGER}, 
+      #{bill,jdbcType=INTEGER}, #{firstPayment,jdbcType=INTEGER}, #{totalProfit,jdbcType=INTEGER}, 
+      #{myFeeStatus,jdbcType=INTEGER}, #{myFeeTime,jdbcType=TIMESTAMP}, #{chenFeeStatus,jdbcType=INTEGER}, 
+      #{chenFeeTime,jdbcType=TIMESTAMP}, #{expressNum,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, 
+      #{rapid,jdbcType=INTEGER}, #{orderType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPK" parameterType="com.fshl.xy.logo.entity.BusiLogo" >
+    update busi_logo
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddr != null" >
+        customer_addr = #{customerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="logoName != null" >
+        logo_name = #{logoName,jdbcType=VARCHAR},
+      </if>
+      <if test="logoTypes != null" >
+        logo_types = #{logoTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="logoFee != null" >
+        logo_fee = #{logoFee,jdbcType=INTEGER},
+      </if>
+      <if test="designFee != null" >
+        design_fee = #{designFee,jdbcType=INTEGER},
+      </if>
+      <if test="designProfit != null" >
+        design_profit = #{designProfit,jdbcType=INTEGER},
+      </if>
+      <if test="bill != null" >
+        bill = #{bill,jdbcType=INTEGER},
+      </if>
+      <if test="firstPayment != null" >
+        first_payment = #{firstPayment,jdbcType=INTEGER},
+      </if>
+      <if test="totalProfit != null" >
+        total_profit = #{totalProfit,jdbcType=INTEGER},
+      </if>
+      <if test="myFeeStatus != null" >
+        my_fee_status = #{myFeeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="myFeeTime != null" >
+        my_fee_time = #{myFeeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chenFeeStatus != null" >
+        chen_fee_status = #{chenFeeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="chenFeeTime != null" >
+        chen_fee_time = #{chenFeeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expressNum != null" >
+        express_num = #{expressNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null" >
+        wx = #{wx,jdbcType=VARCHAR},
+      </if>
+      <if test="rapid != null" >
+        rapid = #{rapid,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.logo.entity.BusiLogo" >
+    insert into busi_logo (id, create_time, company, 
+      customer_addr, user_name, phone, 
+      logo_name, logo_types, num, 
+      logo_fee, design_fee, design_profit, 
+      bill, first_payment, total_profit, 
+      my_fee_status, my_fee_time, chen_fee_status, 
+      chen_fee_time, express_num, wx, 
+      rapid, order_type, status, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, 
+      #{customerAddr,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{logoName,jdbcType=VARCHAR}, #{logoTypes,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{logoFee,jdbcType=INTEGER}, #{designFee,jdbcType=INTEGER}, #{designProfit,jdbcType=INTEGER}, 
+      #{bill,jdbcType=INTEGER}, #{firstPayment,jdbcType=INTEGER}, #{totalProfit,jdbcType=INTEGER}, 
+      #{myFeeStatus,jdbcType=INTEGER}, #{myFeeTime,jdbcType=TIMESTAMP}, #{chenFeeStatus,jdbcType=INTEGER}, 
+      #{chenFeeTime,jdbcType=TIMESTAMP}, #{expressNum,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, 
+      #{rapid,jdbcType=INTEGER}, #{orderType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into busi_logo
+		(id,create_time,company,customer_addr,user_name,phone,logo_name,logo_types,num,logo_fee,design_fee,design_profit,bill,first_payment,total_profit,my_fee_status,my_fee_time,chen_fee_status,chen_fee_time,express_num,wx,rapid,order_type,status,remark)
+	values 
+	<foreach collection="list" item="item" separator="," index="index">
+		(#{item.id,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.company,jdbcType=VARCHAR},#{item.customerAddr,jdbcType=VARCHAR},#{item.userName,jdbcType=VARCHAR},#{item.phone,jdbcType=CHAR},#{item.logoName,jdbcType=VARCHAR},#{item.logoTypes,jdbcType=VARCHAR},#{item.num,jdbcType=INTEGER},#{item.logoFee,jdbcType=INTEGER},#{item.designFee,jdbcType=INTEGER},#{item.designProfit,jdbcType=INTEGER},#{item.bill,jdbcType=INTEGER},#{item.firstPayment,jdbcType=INTEGER},#{item.totalProfit,jdbcType=INTEGER},#{item.myFeeStatus,jdbcType=INTEGER},#{item.myFeeTime,jdbcType=TIMESTAMP},#{item.chenFeeStatus,jdbcType=INTEGER},#{item.chenFeeTime,jdbcType=TIMESTAMP},#{item.expressNum,jdbcType=VARCHAR},#{item.wx,jdbcType=VARCHAR},#{item.rapid,jdbcType=INTEGER},#{item.orderType,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR})
+	</foreach>
+  </insert>
+  <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from busi_logo	where id = #{pk, jdbcType=INTEGER}
+  </select>
+  <select id="getCntByPage" resultType="java.lang.Integer" >
+    select 
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		count(1)
+	from
+		busi_logo
+	<include refid="pageCondition" />
+  </select>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from busi_logo
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByEntity" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from busi_logo
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="entity.id != null" >
+				and id = #{entity.id,jdbcType=INTEGER}
+			</if>
+			<if test="entity.createTime != null" >
+				and create_time = #{entity.createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="entity.company != null" >
+				and company = #{entity.company,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.customerAddr != null" >
+				and customer_addr = #{entity.customerAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.userName != null" >
+				and user_name = #{entity.userName,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.phone != null" >
+				and phone = #{entity.phone,jdbcType=CHAR}
+			</if>
+			<if test="entity.logoName != null" >
+				and logo_name = #{entity.logoName,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.logoTypes != null" >
+				and logo_types = #{entity.logoTypes,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.num != null" >
+				and num = #{entity.num,jdbcType=INTEGER}
+			</if>
+			<if test="entity.logoFee != null" >
+				and logo_fee = #{entity.logoFee,jdbcType=INTEGER}
+			</if>
+			<if test="entity.designFee != null" >
+				and design_fee = #{entity.designFee,jdbcType=INTEGER}
+			</if>
+			<if test="entity.designProfit != null" >
+				and design_profit = #{entity.designProfit,jdbcType=INTEGER}
+			</if>
+			<if test="entity.bill != null" >
+				and bill = #{entity.bill,jdbcType=INTEGER}
+			</if>
+			<if test="entity.firstPayment != null" >
+				and first_payment = #{entity.firstPayment,jdbcType=INTEGER}
+			</if>
+			<if test="entity.totalProfit != null" >
+				and total_profit = #{entity.totalProfit,jdbcType=INTEGER}
+			</if>
+			<if test="entity.myFeeStatus != null" >
+				and my_fee_status = #{entity.myFeeStatus,jdbcType=INTEGER}
+			</if>
+			<if test="entity.myFeeTime != null" >
+				and my_fee_time = #{entity.myFeeTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="entity.chenFeeStatus != null" >
+				and chen_fee_status = #{entity.chenFeeStatus,jdbcType=INTEGER}
+			</if>
+			<if test="entity.chenFeeTime != null" >
+				and chen_fee_time = #{entity.chenFeeTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="entity.expressNum != null" >
+				and express_num = #{entity.expressNum,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.wx != null" >
+				and wx = #{entity.wx,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.rapid != null" >
+				and rapid = #{entity.rapid,jdbcType=INTEGER}
+			</if>
+			<if test="entity.orderType != null" >
+				and order_type = #{entity.orderType,jdbcType=INTEGER}
+			</if>
+			<if test="entity.status != null" >
+				and status = #{entity.status,jdbcType=INTEGER}
+			</if>
+			<if test="entity.remark != null" >
+				and remark = #{entity.remark,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</where>
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByPage" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from busi_logo
+		<include refid="pageCondition"/>
+		<if test="pageInfo != null and pageInfo.orderBySql != null">
+			${pageInfo.orderBySql}
+		</if>
+		<if test="pageInfo !=null">
+			limit ${pageInfo.startIndex}, ${pageInfo.pagesize}
+		</if>
+  </select>
+  <sql id="pageCondition" >
+    <where >
+      <trim suffixOverrides="and" >
+        <if test="entity != null" >
+          		<!-- 写where的判断条件,下边是样例
+			<if test="entity.nick != null">
+				and nick = #{entity.nick,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.company != null">
+				and company = '${entity.nick}'
+			</if>
+		-->
+        </if>
+        <if test="dynamicSql != null">
+			and ${dynamicSql}
+		</if>
+      </trim>
+    </where>
+  </sql>
+  
+  <select id="queryBusiLogo" resultMap="BaseResultMap">
+    select 
+      <include refid="BaseColumnList"/>
+	from busi_logo
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="startDate != null" >
+				<![CDATA[ and create_time >= #{startDate,jdbcType=TIMESTAMP} ]]>
+			</if>
+			<if test="endDate != null" >
+				<![CDATA[ and create_time < #{endDate,jdbcType=TIMESTAMP} ]]>
+			</if>
+			<if test="status != null">
+			    and status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="keyword != null">
+			   and  (user_name like #{keyword,jdbcType=VARCHAR}
+			 or phone like #{keyword,jdbcType=VARCHAR} 
+			 or logo_name like #{keyword,jdbcType=VARCHAR} 
+			 or company like #{keyword,jdbcType=VARCHAR}
+			 or wx like #{keyword,jdbcType=VARCHAR})
+			</if>
+			<![CDATA[ and status >= 0 ]]>
+		</trim>
+	</where>
+	order by create_time
+  </select>
+  
+</mapper>
