@@ -510,7 +510,7 @@
   <select id="findGapPiaos" resultMap="BaseResultMap">
     <![CDATA[
      select g.code, g.name, g.curr_price, g.open_price, g.yester_price, p.open_price yester_open_price, g.time 
-        from gupiao g, (select code, open_price from gupiao where time = date_add(#{day,jdbcType=TIMESTAMP}, INTERVAL -1 day)) p
+        from gupiao g, (select code, open_price from gupiao where time = date_add(#{day,jdbcType=TIMESTAMP}, INTERVAL #{daygap, jdbcType=INTEGER} day)) p
         where g.code = p.code and g.curr_price > g.open_price
             and g.curr_price < g.yester_price 
             and g.curr_price < p.open_price 

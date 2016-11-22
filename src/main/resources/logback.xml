@@ -58,6 +58,11 @@
 	  <appender-ref ref="SYS_LOG" />
 	</logger>
 	
+	<logger name="org.mybatis" level="info" additivity="false">
+	  <appender-ref ref="STDOUT" />
+	  <appender-ref ref="SYS_LOG" />
+	</logger>
+	
 	<logger name="com.yisi.stiku.rpc.client.netty.handler.HeartBeatReqHandler" level="INFO" additivity="false">
 	  <appender-ref ref="STDOUT" />
 	  <appender-ref ref="SYS_LOG" />
