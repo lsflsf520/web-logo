@@ -122,19 +122,6 @@
             <artifactId>freemarker</artifactId>
         </dependency>
 		<!-- 测试用UNIT -->
-
-		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils-dbunit</artifactId>
-			<version>3.4.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils-database</artifactId>
-			<version>3.4.2</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 		    <groupId>org.jsoup</groupId>
 		    <artifactId>jsoup</artifactId>

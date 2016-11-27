@@ -20,6 +20,10 @@
     
     <div id="mainPureIn" style="width: 80%;height:260px;"></div>
     
+    <div id="latestWeekMainPureIn" style="width: 80%;height:260px;"></div>
+    
+    <div id="latestMonthMainPureIn" style="width: 80%;height:260px;"></div>
+    
     <!-- ECharts单文件引入 -->
     <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
     <script type="text/javascript">
@@ -185,6 +189,154 @@
                  };
          
           pureInChart.setOption(pureOption);
+        });
+    </script>
+    
+     <script type="text/javascript">
+    // 使用
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+        	 var weekPureInChart = ec.init(document.getElementById('latestWeekMainPureIn'));
+        	 
+        	 var weekPureOption = {
+        		    title : {
+        		        text: '${name }(${code })',
+        		        subtext: '近5日主力净流入图'
+        		        //x: 'center',
+        		        //align: 'right'
+        		    },
+                     tooltip : {
+                         trigger: 'axis',
+                         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                             type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                         }
+                     },
+                     legend: {
+                         data:['近5日主力净流入']
+                     },
+                     grid: {
+                         left: '3%',
+                         right: '4%',
+                         bottom: '3%',
+                         containLabel: true
+                     },
+                     xAxis : [
+                         
+                         {
+                             type : 'category',
+                             axisTick : {show: false},
+                             data : [
+                                     <c:forEach items="${mainPureIns}" var="pureIn">
+                                       <c:if test="${pureIn.dayCnt == 5}">
+                                       '${pureIn.dayStr}',
+                                       </c:if>
+                                     </c:forEach>
+                                     ]
+                         }
+                     ],
+                     yAxis : [
+                         {
+                             type : 'value'
+                         }
+                     ],
+                     series : [
+                         {
+                             name:'近5日主力净流入',
+                             type:'bar',
+                             label: {
+                                 normal: {
+                                     show: true,
+                                     position: 'inside'
+                                 }
+                             },
+                             data:[<c:forEach items="${mainPureIns}" var="pureIn">
+                             <c:if test="${pureIn.dayCnt == 5}">
+                               ${pureIn.pureIn},
+                             </c:if>
+                             </c:forEach>]
+                         }
+                     ]
+                 };
+         
+          weekPureInChart.setOption(weekPureOption);
+        });
+    </script>
+    
+    <script type="text/javascript">
+    // 使用
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+        	 var monthPureInChart = ec.init(document.getElementById('latestMonthMainPureIn'));
+        	 
+        	 var monthPureOption = {
+        		    title : {
+        		        text: '${name }(${code })',
+        		        subtext: '近1月主力净流入图'
+        		        //x: 'center',
+        		        //align: 'right'
+        		    },
+                     tooltip : {
+                         trigger: 'axis',
+                         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                             type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                         }
+                     },
+                     legend: {
+                         data:['近1月主力净流入']
+                     },
+                     grid: {
+                         left: '3%',
+                         right: '4%',
+                         bottom: '3%',
+                         containLabel: true
+                     },
+                     xAxis : [
+                         
+                         {
+                             type : 'category',
+                             axisTick : {show: false},
+                             data : [
+                                     <c:forEach items="${mainPureIns}" var="pureIn">
+                                       <c:if test="${pureIn.dayCnt == 30}">
+                                       '${pureIn.dayStr}',
+                                       </c:if>
+                                     </c:forEach>
+                                     ]
+                         }
+                     ],
+                     yAxis : [
+                         {
+                             type : 'value'
+                         }
+                     ],
+                     series : [
+                         {
+                             name:'近1月主力净流入',
+                             type:'bar',
+                             label: {
+                                 normal: {
+                                     show: true,
+                                     position: 'inside'
+                                 }
+                             },
+                             data:[<c:forEach items="${mainPureIns}" var="pureIn">
+                             <c:if test="${pureIn.dayCnt == 30}">
+                               ${pureIn.pureIn},
+                             </c:if>
+                             </c:forEach>]
+                         }
+                     ]
+                 };
+         
+          monthPureInChart.setOption(monthPureOption);
         });
     </script>
 </body>

@@ -47,7 +47,7 @@
     <result column="total_value" property="totalValue" jdbcType="INTEGER" />
     <result column="market_percent" property="marketPercent" jdbcType="INTEGER" />
     <result column="volume_ratio" property="volumeRatio" jdbcType="INTEGER" />
-    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="day" property="day" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="BaseColumnList" >
     id, name, code, type, curr_price, yester_price, open_price, volume, outer_volume, 
@@ -57,7 +57,7 @@
     sell_three_volume, sell_four_price, sell_four_volume, sell_five_price, sell_five_volume, 
     latest_deal, inc_amount, inc_percent, max_price, min_price, price_volume, money, 
     change_percent, pe_ratio, remark, swing, market_value, total_value, market_percent, 
-    volume_ratio, time
+    volume_ratio, day
   </sql>
   <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -85,7 +85,7 @@
       money, change_percent, pe_ratio, 
       remark, swing, market_value, 
       total_value, market_percent, volume_ratio, 
-      time)
+      day)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, 
       #{type,jdbcType=CHAR}, #{currPrice,jdbcType=INTEGER}, #{yesterPrice,jdbcType=INTEGER}, 
       #{openPrice,jdbcType=INTEGER}, #{volume,jdbcType=INTEGER}, #{outerVolume,jdbcType=INTEGER}, 
@@ -101,7 +101,7 @@
       #{money,jdbcType=INTEGER}, #{changePercent,jdbcType=INTEGER}, #{peRatio,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR}, #{swing,jdbcType=INTEGER}, #{marketValue,jdbcType=INTEGER}, 
       #{totalValue,jdbcType=INTEGER}, #{marketPercent,jdbcType=INTEGER}, #{volumeRatio,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP})
+      #{day,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPK" parameterType="com.fshl.xy.logo.entity.Gupiao" >
     update gupiao
@@ -238,8 +238,8 @@
       <if test="volumeRatio != null" >
         volume_ratio = #{volumeRatio,jdbcType=INTEGER},
       </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=TIMESTAMP},
+      <if test="day != null" >
+        day = #{day,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -260,7 +260,7 @@
       money, change_percent, pe_ratio, 
       remark, swing, market_value, 
       total_value, market_percent, volume_ratio, 
-      time)
+      day)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, 
       #{type,jdbcType=CHAR}, #{currPrice,jdbcType=INTEGER}, #{yesterPrice,jdbcType=INTEGER}, 
       #{openPrice,jdbcType=INTEGER}, #{volume,jdbcType=INTEGER}, #{outerVolume,jdbcType=INTEGER}, 
@@ -276,14 +276,14 @@
       #{money,jdbcType=INTEGER}, #{changePercent,jdbcType=INTEGER}, #{peRatio,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR}, #{swing,jdbcType=INTEGER}, #{marketValue,jdbcType=INTEGER}, 
       #{totalValue,jdbcType=INTEGER}, #{marketPercent,jdbcType=INTEGER}, #{volumeRatio,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP})
+      #{day,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into gupiao
-		(id,name,code,type,curr_price,yester_price,open_price,volume,outer_volume,inner_volume,buy_one_price,buy_one_volume,buy_two_price,buy_two_volume,buy_three_price,buy_three_volume,buy_four_price,buy_four_volume,buy_five_price,buy_five_volume,sell_one_price,sell_one_volume,sell_two_price,sell_two_volume,sell_three_price,sell_three_volume,sell_four_price,sell_four_volume,sell_five_price,sell_five_volume,latest_deal,inc_amount,inc_percent,max_price,min_price,price_volume,money,change_percent,pe_ratio,remark,swing,market_value,total_value,market_percent,volume_ratio,time)
+		(id,name,code,type,curr_price,yester_price,open_price,volume,outer_volume,inner_volume,buy_one_price,buy_one_volume,buy_two_price,buy_two_volume,buy_three_price,buy_three_volume,buy_four_price,buy_four_volume,buy_five_price,buy_five_volume,sell_one_price,sell_one_volume,sell_two_price,sell_two_volume,sell_three_price,sell_three_volume,sell_four_price,sell_four_volume,sell_five_price,sell_five_volume,latest_deal,inc_amount,inc_percent,max_price,min_price,price_volume,money,change_percent,pe_ratio,remark,swing,market_value,total_value,market_percent,volume_ratio,day)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.code,jdbcType=CHAR},#{item.type,jdbcType=CHAR},#{item.currPrice,jdbcType=INTEGER},#{item.yesterPrice,jdbcType=INTEGER},#{item.openPrice,jdbcType=INTEGER},#{item.volume,jdbcType=INTEGER},#{item.outerVolume,jdbcType=INTEGER},#{item.innerVolume,jdbcType=INTEGER},#{item.buyOnePrice,jdbcType=INTEGER},#{item.buyOneVolume,jdbcType=INTEGER},#{item.buyTwoPrice,jdbcType=INTEGER},#{item.buyTwoVolume,jdbcType=INTEGER},#{item.buyThreePrice,jdbcType=INTEGER},#{item.buyThreeVolume,jdbcType=INTEGER},#{item.buyFourPrice,jdbcType=INTEGER},#{item.buyFourVolume,jdbcType=INTEGER},#{item.buyFivePrice,jdbcType=INTEGER},#{item.buyFiveVolume,jdbcType=INTEGER},#{item.sellOnePrice,jdbcType=INTEGER},#{item.sellOneVolume,jdbcType=INTEGER},#{item.sellTwoPrice,jdbcType=INTEGER},#{item.sellTwoVolume,jdbcType=INTEGER},#{item.sellThreePrice,jdbcType=INTEGER},#{item.sellThreeVolume,jdbcType=INTEGER},#{item.sellFourPrice,jdbcType=INTEGER},#{item.sellFourVolume,jdbcType=INTEGER},#{item.sellFivePrice,jdbcType=INTEGER},#{item.sellFiveVolume,jdbcType=INTEGER},#{item.latestDeal,jdbcType=VARCHAR},#{item.incAmount,jdbcType=INTEGER},#{item.incPercent,jdbcType=INTEGER},#{item.maxPrice,jdbcType=INTEGER},#{item.minPrice,jdbcType=INTEGER},#{item.priceVolume,jdbcType=VARCHAR},#{item.money,jdbcType=INTEGER},#{item.changePercent,jdbcType=INTEGER},#{item.peRatio,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR},#{item.swing,jdbcType=INTEGER},#{item.marketValue,jdbcType=INTEGER},#{item.totalValue,jdbcType=INTEGER},#{item.marketPercent,jdbcType=INTEGER},#{item.volumeRatio,jdbcType=INTEGER},#{item.time,jdbcType=TIMESTAMP})
+		(#{item.id,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.code,jdbcType=CHAR},#{item.type,jdbcType=CHAR},#{item.currPrice,jdbcType=INTEGER},#{item.yesterPrice,jdbcType=INTEGER},#{item.openPrice,jdbcType=INTEGER},#{item.volume,jdbcType=INTEGER},#{item.outerVolume,jdbcType=INTEGER},#{item.innerVolume,jdbcType=INTEGER},#{item.buyOnePrice,jdbcType=INTEGER},#{item.buyOneVolume,jdbcType=INTEGER},#{item.buyTwoPrice,jdbcType=INTEGER},#{item.buyTwoVolume,jdbcType=INTEGER},#{item.buyThreePrice,jdbcType=INTEGER},#{item.buyThreeVolume,jdbcType=INTEGER},#{item.buyFourPrice,jdbcType=INTEGER},#{item.buyFourVolume,jdbcType=INTEGER},#{item.buyFivePrice,jdbcType=INTEGER},#{item.buyFiveVolume,jdbcType=INTEGER},#{item.sellOnePrice,jdbcType=INTEGER},#{item.sellOneVolume,jdbcType=INTEGER},#{item.sellTwoPrice,jdbcType=INTEGER},#{item.sellTwoVolume,jdbcType=INTEGER},#{item.sellThreePrice,jdbcType=INTEGER},#{item.sellThreeVolume,jdbcType=INTEGER},#{item.sellFourPrice,jdbcType=INTEGER},#{item.sellFourVolume,jdbcType=INTEGER},#{item.sellFivePrice,jdbcType=INTEGER},#{item.sellFiveVolume,jdbcType=INTEGER},#{item.latestDeal,jdbcType=VARCHAR},#{item.incAmount,jdbcType=INTEGER},#{item.incPercent,jdbcType=INTEGER},#{item.maxPrice,jdbcType=INTEGER},#{item.minPrice,jdbcType=INTEGER},#{item.priceVolume,jdbcType=VARCHAR},#{item.money,jdbcType=INTEGER},#{item.changePercent,jdbcType=INTEGER},#{item.peRatio,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR},#{item.swing,jdbcType=INTEGER},#{item.marketValue,jdbcType=INTEGER},#{item.totalValue,jdbcType=INTEGER},#{item.marketPercent,jdbcType=INTEGER},#{item.volumeRatio,jdbcType=INTEGER},#{item.day,jdbcType=TIMESTAMP})
 	</foreach>
   </insert>
   <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
@@ -459,8 +459,8 @@
 			<if test="entity.volumeRatio != null" >
 				and volume_ratio = #{entity.volumeRatio,jdbcType=INTEGER}
 			</if>
-			<if test="entity.time != null" >
-				and time = #{entity.time,jdbcType=TIMESTAMP}
+			<if test="entity.day != null" >
+				and day = #{entity.day,jdbcType=TIMESTAMP}
 			</if>
 		</trim>
 	</where>
@@ -504,17 +504,18 @@
   </sql>
   
   <delete id="deleteByDay" >
-    delete from gupiao where time = #{day, jdbcType=TIMESTAMP}
+    delete from gupiao where day = #{day, jdbcType=VARCHAR}
   </delete>
   
   <select id="findGapPiaos" resultMap="BaseResultMap">
     <![CDATA[
-     select g.code, g.name, g.curr_price, g.open_price, g.yester_price, p.open_price yester_open_price, g.time 
-        from gupiao g, (select code, open_price from gupiao where time = date_add(#{day,jdbcType=TIMESTAMP}, INTERVAL #{daygap, jdbcType=INTEGER} day)) p
+     select g.code, g.name, g.curr_price, g.open_price, g.yester_price, p.open_price yester_open_price, g.day 
+        from gupiao g, (select code, open_price from gupiao where day = date_add(#{day,jdbcType=TIMESTAMP}, INTERVAL #{daygap, jdbcType=INTEGER} day)) p
         where g.code = p.code and g.curr_price > g.open_price
             and g.curr_price < g.yester_price 
             and g.curr_price < p.open_price 
-            and time = #{day,jdbcType=TIMESTAMP} 
+            and day = #{day,jdbcType=TIMESTAMP} 
+        group by g.code
         order by g.curr_price;
     ]]>
   </select>

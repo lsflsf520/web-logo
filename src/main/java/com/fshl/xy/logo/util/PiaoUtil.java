@@ -8,13 +8,24 @@ public class PiaoUtil {
 
 	public static String getLatestWeekDay(){
 		Date weekday = new Date();
-		Date monday = DateUtil.getWeekMondayDate(weekday);
+		
+		return getLatestWeekDay(weekday);
+	}
+	
+	public static String getLatestWeekDay(String dateStr){
+		Date date = DateUtil.parseDate(dateStr);
+		
+		return getLatestWeekDay(date);
+	}
+	
+	public static String getLatestWeekDay(Date date){
+		Date monday = DateUtil.getWeekMondayDate(date);
 		Date friday = DateUtil.timeAddByDays(monday, 4);
-		if(weekday.getTime() > friday.getTime()){
-			weekday = friday;
+		if(date.getTime() > friday.getTime()){
+			date = friday;
 		}
 		
-		return DateUtil.getDateStr(weekday);
+		return DateUtil.getDateStr(date);
 	}
 	
 }

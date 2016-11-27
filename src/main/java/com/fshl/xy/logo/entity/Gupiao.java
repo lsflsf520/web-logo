@@ -96,7 +96,7 @@ public class Gupiao extends BaseEntity<Integer> {
 
     private Integer volumeRatio;
 
-    private Date time;
+    private Date day;
 
     public Integer getId() {
         return id;
@@ -458,16 +458,16 @@ public class Gupiao extends BaseEntity<Integer> {
         this.volumeRatio = volumeRatio;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getDay() {
+        return day;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setDay(Date day) {
+        this.day = day;
     }
     
-    public String getTimeStr(){
-    	return DateUtil.getDateStr(time);
+    public String getDayStr(){
+    	return DateUtil.getDateStr(day);
     }
 
     @Override

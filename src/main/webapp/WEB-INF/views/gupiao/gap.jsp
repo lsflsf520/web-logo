@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body style="background:#CBE1FF">
+    <div>共<span style="font-color:red;margin-left:5px;margin-right:5px">${size }</span>只股票</div>
     <table>
        <thead>
          <tr>
@@ -25,7 +26,7 @@
          <td>${piao.currPrice / 100 }</td>
          <td>${piao.openPrice / 100 }</td>
          <td>${piao.yesterPrice / 100 }</td>
-         <td>${piao.timeStr }</td>
+         <td>${piao.dayStr }</td>
        </tr>
      </c:forEach>
     </table>

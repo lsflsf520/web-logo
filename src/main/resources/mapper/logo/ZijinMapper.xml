@@ -18,6 +18,14 @@
     <result column="sell_small" property="sellSmall" jdbcType="INTEGER" />
     <result column="day" property="day" jdbcType="DATE" />
   </resultMap>
+  <resultMap  id="MainPureInResultMap" type="com.fshl.xy.logo.entity.MainPureIn">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="CHAR" />
+    <result column="pure_in" property="pureIn" jdbcType="INTEGER" />
+    <result column="day_cnt" property="dayCnt" jdbcType="INTEGER" />
+    <result column="day" property="day" jdbcType="DATE" />
+  </resultMap>
   <sql id="BaseColumnList" >
     id, name, code, type, main_in, main_out, main_pure_in, person_in, person_out, person_pure_in, 
     buy_big, buy_small, sell_big, sell_small, day
@@ -241,13 +249,35 @@
   </sql>
   
   <delete id="deleteByDay" >
-    delete from zijin where day = #{day, jdbcType=TIMESTAMP}
+    delete from zijin where day = #{day, jdbcType=VARCHAR}
   </delete>
   
   <select id="findByCodeOrName" resultMap="BaseResultMap">
     select <include refid="BaseColumnList"/> from zijin 
     where (name = #{codeOrName, jdbcType=VARCHAR} 
        or code = #{codeOrName, jdbcType=CHAR})
-       and day > date_add(now(),INTERVAL -32 DAY);
+       and day > date_add(now(),INTERVAL -30 DAY)
   </select>
+  
+  
+  <delete id="deleteLatestMainPureInByDay">
+    delete from main_pure_in where day = #{latestWeekDay, jdbcType=VARCHAR} 
+  </delete>
+  
+  <!-- 统计最近N天主力净流入 -->
+  <insert id="insertLatestMainPureIn">
+    insert into main_pure_in(id, code, name, pure_in, day_cnt, day)
+      select 0,code, name, sum(main_pure_in) latest_pure_in, #{dayCnt, jdbcType=INTEGER}, #{latestWeekDay,jdbcType=VARCHAR} 
+        from zijin where day > date_add(#{latestWeekDay,jdbcType=VARCHAR}, INTERVAL -#{dayCnt, jdbcType=INTEGER} DAY)
+        group by code
+  </insert>
+  
+  <select id="findLatestMainPureIn" resultMap="MainPureInResultMap">
+    select id, code, name, pure_in, day_cnt, day from main_pure_in 
+    where (name = #{codeOrName, jdbcType=VARCHAR} 
+       or code = #{codeOrName, jdbcType=CHAR})
+       and day > date_add(now(),INTERVAL -30 DAY);
+  </select>
+  
+  
 </mapper>

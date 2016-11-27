@@ -104,41 +104,8 @@ public class TXAPIService {
 	@Autowired
 	private GupiaoServiceImpl gupiaoServiceImpl;
 	
-	public List<Gupiao> getData(String code){
-		List<Gupiao> gupiaos = new ArrayList<>();
-		try {
-			/*String paramcode = "sz" + code;
-			String bakcode = "sh" + code;
-			if(code.startsWith("6")){
-				paramcode = "sh" + code;
-				bakcode = "sz" + code;
-			}*/
-			String liang = "";
-			String str = HttpClientUtil.getInstance().doGet("http://qt.gtimg.cn/q=" + code);
-			/*if(str.contains("pv_none_match")){
-				str = HttpClientUtil.getInstance().doGet("http://qt.gtimg.cn/q=" + bakcode);
-				liang = HttpClientUtil.getInstance().doGet("http://qt.gtimg.cn/q=ff_"+bakcode);
-			}else{
-				liang = HttpClientUtil.getInstance().doGet("http://qt.gtimg.cn/q=ff_"+paramcode);
-			}*/
-			String[] vals = str.split("=")[1].replace("\"", "").replace(";", "").split("~");
-			for(int index = 0; index<vals.length; index++){
-			    System.out.println(indexNameMap.get(index) + ":" + vals[index]);
-			}
-			
-			System.out.println();
-			String[] liangVals = liang.split("=")[1].replace("\"", "").replace(";", "").split("~");
-			for(int index = 0; index < liangVals.length; index++){
-				 System.out.println(liangNameMap.get(index) + ":" + liangVals[index]);
-			}
-		} catch (Exception e) {
-			LOG.warn("股票("+code+")数据抓取失败,msg:" + e.getMessage());
-		} 
-		
-		return gupiaos;
-	}
 	
-	public Gupiao getGupiao(String code){
+	public Gupiao getGupiao(String code, String latestWeekDay){
 		try {
 			String str = HttpClientUtil.getInstance().doGet("http://qt.gtimg.cn/q=" + code);
 			if(str.contains("pv_none_match")){
@@ -149,11 +116,16 @@ public class TXAPIService {
 			String[] vals = str.split("=")[1].replace("\"", "").replace(";", "").split("~");
 			
 			Date dataDate = DateUtil.parseToDate(vals[30].substring(0, "yyyyMMdd".length()), "yyyyMMdd");
-			if(!isLatestWeekDay(dataDate)){
+			if(!isLatestWeekDay(dataDate, latestWeekDay)){
 				LOG.warn("code '" + code + "' is stopped");
 				return null;
 			}
-			gupiao.setTime(dataDate);
+			String dataDayStr = DateUtil.getDateStr(dataDate);
+			if(!latestWeekDay.equals(dataDayStr)){
+				LOG.warn("the data day '"+dataDayStr+"' is not equal to the latest week day '" + latestWeekDay + "', then abort it");
+				return null;
+			}
+			gupiao.setDay(dataDate);
 			gupiao.setCode(code.substring(2));
 			gupiao.setName(vals[1]);
 			gupiao.setType(code.substring(0, 2));
@@ -229,50 +201,52 @@ public class TXAPIService {
 	}
 	
 	public void crawlGupiao(){
-		
+		String latestWeekDay = PiaoUtil.getLatestWeekDay();
 		List<Gupiao> gupiaos = new ArrayList<>();
 		List<String> codes = getGupiaoCodes();
 		for(String code : codes){
-			Gupiao gupiao = getGupiao(code);
-			
-			/*if(gupiaos.size() > 2){
-			   break;
-		    }*/
+			Gupiao gupiao = getGupiao(code, latestWeekDay);
 			
 			if(gupiao != null){
 				gupiaos.add(gupiao);
 			}
+			
+			/*if(gupiaos.size() > 100){
+			   break;
+		    }*/
 		}
 		
 		if(gupiaos.size() > 100){
-			gupiaoServiceImpl.deleteByDay(PiaoUtil.getLatestWeekDay());
+			gupiaoServiceImpl.deleteByDay(latestWeekDay);
 			gupiaoServiceImpl.insertBatch(gupiaos);
 		}
 	}
 	
 	public void crawlZijin(){
-		
+		String latestWeekDay = PiaoUtil.getLatestWeekDay();
 		List<Zijin> zijins = new ArrayList<>();
 		List<String> codes = getGupiaoCodes();
 		for(String code : codes){
-			Zijin zijin = getZijin(code);
-			
-			/*if(zijins.size() > 2){
-				break;
-			}*/
+			Zijin zijin = getZijin(code, latestWeekDay);
 			
 			if(zijin != null){
 				zijins.add(zijin);
 			}
+			
+			/*if(zijins.size() > 100){
+				break;
+			}*/
 		}
 		
 		if(zijins.size() > 100){
-			zijinServiceImpl.deleteByDay(PiaoUtil.getLatestWeekDay());
+			zijinServiceImpl.deleteByDay(latestWeekDay);
 			zijinServiceImpl.insertBatch(zijins);
+			
+			zijinServiceImpl.statLatestMainPureIn(latestWeekDay);
 		}
 	}
 	
-	public Zijin getZijin(String code){
+	public Zijin getZijin(String code, String latestWeekDay){
 		try {
 			String liang = HttpClientUtil.getInstance().doGet("http://qt.gtimg.cn/q=ff_"+code);
 			if(liang.contains("pv_none_match")){
@@ -283,7 +257,7 @@ public class TXAPIService {
 			String[] liangVals = liang.split("=")[1].replace("\"", "").replace(";", "").split("~");
 			Zijin zijin = new Zijin();
 			Date dataDate = DateUtil.parseToDate(liangVals[13], "yyyyMMdd");
-			if(!isLatestWeekDay(dataDate)){
+			if(!isLatestWeekDay(dataDate, latestWeekDay)){
 				LOG.warn("code '" + code + "' is stopped");
 				return null;
 			}
@@ -321,9 +295,7 @@ public class TXAPIService {
 	 * @param date
 	 * @return
 	 */
-	private boolean isLatestWeekDay(Date date){
-		String latestWeekDay = PiaoUtil.getLatestWeekDay();
-		
+	private boolean isLatestWeekDay(Date date, String latestWeekDay){
 		return latestWeekDay.equals(DateUtil.getDateStr(date));
 	}
 	

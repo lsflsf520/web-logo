@@ -44,7 +44,7 @@ create table gupiao(
 	total_value int comment '总市值(亿元)',
 	market_percent int comment '市净率。乘以100，保留整数',
 	volume_ratio int comment '量比。乘以100，保留整数',
-    time date comment '时间。'
+    day date comment '时间。'
 );
 
 create table zijin(
@@ -64,3 +64,20 @@ create table zijin(
   sell_small int comment '卖盘小单（万元）。乘以10000',
   day date comment '日期'
 );
+
+drop table if exists main_pure_in;
+create table main_pure_in(
+  id int primary key auto_increment,
+  name varchar(50) comment '股票名称',
+  code char(6) comment '股票代码',
+  pure_in int comment '最近dayCnt天的主力净流入',
+  day_cnt int comment '最近dayCnt天',
+  day date comment '时间'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create index code_day_ind on main_pure_in(code,day);
+create index day_ind on main_pure_in(day);
+create index code_day_ind on zijin(code,day);
+create index day_ind on zijin(day);
+create index code_day_ind on gupiao(code,day);
+create index day_ind on gupiao(day);

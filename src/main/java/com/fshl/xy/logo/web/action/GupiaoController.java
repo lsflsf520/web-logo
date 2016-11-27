@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fshl.xy.logo.entity.Gupiao;
+import com.fshl.xy.logo.entity.MainPureIn;
 import com.fshl.xy.logo.entity.Zijin;
 import com.fshl.xy.logo.service.impl.GupiaoServiceImpl;
 import com.fshl.xy.logo.service.impl.TXAPIService;
@@ -39,8 +40,9 @@ public class GupiaoController {
 			request.setAttribute("errorMsg", "请输入正确的股票代码或者股票名称");
 		}else{
 			List<Zijin> zijins = zijinServiceImpl.findByCodeOrName(codeOrName);
-			
+			List<MainPureIn> mainPureIns = zijinServiceImpl.findLatestMainPureIn(codeOrName);
 			request.setAttribute("zijins", zijins);
+			request.setAttribute("mainPureIns", mainPureIns);
 			if(zijins != null && !zijins.isEmpty()){
 				Zijin zijin = zijins.get(0);
 				request.setAttribute("name", zijin.getName());
@@ -60,6 +62,7 @@ public class GupiaoController {
 		
 		List<Gupiao> piaos = gupiaoServiceImpl.findGapPiaos(day);
 		request.setAttribute("piaos", piaos);
+		request.setAttribute("size", piaos == null ? 0 : piaos.size());
 		
 		return "gupiao/gap";
 	}
@@ -81,6 +84,14 @@ public class GupiaoController {
 		return "OK";
 	}
 	
+	@RequestMapping("/statmainpurein")
+	@ResponseBody
+	public String statmainpurein(String weekday){
+		weekday = PiaoUtil.getLatestWeekDay(weekday);
+		zijinServiceImpl.statLatestMainPureIn(weekday);
+		
+		return "OK";
+	}
 	
 	
 }
