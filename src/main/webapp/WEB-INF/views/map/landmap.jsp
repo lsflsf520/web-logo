@@ -55,10 +55,16 @@ body{height:100%;width:100%;margin:0px;padding:0px}
 </div>
 
 <script type="text/javascript"> 
+function locCity(result){
+	var cityName = result.name;
+	map.centerAndZoom(cityName, 11);
+}
 var map = new BMap.Map("container");          // 创建地图实例  
 //var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
 var point = new BMap.Point(112.96715,28.175466);
-map.centerAndZoom(point, 11);                 // 初始化地图，设置中心点坐标和地图级别  
+var myCity = new BMap.LocalCity();
+//map.centerAndZoom(point, 11);                 // 初始化地图，设置中心点坐标和地图级别  
+myCity.get(locCity);
 var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});
 map.addControl(top_left_control);
 var top_left_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_SMALL});
@@ -85,21 +91,8 @@ function loadPoint(type){
 				  marker.setLabel(label);
 				  
 				  marker.addEventListener("click", showInfo);
-				  //console.log(d.name + "," + (d.lng/1000000) + "," + (d.lat/1000000)); 
-				  
-				 /*  var p = new BMap.Point(d.lng/1000000, d.lat/1000000);  
-		          p.data = {defImg:"http://app.baidu.com/map/images/tiananmen.jpg"};  
-		          points.push(p);  */ 
 			  });
 			  
-			  /* var options = {  
-			            size: BMAP_POINT_SIZE_SMALL,  
-			            shape: BMAP_POINT_SHAPE_STAR,  
-			            color: '#d340c3'  
-			        } ;
-			  var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection  
-		      pointCollection.addEventListener('click', showInfo);  
-		      map.addOverlay(pointCollection);  // 添加Overlay  */
 		  }
 	});
 }
@@ -107,19 +100,7 @@ function loadPoint(type){
 function showInfo(e){
 	var p = e.target;
 	if(p instanceof BMap.Marker){
-  	  //var position = p.getPosition();
-  	  //$("#lnglat").val(position.lng + "," + position.lat);
-  	  //$("#keyword").val(p.zc.innerText);
-  	  
   	  var currPoint = p.point;
-  	  /* var opts = {
-  		  width : 200,     // 信息窗口宽度
-  		  height: 100,     // 信息窗口高度
-  		  title : p.getLabel().content , // 信息窗口标题
-  		  //enableMessage:true,//设置允许信息窗发送短息
-  		  //message:"亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~"
-  		};
-  	  var infoWindow = new BMap.InfoWindow("地址：北京市东城区王府井大街88号乐天银泰百货八层", opts); */
   	  
   	  var sContent = $("#infoWnd").html().replace("msgTitle", p.getLabel().content);
   	  sContent = sContent.replace("shortDesc", p.cusData.desc);
@@ -130,18 +111,7 @@ function showInfo(e){
   	  document.getElementById('imgDemo').onload = function (){
 		   infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
 	  }
-	}/* else{
-		var sContent =
-	  		"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+'默认标题'+"</h4>" + 
-	  		"<img style='float:right;margin:4px' id='imgDemo' src='"+e.point.data.defImg+"' width='139' height='104' title='天安门'/>" + 
-	  		"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>" + 
-	  		"";
-	  	var infoWindow = new BMap.InfoWindow(sContent);
-	  	map.openInfoWindow(infoWindow,e.point);
-	  	document.getElementById('imgDemo').onload = function (){
-			infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-		}
-	} */
+	}
 }
 
 loadPoint(3);//默认初始状态加载全部地址
@@ -162,58 +132,6 @@ NavSelfControl.prototype = new BMap.Control();
 // 在本方法中创建个div元素作为控件的容器,并将其添加到地图容器中
 NavSelfControl.prototype.initialize = function(map){
   // 创建一个DOM元素
- /*  var div = document.createElement("div");
-  var ul = document.createElement("ul");
-  div.appendChild(ul);
-  
-  var allLi = document.createElement("li");
-  var allTextNode = document.createTextNode("全部");
-  allLi.appendChild(allTextNode);
-  
-  var fengjingLi = document.createElement("li");
-  var fengjingTextNode = document.createTextNode("风景名胜");
-  fengjingLi.appendChild(fengjingTextNode);
-  
-  var parkLi = document.createElement("li");
-  var parkTextNode = document.createTextNode("公园");
-  parkLi.appendChild(parkTextNode);
-  
-  ul.appendChild(allLi);
-  ul.appendChild(fengjingLi);
-  ul.appendChild(parkLi);
-  
-  // 设置样式
-  allLi.style.cursor = "pointer";
-  allLi.style.border = "1px solid gray";
-  allLi.style.backgroundColor = "white";
-  
-//设置样式
-  fengjingLi.style.cursor = "pointer";
-  fengjingLi.style.border = "1px solid gray";
-  fengjingLi.style.backgroundColor = "white";
-  
-//设置样式
-  parkLi.style.cursor = "pointer";
-  parkLi.style.border = "1px solid gray";
-  parkLi.style.backgroundColor = "white";
-  
-  // 绑定事件,点击一次放大两级
-  allLi.onclick = function(e){
-	//map.setZoom(map.getZoom() + 2);
-	  loadPoint(0);
-  }
-  
-  fengjingLi.onclick = function(e){
-		//map.setZoom(map.getZoom() + 2);
-		  loadPoint(1);
-	  }
-  
-  parkLi.onclick = function(e){
-		//map.setZoom(map.getZoom() + 2);
-		  loadPoint(2);
-	  } */
-	  
-  //var dom = $("#ctrlDiv").children();
   var dom = document.getElementById("ctrlDiv");
   // 添加DOM元素到地图中
   map.getContainer().appendChild(dom);

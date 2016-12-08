@@ -35,6 +35,13 @@ public class MapController {
 		return "map/locMgr";
 	}
 	
+	@RequestMapping("/topos")
+	public String topos(HttpServletRequest request, int locId){
+		LocInfo locInfo = locInfoServiceImpl.findById(locId);
+		request.setAttribute("locInfo", locInfo);
+		return "map/topos";
+	}
+	
 	@RequestMapping("/locdetail")
 	public String tolocDetail(HttpServletRequest request, int locId){
 		LocInfo locInfo = locInfoServiceImpl.findById(locId);

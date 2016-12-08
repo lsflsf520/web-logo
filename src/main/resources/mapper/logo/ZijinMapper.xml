@@ -268,7 +268,9 @@
   <insert id="insertLatestMainPureIn">
     insert into main_pure_in(id, code, name, pure_in, day_cnt, day)
       select 0,code, name, sum(main_pure_in) latest_pure_in, #{dayCnt, jdbcType=INTEGER}, #{latestWeekDay,jdbcType=VARCHAR} 
-        from zijin where day > date_add(#{latestWeekDay,jdbcType=VARCHAR}, INTERVAL -#{dayCnt, jdbcType=INTEGER} DAY)
+        from zijin 
+        where day > date_add(#{latestWeekDay,jdbcType=VARCHAR}, INTERVAL -#{dayCnt, jdbcType=INTEGER} DAY)
+      <![CDATA[ and day <= #{latestWeekDay,jdbcType=VARCHAR} ]]>  
         group by code
   </insert>
   
