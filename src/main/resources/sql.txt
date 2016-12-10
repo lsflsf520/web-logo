@@ -75,6 +75,25 @@ create table main_pure_in(
   day date comment '时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table track_piao(
+  code char(6) primary key,
+  name varchar(50),
+  create_day date comment '第一次跟踪日期',
+  track_day date comment '最近一次跟踪日期',
+  track_num int comment '到目前为止跟踪的次数'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table latest_5d_price(
+  code char(6) primary key,
+  name varchar(50),
+  open_price int comment '今日开盘价',
+  price int comment '今日收盘价',
+  price_1 int comment '昨日收盘价',
+  price_2 int comment '2天前收盘价',
+  price_3 int comment '3天前收盘价',
+  price_4 int comment '4天前收盘价'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 create index code_day_ind on main_pure_in(code,day);
 create index day_ind on main_pure_in(day);
 create index code_day_ind on zijin(code,day);
