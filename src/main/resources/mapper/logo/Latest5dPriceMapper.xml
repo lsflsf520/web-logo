@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fshl.xy.logo.dao.Latest5dPriceDao" >
+  <resultMap id="BaseResultMap" type="com.fshl.xy.logo.entity.Latest5dPrice" >
+    <id column="code" property="code" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="open_price" property="openPrice" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="price_1" property="price1" jdbcType="INTEGER" />
+    <result column="price_2" property="price2" jdbcType="INTEGER" />
+    <result column="price_3" property="price3" jdbcType="INTEGER" />
+    <result column="price_4" property="price4" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="BaseColumnList" >
+    code, name, open_price, price, price_1, price_2, price_3, price_4
+  </sql>
+  <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="BaseColumnList" />
+    from latest_5d_price
+    where code = #{code,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    delete from latest_5d_price
+    where code = #{code,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fshl.xy.logo.entity.Latest5dPrice" >
+    insert into latest_5d_price (code, name, open_price, 
+      price, price_1, price_2, 
+      price_3, price_4)
+    values (#{code,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{openPrice,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{price1,jdbcType=INTEGER}, #{price2,jdbcType=INTEGER}, 
+      #{price3,jdbcType=INTEGER}, #{price4,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPK" parameterType="com.fshl.xy.logo.entity.Latest5dPrice" >
+    update latest_5d_price
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="openPrice != null" >
+        open_price = #{openPrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="price1 != null" >
+        price_1 = #{price1,jdbcType=INTEGER},
+      </if>
+      <if test="price2 != null" >
+        price_2 = #{price2,jdbcType=INTEGER},
+      </if>
+      <if test="price3 != null" >
+        price_3 = #{price3,jdbcType=INTEGER},
+      </if>
+      <if test="price4 != null" >
+        price_4 = #{price4,jdbcType=INTEGER},
+      </if>
+    </set>
+    where code = #{code,jdbcType=CHAR}
+  </update>
+  <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="code" parameterType="com.fshl.xy.logo.entity.Latest5dPrice" >
+    insert into latest_5d_price (code, name, open_price, 
+      price, price_1, price_2, 
+      price_3, price_4)
+    values (#{code,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{openPrice,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{price1,jdbcType=INTEGER}, #{price2,jdbcType=INTEGER}, 
+      #{price3,jdbcType=INTEGER}, #{price4,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into latest_5d_price
+		(code,name,open_price,price,price_1,price_2,price_3,price_4)
+	values 
+	<foreach collection="list" item="item" separator="," index="index">
+		(#{item.code,jdbcType=CHAR},#{item.name,jdbcType=VARCHAR},#{item.openPrice,jdbcType=INTEGER},#{item.price,jdbcType=INTEGER},#{item.price1,jdbcType=INTEGER},#{item.price2,jdbcType=INTEGER},#{item.price3,jdbcType=INTEGER},#{item.price4,jdbcType=INTEGER})
+	</foreach>
+  </insert>
+  <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from latest_5d_price	where code = #{pk, jdbcType=CHAR}
+  </select>
+  <select id="getCntByPage" resultType="java.lang.Integer" >
+    select 
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		count(1)
+	from
+		latest_5d_price
+	<include refid="pageCondition" />
+  </select>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from latest_5d_price
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByEntity" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from latest_5d_price
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="entity.code != null" >
+				and code = #{entity.code,jdbcType=CHAR}
+			</if>
+			<if test="entity.name != null" >
+				and name = #{entity.name,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.openPrice != null" >
+				and open_price = #{entity.openPrice,jdbcType=INTEGER}
+			</if>
+			<if test="entity.price != null" >
+				and price = #{entity.price,jdbcType=INTEGER}
+			</if>
+			<if test="entity.price1 != null" >
+				and price_1 = #{entity.price1,jdbcType=INTEGER}
+			</if>
+			<if test="entity.price2 != null" >
+				and price_2 = #{entity.price2,jdbcType=INTEGER}
+			</if>
+			<if test="entity.price3 != null" >
+				and price_3 = #{entity.price3,jdbcType=INTEGER}
+			</if>
+			<if test="entity.price4 != null" >
+				and price_4 = #{entity.price4,jdbcType=INTEGER}
+			</if>
+		</trim>
+	</where>
+		<if test="orderBySql != null">
+			${orderBySql}
+		</if>
+  </select>
+  <select id="findByPage" resultMap="BaseResultMap" >
+    select
+		<if test="forceMaster">
+			<![CDATA[/*master*/]]>
+		</if>
+		<include refid="BaseColumnList"/>
+	from latest_5d_price
+		<include refid="pageCondition"/>
+		<if test="pageInfo != null and pageInfo.orderBySql != null">
+			${pageInfo.orderBySql}
+		</if>
+		<if test="pageInfo !=null">
+			limit ${pageInfo.startIndex}, ${pageInfo.pagesize}
+		</if>
+  </select>
+  <sql id="pageCondition" >
+    <where >
+      <trim suffixOverrides="and" >
+        <if test="entity != null" >
+          		<!-- 写where的判断条件,下边是样例
+			<if test="entity.nick != null">
+				and nick = #{entity.nick,jdbcType=VARCHAR}
+			</if>
+			<if test="entity.company != null">
+				and company = '${entity.nick}'
+			</if>
+		-->
+        </if>
+        <if test="dynamicSql != null">
+			and ${dynamicSql}
+		</if>
+      </trim>
+    </where>
+  </sql>
+</mapper>
