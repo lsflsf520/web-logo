@@ -155,8 +155,8 @@
 
     <update id="addTrackPiao" >
         insert into track_piao(code, name, create_day, track_day, track_num)
-          values(#{code, jdbcType=CHAR}, #{name, jdbcType=VARCHAR}, ${currDay, jdbcType=VARCHAR}, ${currDay, jdbcType=VARCHAR}, 0)
-          on DUPLICATE KEY UPDATE track_day = ${currDay, jdbcType=VARCHAR}, track_num = track_num + 1
+          values(#{code, jdbcType=CHAR}, #{name, jdbcType=VARCHAR}, #{currDay, jdbcType=VARCHAR}, #{currDay, jdbcType=VARCHAR}, 0)
+          on DUPLICATE KEY UPDATE track_day = #{currDay, jdbcType=VARCHAR}, track_num = track_num + 1
     </update>
 
     <select id="findTrackPiao" resultMap="BaseResultMap">
