@@ -1,6 +1,8 @@
 package com.fshl.xy.logo.entity;
 
 import com.yisi.stiku.common.bean.BaseEntity;
+import com.yisi.stiku.common.utils.DateUtil;
+
 import java.util.Date;
 
 public class TrackPiao extends BaseEntity<String> {
@@ -52,6 +54,14 @@ public class TrackPiao extends BaseEntity<String> {
 
     public void setTrackNum(Integer trackNum) {
         this.trackNum = trackNum;
+    }
+
+    public String getCreateDayStr(){
+        return DateUtil.getDateStr(createDay);
+    }
+
+    public String getTrackDayStr(){
+        return DateUtil.getDateStr(trackDay);
     }
 
     @Override

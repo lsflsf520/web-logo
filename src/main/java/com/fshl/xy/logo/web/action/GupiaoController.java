@@ -1,22 +1,22 @@
 package com.fshl.xy.logo.web.action;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.fshl.xy.logo.entity.Gupiao;
+import com.fshl.xy.logo.entity.MainPureIn;
+import com.fshl.xy.logo.entity.TrackPiao;
+import com.fshl.xy.logo.entity.Zijin;
+import com.fshl.xy.logo.service.impl.GupiaoServiceImpl;
+import com.fshl.xy.logo.service.impl.TXAPIService;
+import com.fshl.xy.logo.service.impl.TrackPiaoServiceImpl;
+import com.fshl.xy.logo.service.impl.ZijinServiceImpl;
+import com.fshl.xy.logo.util.PiaoUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fshl.xy.logo.entity.Gupiao;
-import com.fshl.xy.logo.entity.MainPureIn;
-import com.fshl.xy.logo.entity.Zijin;
-import com.fshl.xy.logo.service.impl.GupiaoServiceImpl;
-import com.fshl.xy.logo.service.impl.TXAPIService;
-import com.fshl.xy.logo.service.impl.ZijinServiceImpl;
-import com.fshl.xy.logo.util.PiaoUtil;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/gp")
@@ -30,6 +30,9 @@ public class GupiaoController {
 	
 	@Autowired
 	private ZijinServiceImpl zijinServiceImpl;
+
+	@Autowired
+	private TrackPiaoServiceImpl trackPiaoServiceImpl;
 	
 	@RequestMapping("/datachart")
 	public String dataChart(HttpServletRequest request, String codeOrName){
@@ -66,6 +69,22 @@ public class GupiaoController {
 		
 		return "gupiao/gap";
 	}
+
+	@RequestMapping("/addTrackPiao")
+	public String addTrackPiao(String code){
+		trackPiaoServiceImpl.addTrackPiao(code);
+
+		return "redirect:/gp/listTrackPiao.do";
+	}
+
+	@RequestMapping("/listTrackPiao")
+	public String listTrackPiao(HttpServletRequest request){
+		List<TrackPiao> piaos = trackPiaoServiceImpl.findTrackPiao();
+
+		request.setAttribute("piaos", piaos);
+		request.setAttribute("size", piaos == null ? 0 : piaos.size());
+		return "gupiao/track";
+	}
 	
 	
 	@RequestMapping("/crawl/zijin")
@@ -83,7 +102,7 @@ public class GupiaoController {
 		
 		return "OK";
 	}
-	
+
 	@RequestMapping("/statmainpurein")
 	@ResponseBody
 	public String statmainpurein(String weekday){
