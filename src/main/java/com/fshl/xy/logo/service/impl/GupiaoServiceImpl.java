@@ -4,11 +4,10 @@ import com.fshl.xy.logo.dao.impl.GupiaoDaoImpl;
 import com.fshl.xy.logo.entity.Gupiao;
 import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
 import com.yisi.stiku.db.service.impl.BaseServiceImpl;
-
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class GupiaoServiceImpl extends BaseServiceImpl<Integer, Gupiao> {
@@ -27,4 +26,5 @@ public class GupiaoServiceImpl extends BaseServiceImpl<Integer, Gupiao> {
     public List<Gupiao> findGapPiaos(String day){
     	return gupiaoDaoImpl.findGapPiaos(day);
     }
+
 }

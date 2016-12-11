@@ -5,14 +5,13 @@ import com.fshl.xy.logo.entity.Gupiao;
 import com.yisi.stiku.common.utils.DateUtil;
 import com.yisi.stiku.db.dao.BaseDao;
 import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Resource;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class GupiaoDaoImpl extends BaseDaoImpl<Integer, Gupiao> {
@@ -38,5 +37,9 @@ public class GupiaoDaoImpl extends BaseDaoImpl<Integer, Gupiao> {
     		paramMap.put("daygap", -3);
     	}
     	return this.getSqlSessionTemplate().selectList(this.getMapperNamespace() + ".findGapPiaos", paramMap);
+    }
+
+    public List<Gupiao> findPiaoByDays(List<String> days){
+        return this.getSqlSessionTemplate().selectList(this.getMapperNamespace() + ".findPiaoByDays", days);
     }
 }

@@ -1,13 +1,7 @@
 package com.fshl.xy.logo.web.action;
 
-import com.fshl.xy.logo.entity.Gupiao;
-import com.fshl.xy.logo.entity.MainPureIn;
-import com.fshl.xy.logo.entity.TrackPiao;
-import com.fshl.xy.logo.entity.Zijin;
-import com.fshl.xy.logo.service.impl.GupiaoServiceImpl;
-import com.fshl.xy.logo.service.impl.TXAPIService;
-import com.fshl.xy.logo.service.impl.TrackPiaoServiceImpl;
-import com.fshl.xy.logo.service.impl.ZijinServiceImpl;
+import com.fshl.xy.logo.entity.*;
+import com.fshl.xy.logo.service.impl.*;
 import com.fshl.xy.logo.util.PiaoUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +27,9 @@ public class GupiaoController {
 
 	@Autowired
 	private TrackPiaoServiceImpl trackPiaoServiceImpl;
+
+	@Autowired
+	private Latest5dPriceServiceImpl latest5dPriceServiceImpl;
 	
 	@RequestMapping("/datachart")
 	public String dataChart(HttpServletRequest request, String codeOrName){
@@ -68,6 +65,19 @@ public class GupiaoController {
 		request.setAttribute("size", piaos == null ? 0 : piaos.size());
 		
 		return "gupiao/gap";
+	}
+
+	@RequestMapping("/downpiao")
+	public String findDownByDays(HttpServletRequest request, Integer days){
+		if(days == null){
+			days = 3;
+		}
+		List<Latest5dPrice> priceList = latest5dPriceServiceImpl.findDownByDays(days);
+		request.setAttribute("days", days);
+		request.setAttribute("piaos", priceList);
+		request.setAttribute("size", priceList == null ? 0 : priceList.size());
+
+		return "gupiao/downpiao";
 	}
 
 	@RequestMapping("/addTrackPiao")
@@ -108,6 +118,16 @@ public class GupiaoController {
 		
 		return "OK";
 	}
+
+	@RequestMapping("/reset5day")
+	@ResponseBody
+	public String resetLatest5dayPiaos(){
+		latest5dPriceServiceImpl.resetLatest5dayPiaos();
+
+		return "OK";
+	}
+
+
 
 	@RequestMapping("/statmainpurein")
 	@ResponseBody

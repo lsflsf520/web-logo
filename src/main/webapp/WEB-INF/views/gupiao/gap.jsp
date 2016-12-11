@@ -13,10 +13,11 @@
          <tr>
            <th>股票代码</th>
            <th>股票名称</th>
-           <th>现        价</th>
+           <th>现    价</th>
            <th>今开盘价</th>
            <th>昨收盘价</th>
-           <th>日       期</th>
+           <th>日    期</th>
+           <th>操    作</th>
          </tr>
        </thead>
      <c:forEach items="${piaos }" var="piao">
@@ -27,8 +28,27 @@
          <td>${piao.openPrice / 100 }</td>
          <td>${piao.yesterPrice / 100 }</td>
          <td>${piao.dayStr }</td>
+         <td><a href="javascript:addTrackPiao('${piao.code }');">添加到跟踪</a></td>
        </tr>
      </c:forEach>
     </table>
+
+    <script type="text/javascript" src='${base == "/" ? "" : base }/js/jquery-1.11.2.min.js'></script>
+    <script type="text/javascript">
+      function addTrackPiao(code) {
+        $.ajax({
+          url:'${base == "/" ? "" : base}/gp/addTrackPiao.do?code=' + code,
+          type:"POST",
+          datatype:"text",
+          success:function(data){
+            if(data && data.indexOf("addTrackPiao") > 0){
+              alert("添加成功!");
+            }else{
+              alert("添加失败!")
+            }
+          }
+        });
+      }
+    </script>
   </body>
 </html>

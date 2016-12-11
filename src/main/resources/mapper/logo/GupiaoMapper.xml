@@ -519,5 +519,14 @@
         order by g.curr_price;
     ]]>
   </select>
+
+    <select id="findPiaoByDays" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList" /> from gupiao
+        where day in (
+          <foreach collection="list" item="item" separator="," index="index">
+              #{item, jdbcType=VARCHAR}
+          </foreach>
+        )
+    </select>
   
 </mapper>

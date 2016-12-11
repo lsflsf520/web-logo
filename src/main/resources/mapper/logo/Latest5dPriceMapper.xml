@@ -177,4 +177,40 @@
       </trim>
     </where>
   </sql>
+
+    <delete id="deleteAll">
+        delete from latest_5d_price
+    </delete>
+
+    <select id="findDownBy1Day" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from latest_5d_price
+        <![CDATA[
+           where price > open_price and price < price_1
+         ]]>
+    </select>
+
+    <select id="findDownBy2Day" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+         from latest_5d_price
+         <![CDATA[
+           where price > open_price and price < price_1 and price_1 < price_2
+         ]]>
+    </select>
+
+    <select id="findDownBy3Day" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from latest_5d_price
+        <![CDATA[
+           where price > open_price and price < price_1 and price_1 < price_2 and price_2 < price_3
+         ]]>
+    </select>
+
+    <select id="findDownBy4Day" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from latest_5d_price
+        <![CDATA[
+           where price > open_price and price < price_1 and price_1 < price_2 and price_2 < price_3 and price_3 < price_4
+         ]]>
+    </select>
 </mapper>
