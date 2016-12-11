@@ -1,21 +1,5 @@
 package com.fshl.xy.logo.web.action;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.fshl.xy.logo.entity.BusiLogo;
 import com.fshl.xy.logo.service.impl.BackupService;
 import com.fshl.xy.logo.service.impl.BusiLogoServiceImpl;
@@ -26,6 +10,16 @@ import com.yisi.stiku.common.utils.DateUtil;
 import com.yisi.stiku.common.utils.RegexUtil;
 import com.yisi.stiku.conf.BaseConfig;
 import com.yisi.stiku.web.util.WebUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 @Controller
 @RequestMapping("/logo")
@@ -60,7 +54,8 @@ public class LogoMgrController {
 		typeMap.put(3, "专利");
 		typeMap.put(4, "商标购买");
 		typeMap.put(5, "商标变更");
-		
+		typeMap.put(6, "商标转让");
+
 		for(Integer type : typeMap.keySet()){
 			String valStr = BaseConfig.getValue("logo."+type+".cost.price");
 			if(RegexUtil.isInt(valStr)){

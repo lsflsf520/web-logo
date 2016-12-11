@@ -85,7 +85,13 @@ public class GupiaoController {
 		request.setAttribute("size", piaos == null ? 0 : piaos.size());
 		return "gupiao/track";
 	}
-	
+
+	@RequestMapping("/deltrack")
+	public String delTrackPiao(String code){
+		trackPiaoServiceImpl.deleteById(code);
+
+		return "redirect:/gp/listTrackPiao.do";
+	}
 	
 	@RequestMapping("/crawl/zijin")
 	@ResponseBody

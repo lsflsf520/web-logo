@@ -17,6 +17,7 @@
            <th>首次跟踪日期</th>
            <th>最近跟踪日期</th>
            <th>跟踪次数</th>
+           <th>操作</th>
          </tr>
        </thead>
      <c:forEach items="${piaos }" var="piao">
@@ -26,6 +27,7 @@
          <td>${piao.createDayStr}</td>
          <td>${piao.trackDayStr}</td>
          <td>${piao.trackNum}</td>
+         <td><a href="${base == "/" ? "" : base }/gp/deltrack.do?code=${piao.code }">删除</a></td>
        </tr>
      </c:forEach>
     </table>

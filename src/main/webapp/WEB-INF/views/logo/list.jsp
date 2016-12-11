@@ -180,7 +180,7 @@
           <td title="我的费用是否结清"><input type="checkbox" value="1" class="myFeeStatus"></td>
           <td title="陈哥的费用是否结清"><input type="checkbox" value="1" class="chenFeeStatus"></td>
           <td title="是否加急"><input type="checkbox" value="1" class="rapid"></td>
-          <td>
+          <td title="类型">
             <select class="orderType" onchange="compute();">
               <c:forEach items="${typeMap }" var="item">
                 <option value="${item.key }">${item.value }</option>
