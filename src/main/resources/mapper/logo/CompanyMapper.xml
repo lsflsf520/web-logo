@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.fshl.xy.logo.entity.Company" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="wx" property="wx" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="CHAR" />
@@ -11,7 +12,7 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="BaseColumnList" >
-    id, name, qq, wx, phone, email, remark
+    id, name, url, qq, wx, phone, email, remark
   </sql>
   <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +25,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.fshl.xy.logo.entity.Company" >
-    insert into company (id, name, qq, 
+    insert into company (id, name, url, qq,
       wx, phone, email, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
       #{wx,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
@@ -36,6 +37,9 @@
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="qq != null" >
         qq = #{qq,jdbcType=VARCHAR},
@@ -56,19 +60,19 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.logo.entity.Company" >
-    insert into company (id, name, qq, 
+    insert into company (id, name, url, qq,
       wx, phone, email, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
       #{wx,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into company
-		(id,name,qq,wx,phone,email,remark)
+		(id,name,url,qq,wx,phone,email,remark)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.qq,jdbcType=VARCHAR},#{item.wx,jdbcType=VARCHAR},#{item.phone,jdbcType=CHAR},#{item.email,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR})
+		(#{item.id,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.url,jdbcType=VARCHAR},#{item.qq,jdbcType=VARCHAR},#{item.wx,jdbcType=VARCHAR},#{item.phone,jdbcType=CHAR},#{item.email,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR})
 	</foreach>
   </insert>
   <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
@@ -114,6 +118,9 @@
 			</if>
 			<if test="entity.name != null" >
 				and name = #{entity.name,jdbcType=VARCHAR}
+			</if>
+            <if test="entity.url != null" >
+				and url = #{entity.url,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.qq != null" >
 				and qq = #{entity.qq,jdbcType=VARCHAR}

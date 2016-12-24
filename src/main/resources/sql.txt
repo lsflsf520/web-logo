@@ -97,6 +97,7 @@ create table latest_5d_price(
 create table company(
   id int primary key auto_increment,
   name varchar(100),
+  url varchar(100) comment '官网地址',
   qq varchar(20),
   wx varchar(50),
   phone char(11),

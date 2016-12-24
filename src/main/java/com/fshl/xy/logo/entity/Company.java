@@ -7,6 +7,8 @@ public class Company extends BaseEntity<Integer> {
 
     private String name;
 
+    private String url;
+
     private String qq;
 
     private String wx;
@@ -31,6 +33,14 @@ public class Company extends BaseEntity<Integer> {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getQq() {
