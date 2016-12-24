@@ -94,6 +94,16 @@ create table latest_5d_price(
   price_4 int comment '4天前收盘价'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table company(
+  id int primary key auto_increment,
+  name varchar(100),
+  qq varchar(20),
+  wx varchar(50),
+  phone char(11),
+  email varchar(50),
+  remark varchar(500)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 create index code_day_ind on main_pure_in(code,day);
 create index day_ind on main_pure_in(day);
 create index code_day_ind on zijin(code,day);
