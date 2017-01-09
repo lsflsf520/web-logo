@@ -6,14 +6,12 @@ import com.fshl.xy.logo.entity.BusiLogo;
 import com.yisi.stiku.common.utils.DateUtil;
 import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
 import com.yisi.stiku.db.service.impl.BaseServiceImpl;
-
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class BusiLogoServiceImpl extends BaseServiceImpl<Integer, BusiLogo> {
@@ -41,7 +39,9 @@ public class BusiLogoServiceImpl extends BaseServiceImpl<Integer, BusiLogo> {
     	
     	if(StringUtils.isNotBlank(keyword)){
     		keyword = "%" + keyword + "%";
-    	}
+    	}else{
+    		keyword = null;
+		}
     	
     	return busiLogoDao.queryBusiLogo(startDate, endDate, keyword, status);
     }
