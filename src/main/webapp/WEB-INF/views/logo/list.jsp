@@ -307,7 +307,7 @@
     		  return;
     	  } */
     	  
-    	  if(param.phone && !/^1\d{10}$/.test(param.phone)){
+    	  if(param.phone && !/^1\d{10}$/.test(param.phone = param.phone.trim())){
     		  $("#errorMsg").text("手机号格式不正确");
     		  return;
     	  }
