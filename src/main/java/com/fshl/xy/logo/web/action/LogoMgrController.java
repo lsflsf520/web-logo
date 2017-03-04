@@ -84,6 +84,9 @@ public class LogoMgrController {
 			sDate = DateUtil.parseDate(startDate);
 			eDate = DateUtil.timeAddByMonth(sDate, 1);
 			endDate = DateUtil.getDateStr(eDate);
+		}else{
+			sDate = DateUtil.parseDate(startDate);
+			eDate = DateUtil.parseDate(endDate);
 		}
 		List<BusiLogo> logoList = null;
 		timeType = (timeType == null ? 0 : timeType);
