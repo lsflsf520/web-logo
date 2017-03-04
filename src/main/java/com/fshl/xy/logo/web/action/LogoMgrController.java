@@ -65,7 +65,8 @@ public class LogoMgrController {
 	}
 	
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, String yearMonth, Integer status){
+	public String list(HttpServletRequest request, String yearMonth, Integer status, 
+			          Integer timeType, String startDate, String endDate){
 //		if(StringUtils.isBlank(yearMonth)){
 //    		yearMonth = DateUtil.formatDate(new Date(), "yyyy-M");
 //    	}
@@ -76,12 +77,29 @@ public class LogoMgrController {
 		}else if ("-1".equals(yearMonth)) {
 		      yearMonth = null;
 	    }
-		List<BusiLogo> logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, status);
+		Date sDate = null;
+		Date eDate = null;
+		if(StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)){
+			startDate = DateUtil.getMonthStr(new Date()) + "-01";
+			sDate = DateUtil.parseDate(startDate);
+			eDate = DateUtil.timeAddByMonth(sDate, 1);
+			endDate = DateUtil.getDateStr(eDate);
+		}
+		List<BusiLogo> logoList = null;
+		timeType = (timeType == null ? 0 : timeType);
+		if(timeType == 0){
+			logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, status);
+		}else{
+			logoList = busiLogoServiceImpl.queryBusiLogo(sDate, eDate, keyword, status);
+		}
 		request.setAttribute("logoList", logoList);
 //		request.setAttribute("costPrice", COST_PRICE);
 		request.setAttribute("typeCostMap", new Gson().toJson(typeCostMap));
 		request.setAttribute("billPrice", BILL_PRICE);
 		request.setAttribute("yearMonth", StringUtils.isBlank(yearMonth) ? null : yearMonth);
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
+		request.setAttribute("timeType", timeType);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("status", status);
 		request.setAttribute("statusMap", statusMap);

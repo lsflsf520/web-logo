@@ -23,18 +23,30 @@
     
     <div>
       <form action='${base == "/" ? "" : base }/logo/list.do'>
-       <select id="yearMonthQ" name="yearMonth" onchange="$('#qryBtn').click()">
-         <option value="-1" ${"-1" == yearMonth ? "selected" : ""  }>请选择月份</option>
-        <c:forEach items="${timeList }" var="time">
-         <option value="${time }" ${time == yearMonth ? "selected" : "" }>${time }</option>
-        </c:forEach>
-       </select>
-       <select id="statusQ" name="status" style="margin-left:3px;"  onchange="$('#qryBtn').click()">
+        <input type="hidden" name="timeType" value="${timeType }" id="timeType" >
+       <span>
+         <input type="button" onclick="switchTimeType()" value="切 换">
+       </span>
+       <span>
+         <select id="yearMonthQ" name="yearMonth" onchange="$('#qryBtn').click()" style='${timeType==0 ? "" : "display:none"}'>
+           <option value="-1" ${"-1" == yearMonth ? "selected" : ""  }>请选择月份</option>
+          <c:forEach items="${timeList }" var="time">
+           <option value="${time }" ${time == yearMonth ? "selected" : "" }>${time }</option>
+          </c:forEach>
+         </select>
+       </span>
+       <span id="dateCond" style='${timeType!=0 ? "" : "display:none"}'>
+         <input name="startDate" value="${startDate }" onclick="laydate({format:'YYYY-MM-DD'})" />
+         <input name="endDate" value="${endDate }" onclick="laydate({format:'YYYY-MM-DD'})" />
+       </span>
+       <span>
+         <select id="statusQ" name="status" style="margin-left:3px;"  onchange="$('#qryBtn').click()">
             <option value="" ${null == status ? "selected" : ""  }>请选择状态</option>
           <c:forEach items="${statusMap }" var="item">
             <option value="${item.key }" ${item.key == status ? "selected" : "" }>${item.value }</option>
           </c:forEach>
-       </select>
+         </select>
+       </span>
        <input id="keywordQ" name="keyword" value="${keyword }" placeholder="请输入查询关键字" style="margin-left:3px;">
        <input type="submit" id="qryBtn" value="查 询" style="margin-left:3px;">
        <input type="button" value="备份数据" onclick="backupData()" style="margin-left:8px;">
@@ -60,6 +72,7 @@
           <th>&nbsp;</th>
           <th style="width:90px;">状态/操作</th>
           <th>日期</th>
+          <th>申请人</th>
           <th>联系人</th>
           <th>手机号</th>
           <th>数量</th>
@@ -105,6 +118,7 @@
              </c:choose>
            </td>
            <td style="width:80px;"><input style="width:80px;" class="currDate textedit" value="${logo.createTimeStr }"><span class="textro">${logo.createTimeStr }</span></td>
+           <td title="申请人"><input style="width:50px;" class="applyPerson textedit" value="${logo.applyPerson }"><span class="textro ap">${logo.applyPerson }</span></td>
            <td title="联系人"><input style="width:50px;" class="userName textedit" value="${logo.userName }"><span class="textro un">${logo.userName }</span></td>
            <td title="手机号"><input style="width:90px;" class="phone textedit" value="${logo.phone }"><span class="textro ph">${logo.phone }</span></td>
            <td title="商标数量"><input style="width:40px;" onblur="compute('ptr_${logo.id }');" class="num textedit" value="${logo.num }"><span class="textro">${logo.num }</span></td>
@@ -166,6 +180,7 @@
           <td><input type="radio" class="rd" name="logoSel" disabled></td>
           <td style="width:90px;">待结款</td>
           <td><input style="width:80px;" class="currDate"></td>
+          <td title="申请人"><input style="width:50px;" class="applyPerson" value="陈鹏"></td>
           <td title="联系人"><input style="width:50px;" class="userName"></td>
           <td title="手机号"><input style="width:90px;" class="phone"></td>
           <td title="商标数量"><input style="width:40px;" onblur="compute();" class="num" value="1"></td>
@@ -199,6 +214,7 @@
     </table>
     
     <script type="text/javascript" src='${base == "/" ? "" : base }/js/jquery-1.11.2.min.js'></script>
+    <script type="text/javascript" src='${base == "/" ? "" : base }/plugins/laydate/laydate.js'></script>
     <script type="text/javascript">
       var index=100;
       function addRow(){
@@ -236,6 +252,19 @@
     	  location.href="#adMd";
       }
       
+      function switchTimeType(){
+    	  var timeType = $("#timeType").val();
+    	  if("0" == timeType){
+    		  $("#yearMonthQ").css("display", "none");
+    		  $("#dateCond").css("display", "inline");
+    		  $("#timeType").val("1");
+    	  }else{
+    		  $("#yearMonthQ").css("display", "inline");
+    		  $("#dateCond").css("display", "none");
+    		  $("#timeType").val("0");
+    	  }
+      }
+      
       function cancelRow(noConfirm){
     	  if(noConfirm || confirm("内容尚未保存，确定取消？")){
     		  var orderId = getSelId();
@@ -269,6 +298,7 @@
     	  var param = {};
     	  param.id=orderId;
     	  param.createTime = $(currTrId + ".currDate").val();
+    	  param.applyPerson = $(currTrId + ".applyPerson").val();
     	  param.userName = $(currTrId + ".userName").val();
     	  param.phone = $(currTrId + ".phone").val();
     	  param.num = $(currTrId + ".num").val();

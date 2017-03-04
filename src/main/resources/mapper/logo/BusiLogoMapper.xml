@@ -7,6 +7,7 @@
     <result column="company" property="company" jdbcType="VARCHAR" />
     <result column="customer_addr" property="customerAddr" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="apply_person" property="applyPerson" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="CHAR" />
     <result column="logo_name" property="logoName" jdbcType="VARCHAR" />
     <result column="logo_types" property="logoTypes" jdbcType="VARCHAR" />
@@ -29,7 +30,7 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="BaseColumnList" >
-    id, create_time, company, customer_addr, user_name, phone, logo_name, logo_types, 
+    id, create_time, company, customer_addr, user_name, phone, apply_person, logo_name, logo_types, 
     num, logo_fee, design_fee, design_profit, bill, first_payment, total_profit, my_fee_status, 
     my_fee_time, chen_fee_status, chen_fee_time, express_num, wx, rapid, order_type, 
     status, remark
@@ -46,7 +47,7 @@
   </delete>
   <insert id="insert" parameterType="com.fshl.xy.logo.entity.BusiLogo" >
     insert into busi_logo (id, create_time, company, 
-      customer_addr, user_name, phone, 
+      customer_addr, user_name, phone, apply_person,
       logo_name, logo_types, num, 
       logo_fee, design_fee, design_profit, 
       bill, first_payment, total_profit, 
@@ -55,7 +56,7 @@
       rapid, order_type, status, 
       remark)
     values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, 
-      #{customerAddr,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{customerAddr,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{applyPerson,jdbcType=VARCHAR},
       #{logoName,jdbcType=VARCHAR}, #{logoTypes,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
       #{logoFee,jdbcType=INTEGER}, #{designFee,jdbcType=INTEGER}, #{designProfit,jdbcType=INTEGER}, 
       #{bill,jdbcType=INTEGER}, #{firstPayment,jdbcType=INTEGER}, #{totalProfit,jdbcType=INTEGER}, 
@@ -81,6 +82,9 @@
       </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="applyPerson != null" >
+        apply_person = #{applyPerson,jdbcType=VARCHAR},
       </if>
       <if test="logoName != null" >
         logo_name = #{logoName,jdbcType=VARCHAR},
@@ -144,7 +148,7 @@
   </update>
   <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.logo.entity.BusiLogo" >
     insert into busi_logo (id, create_time, company, 
-      customer_addr, user_name, phone, 
+      customer_addr, user_name, phone, apply_person,
       logo_name, logo_types, num, 
       logo_fee, design_fee, design_profit, 
       bill, first_payment, total_profit, 
@@ -153,7 +157,7 @@
       rapid, order_type, status, 
       remark)
     values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, 
-      #{customerAddr,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, 
+      #{customerAddr,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{applyPerson,jdbcType=VARCHAR},
       #{logoName,jdbcType=VARCHAR}, #{logoTypes,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
       #{logoFee,jdbcType=INTEGER}, #{designFee,jdbcType=INTEGER}, #{designProfit,jdbcType=INTEGER}, 
       #{bill,jdbcType=INTEGER}, #{firstPayment,jdbcType=INTEGER}, #{totalProfit,jdbcType=INTEGER}, 
@@ -164,10 +168,10 @@
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into busi_logo
-		(id,create_time,company,customer_addr,user_name,phone,logo_name,logo_types,num,logo_fee,design_fee,design_profit,bill,first_payment,total_profit,my_fee_status,my_fee_time,chen_fee_status,chen_fee_time,express_num,wx,rapid,order_type,status,remark)
+		(id,create_time,company,customer_addr,user_name,phone,apply_person,logo_name,logo_types,num,logo_fee,design_fee,design_profit,bill,first_payment,total_profit,my_fee_status,my_fee_time,chen_fee_status,chen_fee_time,express_num,wx,rapid,order_type,status,remark)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.company,jdbcType=VARCHAR},#{item.customerAddr,jdbcType=VARCHAR},#{item.userName,jdbcType=VARCHAR},#{item.phone,jdbcType=CHAR},#{item.logoName,jdbcType=VARCHAR},#{item.logoTypes,jdbcType=VARCHAR},#{item.num,jdbcType=INTEGER},#{item.logoFee,jdbcType=INTEGER},#{item.designFee,jdbcType=INTEGER},#{item.designProfit,jdbcType=INTEGER},#{item.bill,jdbcType=INTEGER},#{item.firstPayment,jdbcType=INTEGER},#{item.totalProfit,jdbcType=INTEGER},#{item.myFeeStatus,jdbcType=INTEGER},#{item.myFeeTime,jdbcType=TIMESTAMP},#{item.chenFeeStatus,jdbcType=INTEGER},#{item.chenFeeTime,jdbcType=TIMESTAMP},#{item.expressNum,jdbcType=VARCHAR},#{item.wx,jdbcType=VARCHAR},#{item.rapid,jdbcType=INTEGER},#{item.orderType,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR})
+		(#{item.id,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.company,jdbcType=VARCHAR},#{item.customerAddr,jdbcType=VARCHAR},#{item.userName,jdbcType=VARCHAR},#{item.phone,jdbcType=CHAR},#{applyPerson,jdbcType=VARCHAR},#{item.logoName,jdbcType=VARCHAR},#{item.logoTypes,jdbcType=VARCHAR},#{item.num,jdbcType=INTEGER},#{item.logoFee,jdbcType=INTEGER},#{item.designFee,jdbcType=INTEGER},#{item.designProfit,jdbcType=INTEGER},#{item.bill,jdbcType=INTEGER},#{item.firstPayment,jdbcType=INTEGER},#{item.totalProfit,jdbcType=INTEGER},#{item.myFeeStatus,jdbcType=INTEGER},#{item.myFeeTime,jdbcType=TIMESTAMP},#{item.chenFeeStatus,jdbcType=INTEGER},#{item.chenFeeTime,jdbcType=TIMESTAMP},#{item.expressNum,jdbcType=VARCHAR},#{item.wx,jdbcType=VARCHAR},#{item.rapid,jdbcType=INTEGER},#{item.orderType,jdbcType=INTEGER},#{item.status,jdbcType=INTEGER},#{item.remark,jdbcType=VARCHAR})
 	</foreach>
   </insert>
   <select id="findByPK_inMaster" resultMap="BaseResultMap" parameterType="java.util.Map" >
@@ -225,6 +229,9 @@
 			</if>
 			<if test="entity.phone != null" >
 				and phone = #{entity.phone,jdbcType=CHAR}
+			</if>
+			<if test="entity.applyPerson != null" >
+				and apply_person = #{entity.applyPerson,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.logoName != null" >
 				and logo_name = #{entity.logoName,jdbcType=VARCHAR}

@@ -25,6 +25,8 @@ public class BusiLogo extends BaseEntity<Integer> {
     private String userName;
 
     private String phone;
+    
+    private String applyPerson;
 
     private String logoName;
 
@@ -91,8 +93,16 @@ public class BusiLogo extends BaseEntity<Integer> {
     public void setCompany(String company) {
         this.company = company == null ? null : company.trim();
     }
+    
+    public String getApplyPerson() {
+		return applyPerson;
+	}
 
-    public String getCustomerAddr() {
+	public void setApplyPerson(String applyPerson) {
+		this.applyPerson = applyPerson;
+	}
+
+	public String getCustomerAddr() {
 		return customerAddr;
 	}
 

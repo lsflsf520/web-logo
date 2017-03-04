@@ -37,6 +37,10 @@ public class BusiLogoServiceImpl extends BaseServiceImpl<Integer, BusiLogo> {
     	}
     	
     	
+    	return queryBusiLogo(startDate, endDate, keyword, status);
+    }
+    
+    public List<BusiLogo> queryBusiLogo(Date startDate, Date endDate, String keyword, Integer status){
     	if(StringUtils.isNotBlank(keyword)){
     		keyword = "%" + keyword + "%";
     	}else{
