@@ -26,7 +26,7 @@ public class BusiLogoServiceImpl extends BaseServiceImpl<Integer, BusiLogo> {
         return busiLogoDaoImpl;
     }
     
-    public List<BusiLogo> queryBusiLogo(String yearMonth, String keyword, Integer status){
+    public List<BusiLogo> queryBusiLogo(String yearMonth, String keyword, String partner, Integer status){
     	Date startDate = null;
     	Date endDate = null;
     	if(StringUtils.isNotBlank(yearMonth)){
@@ -37,16 +37,18 @@ public class BusiLogoServiceImpl extends BaseServiceImpl<Integer, BusiLogo> {
     	}
     	
     	
-    	return queryBusiLogo(startDate, endDate, keyword, status);
+    	return queryBusiLogo(startDate, endDate, keyword, partner, status);
     }
     
-    public List<BusiLogo> queryBusiLogo(Date startDate, Date endDate, String keyword, Integer status){
+    public List<BusiLogo> queryBusiLogo(Date startDate, Date endDate, String keyword, String partner, Integer status){
     	if(StringUtils.isNotBlank(keyword)){
     		keyword = "%" + keyword + "%";
     	}else{
     		keyword = null;
 		}
-    	
-    	return busiLogoDao.queryBusiLogo(startDate, endDate, keyword, status);
+    	if(StringUtils.isBlank(partner)){
+    		partner = null;
+    	}
+    	return busiLogoDao.queryBusiLogo(startDate, endDate, keyword, partner, status);
     }
 }

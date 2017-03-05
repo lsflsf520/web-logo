@@ -47,6 +47,14 @@
           </c:forEach>
          </select>
        </span>
+       <span>
+         <select id="partnerQ" name="partner" style="margin-left:3px;" onchange="$('#qryBtn').click()">
+           <option value="" ${null == partner ? "selected" : ""  }>请选择申报人</option>
+           <c:forEach items="${partners }" var="item">
+            <option value="${item }" ${item == partner ? "selected" : "" }>${item }</option>
+          </c:forEach>
+         </select>
+       </span>
        <input id="keywordQ" name="keyword" value="${keyword }" placeholder="请输入查询关键字" style="margin-left:3px;">
        <input type="submit" id="qryBtn" value="查 询" style="margin-left:3px;">
        <input type="button" value="备份数据" onclick="backupData()" style="margin-left:8px;">
@@ -72,7 +80,7 @@
           <th>&nbsp;</th>
           <th style="width:90px;">状态/操作</th>
           <th>日期</th>
-          <th>申请人</th>
+          <th>申报人</th>
           <th>联系人</th>
           <th>手机号</th>
           <th>数量</th>
@@ -85,7 +93,7 @@
           <th>预付款</th>
           <th title="待付款(订单总价  - 预付款)">待付款</th>
           <th title="我的费用是否结清">我费</th>
-          <th title="陈哥的费用是否结清">陈费</th>
+          <th title="上线的费用是否结清">他费</th>
           <th title="此订单是否属于加急订单">加急</th>
           <th title="订单的类型">类型</th>
           <th>备注</th>
@@ -118,7 +126,14 @@
              </c:choose>
            </td>
            <td style="width:80px;"><input style="width:80px;" class="currDate textedit" value="${logo.createTimeStr }"><span class="textro">${logo.createTimeStr }</span></td>
-           <td title="申请人"><input style="width:50px;" class="applyPerson textedit" value="${logo.applyPerson }"><span class="textro ap">${logo.applyPerson }</span></td>
+           <td title="申报人">
+             <select class="applyPerson textedit">
+               <c:forEach items="${partners }" var="item">
+                <option value="${item }" ${item == partner ? "selected" : "" }>${item }</option>
+               </c:forEach>
+             </select>
+             <span class="textro ap">${logo.applyPerson }</span>
+           </td>
            <td title="联系人"><input style="width:50px;" class="userName textedit" value="${logo.userName }"><span class="textro un">${logo.userName }</span></td>
            <td title="手机号"><input style="width:90px;" class="phone textedit" value="${logo.phone }"><span class="textro ph">${logo.phone }</span></td>
            <td title="商标数量"><input style="width:40px;" onblur="compute('ptr_${logo.id }');" class="num textedit" value="${logo.num }"><span class="textro">${logo.num }</span></td>
@@ -131,7 +146,7 @@
            <td title="预付款"><input style="width:40px;" onblur="compute('ptr_${logo.id }');" class="firstPayment textedit" value="${logo.firstPayment }"><span class="textro">${logo.firstPayment }</span></td>
            <td title="待付款(订单总价  - 预付款)" class="remainFee">${logo.logoFee + (logo.designFee == null ? 0 : logo.designFee) - logo.firstPayment}</td>
            <td title="我的费用是否结清"><input type="checkbox" ${logo.myFeeStatus == 1 ? "checked" : "" } class="myFeeStatus textedit"><input type="checkbox" title='${logo.myFeeTimeStr == null ? "勾选之后代表我的费用已" : logo.myFeeTimeStr }结清' id="p_my_${logo.id }" class="textro" ${logo.myFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 0)"></td>
-           <td title="陈哥的费用是否结清"><input type="checkbox"  ${logo.chenFeeStatus == 1 ? "checked" : "" } class="chenFeeStatus textedit"><input type="checkbox" title='${logo.chenFeeTimeStr == null ? "勾选之后代表陈哥的费用已" : logo.chenFeeTimeStr }结清' id="p_chen_${logo.id }" class="textro" ${logo.chenFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 1)"></td>
+           <td title="上线的费用是否结清"><input type="checkbox"  ${logo.chenFeeStatus == 1 ? "checked" : "" } class="chenFeeStatus textedit"><input type="checkbox" title='${logo.chenFeeTimeStr == null ? "勾选之后代表陈哥的费用已" : logo.chenFeeTimeStr }结清' id="p_chen_${logo.id }" class="textro" ${logo.chenFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 1)"></td>
            <td title="是否加急"><input type="checkbox" ${logo.rapid == 1 ? "checked disabled" : "disabled" }></td>
            <td><select class="orderType textedit" onchange="compute('ptr_${logo.id }');">
               <c:forEach items="${typeMap }" var="item">
@@ -180,7 +195,13 @@
           <td><input type="radio" class="rd" name="logoSel" disabled></td>
           <td style="width:90px;">待结款</td>
           <td><input style="width:80px;" class="currDate"></td>
-          <td title="申请人"><input style="width:50px;" class="applyPerson" value="陈鹏"></td>
+          <td title="申报人">
+            <select class="applyPerson">
+               <c:forEach items="${partners }" var="item">
+                <option value="${item }" ${item == partner ? "selected" : "" }>${item }</option>
+               </c:forEach>
+             </select>
+          </td>
           <td title="联系人"><input style="width:50px;" class="userName"></td>
           <td title="手机号"><input style="width:90px;" class="phone"></td>
           <td title="商标数量"><input style="width:40px;" onblur="compute();" class="num" value="1"></td>
@@ -193,7 +214,7 @@
           <td title="预付款"><input style="width:40px;" onblur="compute();" class="firstPayment"></td>
           <td title="待付款(订单总价  - 预付款)" class="remainFee">1400</td>
           <td title="我的费用是否结清"><input type="checkbox" value="1" class="myFeeStatus"></td>
-          <td title="陈哥的费用是否结清"><input type="checkbox" value="1" class="chenFeeStatus"></td>
+          <td title="上线的费用是否结清"><input type="checkbox" value="1" class="chenFeeStatus"></td>
           <td title="是否加急"><input type="checkbox" value="1" class="rapid"></td>
           <td title="类型">
             <select class="orderType" onchange="compute();">

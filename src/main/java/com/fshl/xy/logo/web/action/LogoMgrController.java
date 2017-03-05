@@ -66,7 +66,7 @@ public class LogoMgrController {
 	
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, String yearMonth, Integer status, 
-			          Integer timeType, String startDate, String endDate){
+			          Integer timeType, String startDate, String endDate, String partner){
 //		if(StringUtils.isBlank(yearMonth)){
 //    		yearMonth = DateUtil.formatDate(new Date(), "yyyy-M");
 //    	}
@@ -91,10 +91,11 @@ public class LogoMgrController {
 		List<BusiLogo> logoList = null;
 		timeType = (timeType == null ? 0 : timeType);
 		if(timeType == 0){
-			logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, status);
+			logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, partner, status);
 		}else{
-			logoList = busiLogoServiceImpl.queryBusiLogo(sDate, eDate, keyword, status);
+			logoList = busiLogoServiceImpl.queryBusiLogo(sDate, eDate, keyword, partner, status);
 		}
+		String[] partners = BaseConfig.getValueArr("up.partners");
 		request.setAttribute("logoList", logoList);
 //		request.setAttribute("costPrice", COST_PRICE);
 		request.setAttribute("typeCostMap", new Gson().toJson(typeCostMap));
@@ -105,6 +106,8 @@ public class LogoMgrController {
 		request.setAttribute("timeType", timeType);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("status", status);
+		request.setAttribute("partner", partner);
+		request.setAttribute("partners", Arrays.asList(partners));
 		request.setAttribute("statusMap", statusMap);
 		request.setAttribute("typeMap", typeMap);
 		

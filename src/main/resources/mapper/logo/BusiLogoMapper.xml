@@ -346,6 +346,9 @@
 			<if test="status != null">
 			    and status = #{status,jdbcType=INTEGER}
 			</if>
+			<if test="partner != null">
+			    and apply_person = #{partner,jdbcType=VARCHAR}
+			</if>
 			<if test="keyword != null">
 			   and  (user_name like #{keyword,jdbcType=VARCHAR}
 			 or phone like #{keyword,jdbcType=VARCHAR} 
