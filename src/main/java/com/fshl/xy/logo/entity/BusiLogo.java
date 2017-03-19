@@ -5,6 +5,7 @@ import com.yisi.stiku.common.utils.DateUtil;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class BusiLogo extends BaseEntity<Integer> {
@@ -65,6 +66,12 @@ public class BusiLogo extends BaseEntity<Integer> {
     private Integer status;
 
     private String remark;
+    
+    private Date tijuTime;
+
+    private Date acceptTime;
+
+    private Date certTime;
 
     public Integer getId() {
         return id;
@@ -285,8 +292,62 @@ public class BusiLogo extends BaseEntity<Integer> {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+    
+    public Date getTijuTime() {
+		return tijuTime;
+	}
 
-    @Override
+	public void setTijuTime(Date tijuTime) {
+		this.tijuTime = tijuTime;
+	}
+
+	public Date getAcceptTime() {
+		return acceptTime;
+	}
+
+	public void setAcceptTime(Date acceptTime) {
+		this.acceptTime = acceptTime;
+	}
+
+	public Date getCertTime() {
+		return certTime;
+	}
+
+	public void setCertTime(Date certTime) {
+		this.certTime = certTime;
+	}
+	
+	public String getTijuTimeStr(){
+    	return tijuTime == null ? null : DateUtil.getDateTimeStr(tijuTime);
+    }
+	
+	public String getAcceptTimeStr(){
+    	return acceptTime == null ? null : DateUtil.getDateTimeStr(acceptTime);
+    }
+	
+	public String getCertTimeStr(){
+    	return certTime == null ? null : DateUtil.getDateTimeStr(certTime);
+    }
+
+	public String getTimeTip(){
+		String tijuTimeStr = getTijuTimeStr();
+		String acceptTimeStr = getAcceptTimeStr();
+		String certTimeStr = getCertTimeStr();
+		String timeTip = "";
+		if(StringUtils.isNotBlank(tijuTimeStr)){
+			timeTip += "\n提交商标局时间：" + tijuTimeStr;
+		}
+		if(StringUtils.isNotBlank(acceptTimeStr)){
+			timeTip += "\n"+(status != -1 ? "受理" : "拒受理")+"时间："+acceptTimeStr;
+		}
+		if(StringUtils.isNotBlank(certTimeStr)){
+			timeTip += "\n"+(status != -2 ? "下证" : "驳回")+"时间" + certTimeStr;
+		}
+		
+		return timeTip;
+	}
+	
+	@Override
     public Integer getPK() {
         return id;
     }

@@ -294,12 +294,19 @@ public class LogoMgrController {
 			return ;
 		}
 		
-		if(logo.getStatus() >= status || status > 5 || status < 0){
+		if(logo.getStatus() >= status || status > 4 || status < -2){
 			WebUtils.writeJson(new ResultModel("NOT_SUPPORT", "不支持的操作"), request, response);
 			return ;
 		}
 		
 		logo.setStatus(status);
+		switch(status){
+		case 2:logo.setTijuTime(new Date());break;
+		case -1:
+		case 3:logo.setAcceptTime(new Date());break;
+		case -2:
+		case 4:logo.setCertTime(new Date());break;
+		}
 		
         busiLogoServiceImpl.update(logo);
 		

@@ -115,10 +115,12 @@
                  <a href="javascript:updateStatus(${logo.id }, 2)" ${logo.status > 0 ? "style='color:red;'" : ""} title="钱款已付清，点击后表示已提交至商标局">提局</a>
                </c:when>
                <c:when test="${logo.status == 2 }">
-                 <a href="javascript:updateStatus(${logo.id }, 3)" ${logo.status > 0 ? "style='color:red;'" : ""} title="点击后表示已客户已经拿到受理通知书">受理</a>
+                 <a href="javascript:updateStatus(${logo.id }, 3)" ${logo.status > 0 ? "style='color:red;'" : ""} title="点击后表示客户已经拿到受理通知书${logo.timeTip}">受理</a><br/>
+                 <a href="javascript:updateStatus(${logo.id }, -1)" ${logo.status > 0 ? "style='color:red;'" : ""} title="点击后表示商标局不受理${logo.timeTip }">不受理
                </c:when>
                <c:when test="${logo.status == 3 }">
-                 <a href="javascript:updateStatus(${logo.id }, 4)" ${logo.status > 0 ? "style='color:red;'" : ""} title="点击后表示客户已经拿到商标证">拿证</a>&nbsp;|&nbsp;<a href="javascript:updateStatus(${logo.id }, 5)" title="点击后表示商标局制证失败">拒证</a>
+                 <a href="javascript:updateStatus(${logo.id }, 4)" ${logo.status > 0 ? "style='color:red;'" : ""} title="点击后表示客户已经拿到商标证${logo.timeTip }">拿证</a><br/>
+                 <a href="javascript:updateStatus(${logo.id }, -2)" title="点击后表示商标局已驳回${logo.timeTip }">拒证</a>
                </c:when>
                <c:otherwise>
                  ${statusMap[logo.status] }
