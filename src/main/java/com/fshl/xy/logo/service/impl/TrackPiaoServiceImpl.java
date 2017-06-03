@@ -1,15 +1,17 @@
 package com.fshl.xy.logo.service.impl;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.fshl.xy.logo.dao.impl.GupiaoDaoImpl;
 import com.fshl.xy.logo.dao.impl.TrackPiaoDaoImpl;
 import com.fshl.xy.logo.entity.Gupiao;
 import com.fshl.xy.logo.entity.TrackPiao;
-import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
-import com.yisi.stiku.db.service.impl.BaseServiceImpl;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.List;
+import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
+import com.ujigu.secure.db.service.impl.BaseServiceImpl;
 
 @Service
 public class TrackPiaoServiceImpl extends BaseServiceImpl<String, TrackPiao> {

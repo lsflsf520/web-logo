@@ -1,7 +1,7 @@
 package com.fshl.xy.logo.dao;
 
 import com.fshl.xy.logo.entity.BusiLogo;
-import com.yisi.stiku.db.dao.BaseDao;
+import com.ujigu.secure.db.dao.BaseDao;
 
 import java.util.Date;
 import java.util.List;

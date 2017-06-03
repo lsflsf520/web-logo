@@ -1,9 +1,10 @@
 package com.fshl.xy.logo.entity;
 
-import com.yisi.stiku.common.bean.BaseEntity;
-import com.yisi.stiku.common.utils.DateUtil;
 
 import java.util.Date;
+
+import com.ujigu.secure.common.bean.BaseEntity;
+import com.ujigu.secure.common.utils.DateUtil;
 
 public class TrackPiao extends BaseEntity<String> {
     private String code;

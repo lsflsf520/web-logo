@@ -4,8 +4,8 @@
 
     <property name="logBaseDir" value="./logs" />
     <property name="logName" value="web-logo" />
-    <conversionRule conversionWord="ip" converterClass="com.yisi.stiku.log.IPConverter" />
-    <conversionRule conversionWord="msgId" converterClass="com.yisi.stiku.log.MsgIdConverter" />
+    <conversionRule conversionWord="ip" converterClass="com.ujigu.secure.common.log.IPConverter" />
+    <conversionRule conversionWord="msgId" converterClass="com.ujigu.secure.common.log.TraceIdConverter" />
     
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<Encoding>UTF-8</Encoding>

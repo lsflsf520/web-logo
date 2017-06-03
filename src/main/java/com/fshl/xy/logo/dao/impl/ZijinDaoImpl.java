@@ -1,17 +1,18 @@
 package com.fshl.xy.logo.dao.impl;
 
-import com.fshl.xy.logo.dao.ZijinDao;
-import com.fshl.xy.logo.entity.MainPureIn;
-import com.fshl.xy.logo.entity.Zijin;
-import com.yisi.stiku.db.dao.BaseDao;
-import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Repository;
+
+import com.fshl.xy.logo.dao.ZijinDao;
+import com.fshl.xy.logo.entity.MainPureIn;
+import com.fshl.xy.logo.entity.Zijin;
+import com.ujigu.secure.db.dao.BaseDao;
+import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
 
 @Repository
 public class ZijinDaoImpl extends BaseDaoImpl<Integer, Zijin> {

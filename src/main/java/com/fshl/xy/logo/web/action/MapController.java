@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fshl.xy.logo.entity.LocInfo;
 import com.fshl.xy.logo.service.impl.LocInfoServiceImpl;
-import com.yisi.stiku.web.util.WebUtils;
+import com.ujigu.secure.web.util.WebUtils;
 
 @Controller
 @RequestMapping("/map")

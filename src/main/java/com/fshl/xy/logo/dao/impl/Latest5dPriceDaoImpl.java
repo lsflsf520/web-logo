@@ -1,13 +1,15 @@
 package com.fshl.xy.logo.dao.impl;
 
-import com.fshl.xy.logo.dao.Latest5dPriceDao;
-import com.fshl.xy.logo.entity.Latest5dPrice;
-import com.yisi.stiku.db.dao.BaseDao;
-import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import javax.annotation.Resource;
-import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.fshl.xy.logo.dao.Latest5dPriceDao;
+import com.fshl.xy.logo.entity.Latest5dPrice;
+import com.ujigu.secure.db.dao.BaseDao;
+import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
 
 @Repository
 public class Latest5dPriceDaoImpl extends BaseDaoImpl<String, Latest5dPrice> {

@@ -1,25 +1,32 @@
 package com.fshl.xy.logo.web.action;
 
-import com.fshl.xy.logo.entity.BusiLogo;
-import com.fshl.xy.logo.service.impl.BackupService;
-import com.fshl.xy.logo.service.impl.BusiLogoServiceImpl;
-import com.fshl.xy.logo.util.DocUtil;
-import com.google.gson.Gson;
-import com.yisi.stiku.common.bean.ResultModel;
-import com.yisi.stiku.common.utils.DateUtil;
-import com.yisi.stiku.common.utils.RegexUtil;
-import com.yisi.stiku.conf.BaseConfig;
-import com.yisi.stiku.web.util.WebUtils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import com.fshl.xy.logo.entity.BusiLogo;
+import com.fshl.xy.logo.service.impl.BackupService;
+import com.fshl.xy.logo.service.impl.BusiLogoServiceImpl;
+import com.fshl.xy.logo.util.DocUtil;
+import com.google.gson.Gson;
+import com.ujigu.secure.common.bean.ResultModel;
+import com.ujigu.secure.common.utils.BaseConfig;
+import com.ujigu.secure.common.utils.DateUtil;
+import com.ujigu.secure.common.utils.RegexUtil;
+import com.ujigu.secure.web.util.WebUtils;
 
 @Controller
 @RequestMapping("/logo")
@@ -45,8 +52,9 @@ public class LogoMgrController {
 		statusMap.put(1, "待提局");
 		statusMap.put(2, "待受理");
 		statusMap.put(3, "待拿证");
-		statusMap.put(4, "已拿证");
-		statusMap.put(5, "已拒证");
+		statusMap.put(4, "不受理");
+		statusMap.put(5, "已拿证");
+		statusMap.put(6, "已拒证");
 
 		typeMap.put(0, "商标注册");
 		typeMap.put(1, "商标异议");
@@ -294,7 +302,7 @@ public class LogoMgrController {
 			return ;
 		}
 		
-		if(logo.getStatus() >= status || status > 4 || status < -2){
+		if((logo.getStatus() >= status) || status > 6 || status < 0){
 			WebUtils.writeJson(new ResultModel("NOT_SUPPORT", "不支持的操作"), request, response);
 			return ;
 		}

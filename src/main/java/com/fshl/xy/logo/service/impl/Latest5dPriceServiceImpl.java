@@ -1,18 +1,26 @@
 package com.fshl.xy.logo.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.fshl.xy.logo.dao.impl.GupiaoDaoImpl;
 import com.fshl.xy.logo.dao.impl.Latest5dPriceDaoImpl;
 import com.fshl.xy.logo.entity.Gupiao;
 import com.fshl.xy.logo.entity.Latest5dPrice;
 import com.fshl.xy.logo.util.PiaoUtil;
-import com.yisi.stiku.common.utils.DateUtil;
-import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
-import com.yisi.stiku.db.service.impl.BaseServiceImpl;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import com.ujigu.secure.common.utils.DateUtil;
+import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
+import com.ujigu.secure.db.service.impl.BaseServiceImpl;
 
 @Service
 public class Latest5dPriceServiceImpl extends BaseServiceImpl<String, Latest5dPrice> {

@@ -1,6 +1,6 @@
 package com.fshl.xy.logo.entity;
 
-import com.yisi.stiku.common.bean.BaseEntity;
+import com.ujigu.secure.common.bean.BaseEntity;
 
 public class Latest5dPrice extends BaseEntity<String> {
     private String code;

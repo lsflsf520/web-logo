@@ -2,8 +2,9 @@ package com.fshl.xy.logo.dao.impl;
 
 import com.fshl.xy.logo.dao.CompanyDao;
 import com.fshl.xy.logo.entity.Company;
-import com.yisi.stiku.db.dao.BaseDao;
-import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
+import com.ujigu.secure.db.dao.BaseDao;
+import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 

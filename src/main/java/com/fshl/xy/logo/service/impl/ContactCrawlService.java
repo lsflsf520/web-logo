@@ -1,9 +1,14 @@
 package com.fshl.xy.logo.service.impl;
 
-import com.fshl.xy.logo.dao.impl.CompanyDaoImpl;
-import com.fshl.xy.logo.entity.Company;
-import com.google.gson.Gson;
-import com.yisi.stiku.common.utils.RegexUtil;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Connection;
@@ -15,10 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.*;
+import com.fshl.xy.logo.dao.impl.CompanyDaoImpl;
+import com.fshl.xy.logo.entity.Company;
+import com.google.gson.Gson;
+import com.ujigu.secure.common.utils.RegexUtil;
 
 /**
  * Created by neko on 2017/1/2.

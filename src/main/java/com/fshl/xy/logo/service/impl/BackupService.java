@@ -2,9 +2,10 @@ package com.fshl.xy.logo.service.impl;
 
 import java.io.File;
 
-import com.yisi.stiku.common.utils.CmdExecUtil;
-import com.yisi.stiku.common.utils.DateUtil;
-import com.yisi.stiku.conf.BaseConfig;
+import com.ujigu.secure.common.utils.BaseConfig;
+import com.ujigu.secure.common.utils.CmdExecUtil;
+import com.ujigu.secure.common.utils.DateUtil;
+
 
 
 public class BackupService {

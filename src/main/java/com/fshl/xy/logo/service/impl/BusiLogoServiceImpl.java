@@ -1,17 +1,19 @@
 package com.fshl.xy.logo.service.impl;
 
-import com.fshl.xy.logo.dao.BusiLogoDao;
-import com.fshl.xy.logo.dao.impl.BusiLogoDaoImpl;
-import com.fshl.xy.logo.entity.BusiLogo;
-import com.yisi.stiku.common.utils.DateUtil;
-import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
-import com.yisi.stiku.db.service.impl.BaseServiceImpl;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import com.fshl.xy.logo.dao.BusiLogoDao;
+import com.fshl.xy.logo.dao.impl.BusiLogoDaoImpl;
+import com.fshl.xy.logo.entity.BusiLogo;
+import com.ujigu.secure.common.utils.DateUtil;
+import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
+import com.ujigu.secure.db.service.impl.BaseServiceImpl;
 
 @Service
 public class BusiLogoServiceImpl extends BaseServiceImpl<Integer, BusiLogo> {

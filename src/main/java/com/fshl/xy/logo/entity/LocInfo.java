@@ -1,6 +1,6 @@
 package com.fshl.xy.logo.entity;
 
-import com.yisi.stiku.common.bean.BaseEntity;
+import com.ujigu.secure.common.bean.BaseEntity;
 
 public class LocInfo extends BaseEntity<Integer> {
     private Integer id;

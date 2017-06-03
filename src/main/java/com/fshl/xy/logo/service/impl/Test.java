@@ -1,6 +1,6 @@
 package com.fshl.xy.logo.service.impl;
 
-import com.yisi.stiku.common.utils.RegexUtil;
+import com.ujigu.secure.common.utils.RegexUtil;
 
 /**
  * Created by neko on 2017/1/2.

@@ -1,11 +1,13 @@
 package com.fshl.xy.logo.dao.impl;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Repository;
+
 import com.fshl.xy.logo.dao.LocInfoDao;
 import com.fshl.xy.logo.entity.LocInfo;
-import com.yisi.stiku.db.dao.BaseDao;
-import com.yisi.stiku.db.dao.impl.BaseDaoImpl;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Repository;
+import com.ujigu.secure.db.dao.BaseDao;
+import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
 
 @Repository
 public class LocInfoDaoImpl extends BaseDaoImpl<Integer, LocInfo> {

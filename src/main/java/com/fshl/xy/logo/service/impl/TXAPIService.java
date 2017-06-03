@@ -1,10 +1,13 @@
 package com.fshl.xy.logo.service.impl;
 
-import com.fshl.xy.logo.entity.Gupiao;
-import com.fshl.xy.logo.entity.Zijin;
-import com.fshl.xy.logo.util.PiaoUtil;
-import com.yisi.stiku.common.utils.DateUtil;
-import com.yisi.stiku.common.utils.HttpClientUtil;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,9 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.*;
+import com.fshl.xy.logo.entity.Gupiao;
+import com.fshl.xy.logo.entity.Zijin;
+import com.fshl.xy.logo.util.PiaoUtil;
+import com.ujigu.secure.common.utils.DateUtil;
+import com.ujigu.secure.common.utils.HttpClientUtil;
 
 public class TXAPIService {
 

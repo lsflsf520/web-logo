@@ -2,7 +2,8 @@ package com.fshl.xy.logo.entity;
 
 import java.util.Date;
 
-import com.yisi.stiku.common.utils.DateUtil;
+import com.ujigu.secure.common.utils.DateUtil;
+
 
 public class MainPureIn {
 	

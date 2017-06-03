@@ -1,12 +1,13 @@
 package com.fshl.xy.logo.entity;
 
-import com.yisi.stiku.common.bean.BaseEntity;
-import com.yisi.stiku.common.utils.DateUtil;
 
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.ujigu.secure.common.bean.BaseEntity;
+import com.ujigu.secure.common.utils.DateUtil;
 
 public class BusiLogo extends BaseEntity<Integer> {
     /**
