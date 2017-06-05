@@ -63,6 +63,8 @@ public class LogoMgrController {
 		typeMap.put(4, "商标购买");
 		typeMap.put(5, "商标变更");
 		typeMap.put(6, "商标转让");
+		typeMap.put(7, "续费");
+		typeMap.put(8, "设计");
 
 		for(Integer type : typeMap.keySet()){
 			String valStr = BaseConfig.getValue("logo."+type+".cost.price");
