@@ -77,9 +77,10 @@ public class LogoMgrController {
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, String yearMonth, Integer status, 
 			          Integer timeType, String startDate, String endDate, String partner){
-//		if(StringUtils.isBlank(yearMonth)){
-//    		yearMonth = DateUtil.formatDate(new Date(), "yyyy-M");
-//    	}
+        String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	return "redirect:/sys/tologin.do";
+        }
 		String keyword = request.getParameter("keyword");
 		List<String> timeList = getLast3YearMonth();
 		if(StringUtils.isBlank(yearMonth)){
@@ -157,6 +158,11 @@ public class LogoMgrController {
 	
 	@RequestMapping("/saveLogo")
 	public void saveLogo(HttpServletRequest request, HttpServletResponse response, BusiLogo logo){
+		String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return;
+        }
 		if(logo.getNum() == null || logo.getLogoFee() == null){
 			WebUtils.writeJson(new ResultModel("ILLEGAL_PARAM", "数量和商标费不能为空！"), request, response);
 			return ;
@@ -202,6 +208,11 @@ public class LogoMgrController {
 	
 	@RequestMapping("/delOrder")
 	public void delOrder(HttpServletRequest request, HttpServletResponse response, int orderId){
+		String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return;
+        }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
 		if(logo == null){
 			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
@@ -216,6 +227,11 @@ public class LogoMgrController {
 	
 	@RequestMapping("/payRemainFee")
 	public void payRemainFee(HttpServletRequest request, HttpServletResponse response, int orderId, int who){
+		String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return;
+        }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
 		if(logo == null){
 			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
@@ -241,6 +257,11 @@ public class LogoMgrController {
 	
 	@RequestMapping("/downloadDoc")
 	public void downloadDoc(HttpServletRequest request, HttpServletResponse response, int orderId, String type){
+		String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return;
+        }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
 		if(logo == null){
 			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
@@ -298,6 +319,11 @@ public class LogoMgrController {
 	
 	@RequestMapping("/updateStatus")
 	public void updateStatus(HttpServletRequest request, HttpServletResponse response, int orderId, int status){
+		String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return;
+        }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
 		if(logo == null){
 			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
@@ -325,7 +351,11 @@ public class LogoMgrController {
 	
 	@RequestMapping("/backupData")
 	public void backupData(HttpServletRequest request, HttpServletResponse response){
-		
+		String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return;
+        }
 		try{
 			
 			backupService.backupData();
