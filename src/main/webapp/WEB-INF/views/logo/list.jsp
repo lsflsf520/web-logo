@@ -207,14 +207,14 @@
           <td title="联系人"><input style="width:50px;" class="userName"></td>
           <td title="手机号"><input style="width:90px;" class="phone"></td>
           <td title="商标数量"><input style="width:40px;" onblur="compute();" class="num" value="1"></td>
-          <td title="商标费"><input style="width:40px;" onblur="compute();" class="logoFee" value="1400"></td>
+          <td title="商标费"><input style="width:40px;" onblur="compute();" class="logoFee" value="1200"></td>
           <td title="设计费"><input style="width:40px;" onblur="compute();" class="designFee"></td>
           <td title="设计利润"><input style="width:40px;" onblur="compute();" class="designProfit"></td>
           <td title="是否需要发票"><input type="checkbox" onclick="compute();" class="bill"></td>
-          <td title="总利润(商标利润  + 设计利润)"><input style="width:40px;" class="totalProfit" value="1000"></td>
-          <td title="订单总价(商标费  + 设计费)" class="totalPrice">1400</td>
+          <td title="总利润(商标利润  + 设计利润)"><input style="width:40px;" class="totalProfit" value="600"></td>
+          <td title="订单总价(商标费  + 设计费)" class="totalPrice">1200</td>
           <td title="预付款"><input style="width:40px;" onblur="compute();" class="firstPayment"></td>
-          <td title="待付款(订单总价  - 预付款)" class="remainFee">1400</td>
+          <td title="待付款(订单总价  - 预付款)" class="remainFee">1200</td>
           <td title="我的费用是否结清"><input type="checkbox" value="1" class="myFeeStatus"></td>
           <td title="上线的费用是否结清"><input type="checkbox" value="1" class="chenFeeStatus"></td>
           <td title="是否加急"><input type="checkbox" value="1" class="rapid"></td>
