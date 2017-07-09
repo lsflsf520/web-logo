@@ -369,8 +369,8 @@
     		  $("#errorMsg").text("数量不能小于1");
     		  return;
     	  }
-    	  if(param.logoFee < 600){
-    		  $("#errorMsg").text("商标费不能小于600");
+    	  if(param.orderType == 0 && param.logoFee < 400){
+    		  $("#errorMsg").text("商标费不能小于400");
     		  return;
     	  }
     	  
@@ -384,12 +384,18 @@
     		  return;
     	  }
     	  
-    	  if(!param.company){
+    	  //如果是单纯的设计订单，则设计费不能为0
+    	  if(param.orderType == 8 && param.designFee == 0){
+    		  $("#errorMsg").text("设计费不能为0");
+    		  return;
+    	  }
+    	  
+    	  if(param.orderType != 8 && !param.company){
     		  $("#errorMsg").text("公司不能为空");
     		  return;
     	  }
     	  
-    	  if(!param.customerAddr){
+    	  if(param.orderType != 8 && !param.customerAddr){
     		  $("#errorMsg").text("公司地址不能为空");
     		  return;
     	  }
@@ -451,13 +457,22 @@
     	  if(selId){
     		  currTrId = "#" + selId + " ";
     	  }
+    	  
     	  var num =  $(currTrId + ".num").val();
     	  var logoFee = $(currTrId + ".logoFee").val();
     	  var designFee = $(currTrId + ".designFee").val();
     	  var designProfit = $(currTrId + ".designProfit").val();
     	  var bill = getCheckBoxVal("bill", selId);
     	  var firstPayment = $(currTrId + ".firstPayment").val();
+    	  
     	  var orderType = $(currTrId + ".orderType").val();
+    	  if(orderType == 8){//如果订单类型为设计，则把商标费用清零
+    		  logoFee = 0;
+    		  $(currTrId + ".logoFee").val(logoFee);
+    	  } else if(logoFee == 0){
+    		  logoFee = 1200;
+    		  $(currTrId + ".logoFee").val(logoFee);
+    	  }
     	  
     	  var costPrice = typeCostMap[orderType] ? typeCostMap[orderType] : 0 ;
     	  
