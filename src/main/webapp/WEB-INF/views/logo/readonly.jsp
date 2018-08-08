@@ -64,15 +64,6 @@
        <span style="color:red;" id="dlErrMsg" style="margin-left:3px;"></span>
       </form>
     </div>
-    <div class="data">
-      <span title="本页订单总金额">总流水：${totalMoney }&#65509;</span>
-      <span title="本页订单总利润">总利润：${totalProfit }&#65509;</span>
-      <span title="本页订单已收总金额">已收金额：${hasGetMoney }&#65509;</span>
-      <span title="本页订单已收利润">已收利润：${hasGetProfit }&#65509;</span>
-      <span title="本页订单总设计费">总设计费：${totalDesignFee }&#65509;</span>
-      <span title="本页订单总设计利润">总设计利润：${totalDesignProfit }&#65509;</span>
-      <span title="本页订单的商标总数">商标总数：${logoNum }个</span>
-    </div>
     <div>
      <table>
       <thead>
