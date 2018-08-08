@@ -629,7 +629,10 @@
       }
       
       function getSelId(){
-    	  var ckId = $("input[name='logoSel']:checked").val();
+    	  var ckId = "";
+    	  if($("input[name='logoSel']:checked").attr("disabled") != "disabled"){
+    		  ckId = $("input[name='logoSel']:checked").val();
+    	  }
     	  var inId = $("input.inedit").val();
     	  return ckId && "on" != ckId ? ckId : (inId && "on" != inId ? inId : null);
       }

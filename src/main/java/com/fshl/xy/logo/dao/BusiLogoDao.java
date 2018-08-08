@@ -1,16 +1,16 @@
 package com.fshl.xy.logo.dao;
 
-import com.fshl.xy.logo.entity.BusiLogo;
-import com.ujigu.secure.db.dao.BaseDao;
-
 import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.fshl.xy.logo.entity.BusiLogo;
+import com.xyz.tools.db.dao.IBaseDao;
+
 @Repository
-public interface BusiLogoDao extends BaseDao<Integer, BusiLogo> {
+public interface BusiLogoDao extends IBaseDao<Integer, BusiLogo> {
 	
 	/**
 	 * 

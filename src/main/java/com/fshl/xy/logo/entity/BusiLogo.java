@@ -6,8 +6,9 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.ujigu.secure.common.bean.BaseEntity;
-import com.ujigu.secure.common.utils.DateUtil;
+import com.xyz.tools.common.utils.DateUtil;
+import com.xyz.tools.db.bean.BaseEntity;
+
 
 public class BusiLogo extends BaseEntity<Integer> {
     /**

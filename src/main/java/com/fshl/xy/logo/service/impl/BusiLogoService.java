@@ -9,23 +9,20 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.fshl.xy.logo.dao.BusiLogoDao;
-import com.fshl.xy.logo.dao.impl.BusiLogoDaoImpl;
 import com.fshl.xy.logo.entity.BusiLogo;
-import com.ujigu.secure.common.utils.DateUtil;
-import com.ujigu.secure.db.dao.impl.BaseDaoImpl;
-import com.ujigu.secure.db.service.impl.BaseServiceImpl;
+import com.xyz.tools.common.utils.DateUtil;
+import com.xyz.tools.db.dao.IBaseDao;
+import com.xyz.tools.db.service.AbstractBaseService;
 
 @Service
-public class BusiLogoServiceImpl extends BaseServiceImpl<Integer, BusiLogo> {
-    @Resource
-    private BusiLogoDaoImpl busiLogoDaoImpl;
+public class BusiLogoService extends AbstractBaseService<Integer, BusiLogo> {
     
     @Resource
     private BusiLogoDao busiLogoDao;
-
+    
     @Override
-    protected BaseDaoImpl<Integer, BusiLogo> getBaseDaoImpl() {
-        return busiLogoDaoImpl;
+    protected IBaseDao<Integer, BusiLogo> getBaseDao() {
+    	return busiLogoDao;
     }
     
     public List<BusiLogo> queryBusiLogo(String yearMonth, String keyword, String partner, Integer status){

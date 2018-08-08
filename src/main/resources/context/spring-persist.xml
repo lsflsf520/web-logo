@@ -21,7 +21,7 @@
     <description>Spring公共配置 </description>
 
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-    <context:component-scan base-package="com.ujigu.secure.db,com.fshl.xy" use-default-filters="false" scoped-proxy="targetClass">
+    <context:component-scan base-package="com.fshl.xy" use-default-filters="false" scoped-proxy="targetClass">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
@@ -43,7 +43,7 @@
    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
         <property name="basePackage" value="com.fshl.xy.logo.dao" /> 
         <property name="sqlSessionTemplateBeanName" value="logoSqlSessionTemplate"/> 
-        <property name="markerInterface" value="com.ujigu.secure.db.dao.BaseDao"/>
+        <property name="markerInterface" value="com.xyz.tools.db.dao.IBaseDao"/>
    </bean>
    <!-- statdata end -->
 

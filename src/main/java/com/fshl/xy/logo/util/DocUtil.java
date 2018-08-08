@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.ujigu.secure.common.utils.BaseConfig;
+import com.xyz.tools.common.utils.BaseConfig;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;

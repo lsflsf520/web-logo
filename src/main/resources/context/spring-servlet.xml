@@ -15,7 +15,7 @@
 
     <mvc:annotation-driven/> 
 
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="order" value="1" />
 		<property name="mediaTypes">
@@ -30,7 +30,22 @@
 					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 			</list>
 		</property>
-	</bean>
+	</bean> -->
+	
+	<bean id="contentNegotiationManager"  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+       <property name="favorParameter" value="true"/>
+       <property name="parameterName" value="format"/>
+       <property name="ignoreAcceptHeader" value="false"/>
+       <property name="mediaTypes">
+           <value>
+                json=application/json
+                xml=application/xml
+                html=text/html
+            </value>
+       </property>
+       <property name="defaultContentType" value="text/html"/>
+    </bean> 
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="order" value="1" />

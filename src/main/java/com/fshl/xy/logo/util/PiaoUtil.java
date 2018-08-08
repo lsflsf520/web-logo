@@ -2,7 +2,8 @@ package com.fshl.xy.logo.util;
 
 import java.util.Date;
 
-import com.ujigu.secure.common.utils.DateUtil;
+import com.xyz.tools.common.utils.DateUtil;
+
 
 
 public class PiaoUtil {

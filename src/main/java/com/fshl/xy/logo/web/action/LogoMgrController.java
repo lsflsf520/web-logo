@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fshl.xy.logo.entity.BusiLogo;
 import com.fshl.xy.logo.service.impl.BackupService;
-import com.fshl.xy.logo.service.impl.BusiLogoServiceImpl;
+import com.fshl.xy.logo.service.impl.BusiLogoService;
 import com.fshl.xy.logo.util.DocUtil;
 import com.google.gson.Gson;
-import com.ujigu.secure.common.bean.ResultModel;
-import com.ujigu.secure.common.utils.BaseConfig;
-import com.ujigu.secure.common.utils.DateUtil;
-import com.ujigu.secure.common.utils.RegexUtil;
-import com.ujigu.secure.web.util.WebUtils;
+import com.xyz.tools.common.bean.ResultModel;
+import com.xyz.tools.common.utils.BaseConfig;
+import com.xyz.tools.common.utils.DateUtil;
+import com.xyz.tools.common.utils.RegexUtil;
+import com.xyz.tools.web.util.WebUtils;
 
 @Controller
 @RequestMapping("/logo")
@@ -35,7 +35,7 @@ public class LogoMgrController {
 	private final static Logger LOG = LoggerFactory.getLogger(LogoMgrController.class);
 	
 	@Resource
-	private BusiLogoServiceImpl busiLogoServiceImpl;
+	private BusiLogoService busiLogoServiceImpl;
 	
 	@Resource
 	private BackupService backupService;
@@ -78,7 +78,7 @@ public class LogoMgrController {
 	public String list(HttpServletRequest request, String yearMonth, Integer status, 
 			          Integer timeType, String startDate, String endDate, String partner){
         String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
+        if(!PassportController.TK_VALUE.equals(token) && !PassportController.READONLY_VALUE.equals(token)){
         	return "redirect:/sys/tologin.do";
         }
 		String keyword = request.getParameter("keyword");
@@ -153,7 +153,11 @@ public class LogoMgrController {
 		request.setAttribute("hasGetMoney", hasGetMoney); //已经收到的总金额，即已经结清的订单的总金额
 		request.setAttribute("logoNum", logoNum); //商标总数
 		
-		return "logo/list";
+		if(PassportController.TK_VALUE.equals(token)){
+			return "logo/list";
+		}
+		
+		return "logo/readonly";
 	}
 	
 	@RequestMapping("/saveLogo")

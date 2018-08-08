@@ -2,9 +2,10 @@ package com.fshl.xy.logo.service.impl;
 
 import java.io.File;
 
-import com.ujigu.secure.common.utils.BaseConfig;
-import com.ujigu.secure.common.utils.CmdExecUtil;
-import com.ujigu.secure.common.utils.DateUtil;
+import com.xyz.tools.common.utils.BaseConfig;
+import com.xyz.tools.common.utils.CmdExecUtil;
+import com.xyz.tools.common.utils.DateUtil;
+
 
 
 
