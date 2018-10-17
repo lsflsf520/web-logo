@@ -324,7 +324,7 @@ public class LogoMgrController {
 	@RequestMapping("/updateStatus")
 	public void updateStatus(HttpServletRequest request, HttpServletResponse response, int orderId, int status){
 		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
+        if(!PassportController.TK_VALUE.equals(token) && !PassportController.READONLY_VALUE.equals(token)){
         	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
         	return;
         }
