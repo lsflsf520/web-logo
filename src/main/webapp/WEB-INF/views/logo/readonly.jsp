@@ -186,7 +186,7 @@
       }
       
       
-     /* function updateStatus(orderId, status){
+     function updateStatus(orderId, status){
     	  $.ajax({
     		  url:'${base == "/" ? "" : base}/logo/updateStatus.do?status=' + status + '&orderId=' + orderId,
     		  type:"GET",
@@ -199,7 +199,7 @@
     			  }
     		  }
     	  });
-      } */
+      } 
       
       
       function downloadDoc(type){
