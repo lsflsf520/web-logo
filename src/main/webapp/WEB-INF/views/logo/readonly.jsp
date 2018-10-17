@@ -75,7 +75,6 @@
           <th>联系人</th>
           <th>手机号</th>
           <th>数量</th>
-          <th>商标费</th>
           <th>发票</th>
           <th title="我的费用是否结清">我费</th>
           <th title="此订单是否属于加急订单">加急</th>
@@ -123,7 +122,6 @@
            <td title="联系人"><input style="width:50px;" class="userName textedit" value="${logo.userName }"><span class="textro un">${logo.userName }</span></td>
            <td title="手机号"><input style="width:90px;" class="phone textedit" value="${logo.phone }"><span class="textro ph">${logo.phone }</span></td>
            <td title="商标数量"><input style="width:40px;" onblur="compute('ptr_${logo.id }');" class="num textedit" value="${logo.num }"><span class="textro">${logo.num }</span></td>
-           <td title="商标费"><input style="width:40px;" onblur="compute('ptr_${logo.id }');" class="logoFee textedit" value="${logo.logoFee }"><span class="textro">${logo.logoFee }</span></td>
            <td title="是否需要发票"><input type="checkbox" class="textedit bill" onclick="compute('ptr_${logo.id }');" ${logo.bill == 1 ? "checked" : "" }><input type="checkbox" class="textro" ${logo.bill == 1 ? "checked disabled" : "disabled" }></td>
            <td title="我的费用是否结清"><input type="checkbox" ${logo.myFeeStatus == 1 ? "checked" : "" } class="myFeeStatus textedit"><input type="checkbox" title='${logo.myFeeTimeStr == null ? "勾选之后代表我的费用已" : logo.myFeeTimeStr }结清' id="p_my_${logo.id }" class="textro" ${logo.myFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 0)"></td>
            <td title="是否加急"><input type="checkbox" ${logo.rapid == 1 ? "checked disabled" : "disabled" }></td>
