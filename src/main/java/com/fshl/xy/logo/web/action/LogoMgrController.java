@@ -259,6 +259,26 @@ public class LogoMgrController {
 		WebUtils.writeJson(new ResultModel("操作成功！"), request, response);
 	}
 	
+	@RequestMapping("/updateExpress")
+	public void updateExpress(HttpServletRequest request, HttpServletResponse response, int orderId){
+		String token = WebUtils.getCookieValue(request, "_tk_");
+        if(!PassportController.TK_VALUE.equals(token)){
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return;
+        }
+		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
+		if(logo == null){
+			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
+			return ;
+		}
+		
+		logo.setExpressNum("Y");
+		
+		busiLogoServiceImpl.update(logo);
+		
+		WebUtils.writeJson(new ResultModel("操作成功！"), request, response);
+	}
+	
 	@RequestMapping("/downloadDoc")
 	public void downloadDoc(HttpServletRequest request, HttpServletResponse response, int orderId, String type){
 		String token = WebUtils.getCookieValue(request, "_tk_");

@@ -93,7 +93,7 @@
           <th>预付款</th>
           <th title="待付款(订单总价  - 预付款)">待付款</th>
           <th title="我的费用是否结清">我费</th>
-          <th title="上线的费用是否结清">他费</th>
+         <!--  <th title="上线的费用是否结清">他费</th>  -->
           <th title="此订单是否属于加急订单">加急</th>
           <th title="订单的类型">类型</th>
           <th>备注</th>
@@ -101,7 +101,7 @@
           <th title="注册商标所属的类别，多个类别用顿号“、”隔开">商标类别</th>
           <th>公司</th>
           <th>公司地址</th>
-          <th>快递</th>
+          <th>已快递</th>
           <th>微信号</th>
         </tr>
       </thead>
@@ -147,8 +147,8 @@
            <td title="订单总价(商标费  + 设计费)" class="totalPrice">${logo.logoFee + (logo.designFee == null ? 0 : logo.designFee) }</td>
            <td title="预付款"><input style="width:40px;" onblur="compute('ptr_${logo.id }');" class="firstPayment textedit" value="${logo.firstPayment }"><span class="textro">${logo.firstPayment }</span></td>
            <td title="待付款(订单总价  - 预付款)" class="remainFee">${logo.logoFee + (logo.designFee == null ? 0 : logo.designFee) - logo.firstPayment}</td>
-           <td title="我的费用是否结清"><input type="checkbox" ${logo.myFeeStatus == 1 ? "checked" : "" } class="myFeeStatus textedit"><input type="checkbox" title='${logo.myFeeTimeStr == null ? "勾选之后代表我的费用已" : logo.myFeeTimeStr }结清' id="p_my_${logo.id }" class="textro" ${logo.myFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 0)"></td>
-           <td title="上线的费用是否结清"><input type="checkbox"  ${logo.chenFeeStatus == 1 ? "checked" : "" } class="chenFeeStatus textedit"><input type="checkbox" title='${logo.chenFeeTimeStr == null ? "勾选之后代表陈哥的费用已" : logo.chenFeeTimeStr }结清' id="p_chen_${logo.id }" class="textro" ${logo.chenFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 1)"></td>
+           <td title="费用是否结清"><input type="checkbox" ${logo.myFeeStatus == 1 ? "checked" : "" } class="myFeeStatus textedit"><input type="checkbox" title='${logo.myFeeTimeStr == null ? "勾选之后代表我的费用已" : logo.myFeeTimeStr }结清' id="p_my_${logo.id }" class="textro" ${logo.myFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 0)"></td>
+           <!-- <td title="上线的费用是否结清"><input type="checkbox"  ${logo.chenFeeStatus == 1 ? "checked" : "" } class="chenFeeStatus textedit"><input type="checkbox" title='${logo.chenFeeTimeStr == null ? "勾选之后代表陈哥的费用已" : logo.chenFeeTimeStr }结清' id="p_chen_${logo.id }" class="textro" ${logo.chenFeeStatus == 1 ? "checked disabled" : "" } onclick="payRemainFee(${logo.id }, 1)"></td>  -->
            <td title="是否加急"><input type="checkbox" ${logo.rapid == 1 ? "checked disabled" : "disabled" }></td>
            <td><select class="orderType textedit" onchange="compute('ptr_${logo.id }');">
               <c:forEach items="${typeMap }" var="item">
@@ -160,7 +160,9 @@
            <td title="商标注册类别，多个类别用顿号隔开"><input style="width:40px;" class="logoTypes textedit" value="${logo.logoTypes }"><span class="textro">${logo.logoTypes }</span></td>
            <td title="公司名称"><input style="width:100px;" class="company textedit" value="${logo.company }"><span class="textro cp">${logo.company }</span></td>
            <td title="公司地址"><input style="width:100px;" class="customerAddr textedit" value="${logo.customerAddr }"><span class="textro ca">${logo.customerAddr }</span></td>
-           <td title="快递单号"><input style="width:150px;" class="expressNum textedit" value="${logo.expressNum }"><span class="textro">${logo.expressNum }</span></td>
+           <td title="是否已快递">
+             <input type="checkbox" ${logo.expressNum == "Y" ? "checked" : "" } class="expressNum textedit"><input type="checkbox" title='勾选之后代表已快递' id="exp_${logo.id }" class="textro" ${logo.expressNum == "Y" ? "checked disabled" : "" } onclick="updateExpress(${logo.id })">
+           </td>
            <td title="微信号"><input style="width:80px;" class="wx textedit" value="${logo.wx }"><span class="textro weixin">${logo.wx }</span></td>
          </tr>
        </c:forEach>
@@ -216,7 +218,7 @@
           <td title="预付款"><input style="width:40px;" onblur="compute();" class="firstPayment"></td>
           <td title="待付款(订单总价  - 预付款)" class="remainFee">1200</td>
           <td title="我的费用是否结清"><input type="checkbox" value="1" class="myFeeStatus"></td>
-          <td title="上线的费用是否结清"><input type="checkbox" value="1" class="chenFeeStatus"></td>
+         <!--  <td title="上线的费用是否结清"><input type="checkbox" value="1" class="chenFeeStatus"></td>  -->
           <td title="是否加急"><input type="checkbox" value="1" class="rapid"></td>
           <td title="类型">
             <select class="orderType" onchange="compute();">
@@ -230,7 +232,7 @@
           <td title="商标注册类别，多个类别用顿号隔开"><input style="width:40px;" class="logoTypes"></td>
           <td title="公司名称"><input style="width:100px;" class="company"></td>
           <td title="公司地址"><input style="width:100px;" class="customerAddr"></td>
-          <td title="快递单号"><input style="width:150px;" class="expressNum"></td>
+          <td title="快递单号"><input type="checkbox" value="Y" class="expressNum"></td>
           <td title="微信号"><input style="width:80px;" class="wx"></td>
         </tr>
        </tbody>
@@ -541,6 +543,26 @@
     			 prefix = "p_chen_";
     		 }
     		 
+    		 $("#" + prefix + orderId).removeAttr("checked");
+    	  }
+      }
+      
+      function updateExpress(orderId){
+    	  if(confirm("此操作代表快递已寄送，点击‘确定’继续，点击‘取消’撤销改操作。")){
+    	    $.ajax({
+    		  url:'${base == "/" ? "" : base}/logo/updateExpress.do?orderId=' + orderId,
+    		  type:"GET",
+    		  datatype:"json",
+    		  success:function(data){
+    			  if(data && data.resultCode == "SUCCESS"){
+    			      location.reload();
+    			  }else{
+    				  $("#errorMsg").text("对不起，保存失败！");
+    			  }
+    		  }
+    	    });
+    	  }else{
+    		 var prefix = "exp_";
     		 $("#" + prefix + orderId).removeAttr("checked");
     	  }
       }
