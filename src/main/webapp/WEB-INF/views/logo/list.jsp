@@ -232,7 +232,7 @@
           <td title="商标注册类别，多个类别用顿号隔开"><input style="width:40px;" class="logoTypes"></td>
           <td title="公司名称"><input style="width:100px;" class="company"></td>
           <td title="公司地址"><input style="width:100px;" class="customerAddr"></td>
-          <td title="快递单号"><input type="checkbox" value="Y" class="expressNum"></td>
+          <td title="快递单号"><input type="checkbox" value="N" class="expressNum"></td>
           <td title="微信号"><input style="width:80px;" class="wx"></td>
         </tr>
        </tbody>
@@ -342,7 +342,7 @@
     	  param.logoTypes = $(currTrId + ".logoTypes").val();
     	  param.company = $(currTrId + ".company").val();
     	  param.customerAddr = $(currTrId + ".customerAddr").val();
-    	  param.expressNum = $(currTrId + ".expressNum").val();
+    	  param.expressNum = $(currTrId + ".expressNum").prop("checked") ? "Y" : "N";
     	  param.wx = $(currTrId + ".wx").val();
     	  
     	  param.firstPayment = param.firstPayment ? parseInt(param.firstPayment) : 0;
