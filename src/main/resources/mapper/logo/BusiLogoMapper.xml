@@ -382,7 +382,8 @@
 			 or phone like #{keyword,jdbcType=VARCHAR} 
 			 or logo_name like #{keyword,jdbcType=VARCHAR} 
 			 or company like #{keyword,jdbcType=VARCHAR}
-			 or wx like #{keyword,jdbcType=VARCHAR})
+			 or wx like #{keyword,jdbcType=VARCHAR}
+			 or remark like #{keyword,jdbcType=VARCHAR})
 			</if>
 			<![CDATA[ and status >= 0 ]]>
 		</trim>
