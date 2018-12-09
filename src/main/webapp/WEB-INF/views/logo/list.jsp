@@ -48,6 +48,14 @@
          </select>
        </span>
        <span>
+         <select id="busiTypeQ" name="ordType" style="margin-left:3px;" onchange="$('#qryBtn').click()">
+              <option value="" ${null == orderType ? "selected" : ""  }>请选择订单类型</option>
+              <c:forEach items="${typeMap }" var="item">
+                <option value="${item.key }" ${item.key == orderType ? "selected" : "" }>${item.value }</option>
+              </c:forEach>
+         </select>
+       </span>
+       <span>
          <select id="partnerQ" name="partner" style="margin-left:3px;" onchange="$('#qryBtn').click()">
            <option value="" ${null == partner ? "selected" : ""  }>请选择申报人</option>
            <c:forEach items="${partners }" var="item">

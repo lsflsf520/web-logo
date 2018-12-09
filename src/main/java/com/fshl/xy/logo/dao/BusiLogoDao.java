@@ -20,6 +20,6 @@ public interface BusiLogoDao extends IBaseDao<Integer, BusiLogo> {
 	 * @param status
 	 * @return
 	 */
-	public List<BusiLogo> queryBusiLogo(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("keyword") String keyword, @Param("partner") String partner, @Param("status") Integer status);
+	public List<BusiLogo> queryBusiLogo(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("keyword") String keyword, @Param("ordType") Integer ordType, @Param("partner") String partner, @Param("status") Integer status);
 	
 }

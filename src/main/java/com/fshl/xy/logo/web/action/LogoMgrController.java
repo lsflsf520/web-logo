@@ -77,7 +77,7 @@ public class LogoMgrController {
 	
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, String yearMonth, Integer status, 
-			          Integer timeType, String startDate, String endDate, String partner){
+			          Integer timeType, String startDate, String endDate, Integer ordType, String partner){
         String token = WebUtils.getCookieValue(request, "_tk_");
         if(!PassportController.TK_VALUE.equals(token) && !PassportController.READONLY_VALUE.equals(token)){
         	return "redirect:/sys/tologin.do";
@@ -103,9 +103,9 @@ public class LogoMgrController {
 		List<BusiLogo> logoList = null;
 		timeType = (timeType == null ? 0 : timeType);
 		if(timeType == 0){
-			logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, partner, status);
+			logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, ordType, partner, status);
 		}else{
-			logoList = busiLogoServiceImpl.queryBusiLogo(sDate, eDate, keyword, partner, status);
+			logoList = busiLogoServiceImpl.queryBusiLogo(sDate, eDate, keyword, ordType, partner, status);
 		}
 		String[] partners = BaseConfig.getValueArr("up.partners");
 		request.setAttribute("logoList", logoList);
@@ -118,6 +118,7 @@ public class LogoMgrController {
 		request.setAttribute("timeType", timeType);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("status", status);
+		request.setAttribute("ordType", ordType);
 		request.setAttribute("partner", partner);
 		request.setAttribute("partners", Arrays.asList(partners));
 		request.setAttribute("statusMap", statusMap);
