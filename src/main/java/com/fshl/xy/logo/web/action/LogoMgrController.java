@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,9 +44,9 @@ public class LogoMgrController {
 //	private final static int COST_PRICE = Integer.valueOf(BaseConfig.getValue("logo.cost.price"));
 	private final static int BILL_PRICE = Integer.valueOf(BaseConfig.getValue("logo.bill.price"));
 	
-	private final static Map<Integer, String> statusMap = new HashMap<Integer, String>();
-	private final static Map<Integer, String> typeMap = new HashMap<Integer, String>();
-	private final static Map<Integer, Integer> typeCostMap = new HashMap<Integer, Integer>();
+	private final static Map<Integer, String> statusMap = new LinkedHashMap<Integer, String>();
+	private final static Map<Integer, String> typeMap = new LinkedHashMap<Integer, String>();
+	private final static Map<Integer, Integer> typeCostMap = new LinkedHashMap<Integer, Integer>();
 	
 	static {
 		statusMap.put(0, "待结款");
@@ -62,6 +63,7 @@ public class LogoMgrController {
 		typeMap.put(2, "著作权");
 		typeMap.put(1, "商标异议");
 		typeMap.put(3, "专利");
+		typeMap.put(10, "商标补正");
 		typeMap.put(4, "商标购买");
 		typeMap.put(5, "商标变更");
 		typeMap.put(6, "商标转让");
