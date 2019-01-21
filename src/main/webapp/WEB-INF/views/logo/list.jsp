@@ -379,8 +379,8 @@
     		  $("#errorMsg").text("数量不能小于1");
     		  return;
     	  }
-    	  if(param.orderType == 0 && param.logoFee < 400){
-    		  $("#errorMsg").text("商标费不能小于400");
+    	  if(param.orderType == 0 && param.logoFee < 300){
+    		  $("#errorMsg").text("商标费不能小于300");
     		  return;
     	  }
     	  
