@@ -22,7 +22,7 @@
                   <property name="driverClassName" value="com.mysql.jdbc.Driver" />
                   <!-- 创建MySQL UTF-8编码数据库脚本：CREATE DATABASE stiku_ms DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci; -->
                   
-                  <property name="url" value="jdbc:mysql://${jdbc.logo.host}:${jdbc.logo.port}/${jdbc.logo.database}?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
+                  <property name="url" value="jdbc:mysql://${jdbc.logo.link}?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
                   <property name="username" value="${jdbc.logo.username}" />
                   <property name="password" value="${jdbc.logo.password}" />
                   
@@ -44,13 +44,41 @@
           </property>
        </bean>
        
-       <bean id="backupService" class="com.fshl.xy.logo.service.impl.BackupService">
+       <bean id="weizhanDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+          <property name="poolProperties">
+              <bean class="org.apache.tomcat.jdbc.pool.PoolProperties">
+                  <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+                  <!-- 创建MySQL UTF-8编码数据库脚本：CREATE DATABASE stiku_ms DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci; -->
+                  
+                  <property name="url" value="jdbc:mysql://${jdbc.weizhan.link}?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
+                  <property name="username" value="${jdbc.weizhan.username}" />
+                  <property name="password" value="${jdbc.weizhan.password}" />
+                  
+                  <property name="maxActive" value="40"/>  
+                  <property name="initialSize" value="1"/>
+                  <property name="maxWait" value="60000"/>
+                  <property name="maxIdle" value="5"/>
+                  <property name="minIdle" value="2"/>
+                  <property name="removeAbandoned" value="true"/>
+                  <property name="removeAbandonedTimeout" value="180"/>
+                  <property name="testWhileIdle" value="true"/><!-- 打开检查,用异步线程evict进行检查 -->  
+                  <property name="testOnBorrow" value="false"/>
+                  <property name="testOnReturn" value="false"/>  
+                  <property name="validationQuery" value="select 1"/>  
+                  <property name="validationInterval" value="10000"/> 
+                  <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+                  <property name="numTestsPerEvictionRun" value="20"/> 
+              </bean>
+          </property>
+       </bean>
+       
+       <!-- <bean id="backupService" class="com.fshl.xy.logo.service.impl.BackupService">
          <property name="host" value="${jdbc.logo.host}"/>
          <property name="port" value="${jdbc.logo.port}"/>
          <property name="database" value="${jdbc.logo.database}"/>
          <property name="userName" value="${jdbc.logo.username}"/>
          <property name="password" value="${jdbc.logo.password}"/>
-       </bean>
+       </bean> -->
        
 </beans>
     

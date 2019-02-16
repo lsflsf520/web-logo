@@ -19,7 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fshl.xy.logo.entity.BusiLogo;
-import com.fshl.xy.logo.service.impl.BackupService;
+//import com.fshl.xy.logo.service.impl.BackupService;
 import com.fshl.xy.logo.service.impl.BusiLogoService;
 import com.fshl.xy.logo.util.DocUtil;
 import com.google.gson.Gson;
@@ -38,8 +38,8 @@ public class LogoMgrController {
 	@Resource
 	private BusiLogoService busiLogoServiceImpl;
 	
-	@Resource
-	private BackupService backupService;
+//	@Resource
+//	private BackupService backupService;
 	
 //	private final static int COST_PRICE = Integer.valueOf(BaseConfig.getValue("logo.cost.price"));
 	private final static int BILL_PRICE = Integer.valueOf(BaseConfig.getValue("logo.bill.price"));
@@ -386,7 +386,7 @@ public class LogoMgrController {
         }
 		try{
 			
-			backupService.backupData();
+//			backupService.backupData();
 			WebUtils.writeJson(new ResultModel("备份成功"), request, response);
 		}catch(Exception e){
 			LOG.error("数据备份失败", e);

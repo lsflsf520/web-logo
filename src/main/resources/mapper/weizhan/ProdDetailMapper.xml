@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fshl.xy.weizhan.dao.ProdDetailDao" >
+  <resultMap id="BaseResultMap" type="com.fshl.xy.weizhan.entity.ProdDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="buid" property="buid" jdbcType="INTEGER" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fshl.xy.weizhan.entity.ProdDetail" extends="BaseResultMap" >
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+    <result column="serv_flow" property="servFlow" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="BaseColumnList" >
+    id, buid, prod_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    detail, serv_flow
+  </sql>
+  <select id="findByPK" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="BaseColumnList" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prod_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPK" parameterType="java.lang.Integer" >
+    delete from prod_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fshl.xy.weizhan.entity.ProdDetail" >
+    insert into prod_detail (id, buid, prod_id, 
+      detail, serv_flow)
+    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{prodId,jdbcType=INTEGER}, 
+      #{detail,jdbcType=LONGVARCHAR}, #{servFlow,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPK" parameterType="com.fshl.xy.weizhan.entity.ProdDetail" >
+    update prod_detail
+    <set >
+      <if test="buid != null" >
+        buid = #{buid,jdbcType=INTEGER},
+      </if>
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="servFlow != null" >
+        serv_flow = #{servFlow,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fshl.xy.weizhan.entity.ProdDetail" >
+    update prod_detail
+    set buid = #{buid,jdbcType=INTEGER},
+      prod_id = #{prodId,jdbcType=INTEGER},
+      detail = #{detail,jdbcType=LONGVARCHAR},
+      serv_flow = #{servFlow,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.weizhan.entity.ProdDetail" >
+    insert into prod_detail (id, buid, prod_id, 
+      detail, serv_flow)
+    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{prodId,jdbcType=INTEGER}, 
+      #{detail,jdbcType=LONGVARCHAR}, #{servFlow,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into prod_detail
+		(id,buid,prod_id,detail,serv_flow)
+	values 
+	<foreach collection="list" item="item" separator="," index="index">
+		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.prodId,jdbcType=INTEGER},#{item.detail,jdbcType=LONGVARCHAR},#{item.servFlow,jdbcType=LONGVARCHAR})
+	</foreach>
+  </insert>
+  <delete id="batchDel" >
+    		delete from prod_detail
+			where id in 
+				<foreach collection="pks" item="item" separator="," open="(" close=")">
+				#{item,jdbcType=INTEGER}
+			</foreach>
+  </delete>
+  <update id="updateStatus" >
+    		update prod_detail
+			set ${statusColName} = #{delStatusVal, jdbcType=INTEGER}
+			where id in 
+				<foreach collection="pks" item="item" separator="," open="(" close=")">
+				#{item,jdbcType=INTEGER}
+			</foreach>
+  </update>
+  <select id="findByPks" resultMap="BaseResultMap" >
+    		select 
+			<include refid="BaseColumnList" />
+			from prod_detail
+			where id in 
+				<foreach collection="pks" item="item" separator="," open="(" close=")"> 
+					#{item,jdbcType=INTEGER}
+				</foreach>
+  </select>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+		<include refid="BaseColumnList"/>
+	from prod_detail
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="id != null and id > 0" >
+				and id = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="buid != null and buid > 0" >
+				and buid = #{buid,jdbcType=INTEGER}
+			</if>
+			<if test="prodId != null and prodId > 0" >
+				and prod_id = #{prodId,jdbcType=INTEGER}
+			</if>
+			<if test="detail != null and detail != ''" >
+				and detail = #{detail,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="servFlow != null and servFlow != ''" >
+				and serv_flow = #{servFlow,jdbcType=LONGVARCHAR}
+			</if>
+			<!--<if test="queryParam != null">
+				<if test="queryParam.startDate != null and queryParam.startDate != '' ">
+					and create_time &gt;= #{queryParam.startDate, jdbcType=VARCHAR} 
+				</if>
+				<if test="queryParam.endDate != null and queryParam.endDate != ''">
+					and create_time &lt; date_add(#{queryParam.endDate, jdbcType=VARCHAR},interval 1 day)
+				</if>
+				<if test="queryParam.keyword != null and queryParam.keyword != ''">
+					and (name like concat('%', #{queryParam.keyword, jdbcType=VARCHAR}, '%') or other_col like concat('%', #{queryParam.keyword, jdbcType=VARCHAR}, '%') )
+				</if>
+			</if>-->
+		</trim>
+	</where>
+  </select>
+</mapper>

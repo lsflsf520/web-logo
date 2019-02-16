@@ -1,25 +1,12 @@
-CREATE TABLE `channel_user` (
+CREATE TABLE `wx_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键自增长',
-  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id(用于关联用户表)',
-  `channel_id` int(10) unsigned NOT NULL COMMENT '类型，对应的渠道表ID',
-  `channel_uid` varchar(64) NOT NULL COMMENT '第三方用户唯一标识',
+  `phone` varchar(200) NOT NULL COMMENT '手机号，RSA加密存储',
+  `open_id` varchar(64) NOT NULL COMMENT '第三方用户唯一标识',
   `nick_name` varchar(32) NOT NULL COMMENT '用户昵称。',
   `sex` enum('U','F','M') DEFAULT NULL COMMENT '性别:U=未知，M=男，F=女',
   `head_img` varchar(200) DEFAULT NULL COMMENT '用户头像',
-  `invite_uid` varchar(1000) NOT NULL DEFAULT '0' COMMENT '推荐人。将推荐人的推荐链路id按层级一层层存储起来，用英文逗号分隔',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `last_uptime` datetime NOT NULL COMMENT '最后修改时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=168168 DEFAULT CHARSET=utf8mb4 COMMENT '用户信息表';
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `phone` varchar(200) NOT NULL COMMENT '手机号，RSA加密存储',
-  `passowrd` varchar(32) DEFAULT NULL COMMENT '密码，md5加密存储。APP推送过来的用户，这里初始为空',
-  `real_name` varchar(200) DEFAULT NULL COMMENT '姓名，加密存储',
-  `head_img` varchar(200) DEFAULT NULL COMMENT '用户头像',
   `my_code` varchar(20) DEFAULT NULL COMMENT '当前用户邀请码',
-  `invite_uid` varchar(2000) DEFAULT '0' COMMENT '推荐人（或服务工程师的uid）。将推荐人的推荐链路id按层级一层层存储起来，用英文逗号分隔',
+  `invite_uid` varchar(1000) NOT NULL DEFAULT '0' COMMENT '推荐人。将推荐人的推荐链路id按层级一层层存储起来，用英文逗号分隔',
   `utype` enum('User','BUser') DEFAULT NULL COMMENT '用户类型。普通用户、合作商户',
   `status` enum('Deleted','Freezed','Normal') DEFAULT NULL COMMENT '状态',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -27,7 +14,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `phone_ind` (`phone`),
   UNIQUE KEY `my_code_ind` (`my_code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=68168168 DEFAULT CHARSET=utf8 COMMENT '用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=168168 DEFAULT CHARSET=utf8mb4 COMMENT '用户信息表';
 
 create table site_info(
   `id` int primary key auto_increment,
@@ -51,7 +38,7 @@ create table site_info(
 create table img_text(
   `id` int primary key auto_increment,
   `buid` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '合作商户id(用于关联用户表)',
-  `it_type` enum('Image', 'Text') NOT NULL comment '图文类型。图片、文字'
+  `it_type` enum('Image', 'Text') NOT NULL comment '图文类型。图片、文字',
   `img` varchar(200) comment '环境图片',
   `remark` text comment '针对图片的文字描述',
   `data_time` datetime comment '数据所属时间',

@@ -27,7 +27,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
     </context:component-scan>
    
-    <!-- statdata  begin -->
+    <!-- logo  begin -->
     <bean id="logoSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource">
           <ref bean="logoDataSource"/>
@@ -45,6 +45,26 @@
         <property name="sqlSessionTemplateBeanName" value="logoSqlSessionTemplate"/> 
         <property name="markerInterface" value="com.xyz.tools.db.dao.IBaseDao"/>
    </bean>
-   <!-- statdata end -->
+   <!-- logo end -->
+   
+   <!-- weizhan  begin -->
+    <bean id="weizhanSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource">
+          <ref bean="weizhanDataSource"/>
+        </property>  
+        <property name="mapperLocations"  
+            value="classpath:mapper/weizhan/*Mapper.xml" />  
+   </bean> 
+    
+   <bean id="weizhanSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">    
+        <constructor-arg index="0" ref="weizhanSqlSessionFactory" />    
+   </bean>    
+      
+   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="basePackage" value="com.fshl.xy.weizhan.dao" /> 
+        <property name="sqlSessionTemplateBeanName" value="weizhanSqlSessionTemplate"/> 
+        <property name="markerInterface" value="com.xyz.tools.db.dao.IBaseDao"/>
+   </bean>
+   <!-- weizhan end -->
 
 </beans>
