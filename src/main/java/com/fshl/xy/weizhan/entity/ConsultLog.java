@@ -1,6 +1,6 @@
 package com.fshl.xy.weizhan.entity;
 
-import com.fshl.xy.logo.constant.Quality;
+import com.fshl.xy.weizhan.constant.Quality;
 import com.xyz.tools.db.bean.BaseEntity;
 import java.util.Date;
 

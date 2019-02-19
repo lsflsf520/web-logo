@@ -1,8 +1,9 @@
 package com.fshl.xy.weizhan.entity;
 
+import java.util.Date;
+
 import com.xyz.tools.common.constant.CommonStatus;
 import com.xyz.tools.db.bean.BaseEntity;
-import java.util.Date;
 
 public class Prod extends BaseEntity<Integer> {
     private Integer id;
@@ -16,6 +17,8 @@ public class Prod extends BaseEntity<Integer> {
     private String shortName;
 
     private String img;
+    
+    private Integer priority;
 
     private CommonStatus status;
 
@@ -70,8 +73,16 @@ public class Prod extends BaseEntity<Integer> {
     public void setImg(String img) {
         this.img = img == null ? null : img.trim();
     }
+    
+    public Integer getPriority() {
+		return priority;
+	}
 
-    public CommonStatus getStatus() {
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
+
+	public CommonStatus getStatus() {
         return status;
     }
 

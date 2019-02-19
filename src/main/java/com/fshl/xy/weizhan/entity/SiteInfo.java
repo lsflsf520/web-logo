@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.xyz.tools.common.constant.Bool;
 import com.xyz.tools.common.utils.StringUtil;
 import com.xyz.tools.db.bean.BaseEntity;
 
@@ -25,6 +26,8 @@ public class SiteInfo extends BaseEntity<Integer> {
     private String contactPhone;
 
     private String contactAddr;
+    
+    private Bool noAd;
 
     private String wxQrcode;
 
@@ -115,6 +118,14 @@ public class SiteInfo extends BaseEntity<Integer> {
 
     public void setContactAddr(String contactAddr) {
         this.contactAddr = contactAddr == null ? null : contactAddr.trim();
+    }
+    
+    public Bool getNoAd() {
+        return noAd;
+    }
+
+    public void setNoAd(Bool noAd) {
+        this.noAd = noAd;
     }
 
     public String getWxQrcode() {

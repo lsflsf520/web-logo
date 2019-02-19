@@ -78,7 +78,9 @@
         </div>
     </div>
     <a class="lj_zhixun" href="#">立 即 咨 询</a>
-    <a class="kf_liaojie" href="#"><i></i><img src="/static/weizhan/image/xj_lxkf.jpg" alt=""/><p>点击了解更多</p></a>
+   <c:if test="${site.noAd != 'Y'}">
+    <a class="kf_liaojie" href="http://m.siyufank.cn/"><i></i><img src="/static/weizhan/image/xj_lxkf.jpg" alt=""/><p>点击了解更多</p></a>
+   </c:if>
     <div style="height: 8rem;"></div>
     <div class="db_daoh">
         <a class="hover" title="首页-${site.shortName }" href="/">

@@ -1,4 +1,4 @@
-package com.fshl.xy.logo.constant;
+package com.fshl.xy.weizhan.constant;
 
 public enum Quality {
 	

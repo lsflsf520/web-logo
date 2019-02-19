@@ -11,6 +11,7 @@
     <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
     <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
     <result column="contact_addr" property="contactAddr" jdbcType="VARCHAR" />
+    <result column="no_ad" property="noAd" jdbcType="CHAR" />
     <result column="wx_qrcode" property="wxQrcode" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="banner" property="banner" jdbcType="VARCHAR" />
@@ -25,7 +26,7 @@
   </resultMap>
   <sql id="BaseColumnList" >
     id, buid, name, short_name, logo, domain, contact_name, contact_phone, contact_addr, 
-    wx_qrcode, qq, banner, create_time, last_uptime
+    no_ad, wx_qrcode, qq, banner, create_time, last_uptime
   </sql>
   <sql id="Blob_Column_List" >
     remark, title, keyword, description
@@ -46,14 +47,14 @@
     insert into site_info (id, buid, name, 
       short_name, logo, domain, 
       contact_name, contact_phone, contact_addr, 
-      wx_qrcode, qq, banner, 
+      no_ad, wx_qrcode, qq, banner, 
       create_time, last_uptime, remark, 
       title, keyword, description
       )
     values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{shortName,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, 
       #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{contactAddr,jdbcType=VARCHAR}, 
-      #{wxQrcode,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{banner,jdbcType=VARCHAR}, 
+      #{noAd,jdbcType=CHAR}, #{wxQrcode,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{banner,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR}, 
       #{title,jdbcType=LONGVARCHAR}, #{keyword,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}
       )
@@ -84,6 +85,9 @@
       </if>
       <if test="contactAddr != null" >
         contact_addr = #{contactAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="noAd != null" >
+        no_ad = #{noAd,jdbcType=CHAR},
       </if>
       <if test="wxQrcode != null" >
         wx_qrcode = #{wxQrcode,jdbcType=VARCHAR},
@@ -125,6 +129,7 @@
       contact_name = #{contactName,jdbcType=VARCHAR},
       contact_phone = #{contactPhone,jdbcType=VARCHAR},
       contact_addr = #{contactAddr,jdbcType=VARCHAR},
+      no_ad = #{noAd,jdbcType=CHAR},
       wx_qrcode = #{wxQrcode,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       banner = #{banner,jdbcType=VARCHAR},
@@ -140,24 +145,24 @@
     insert into site_info (id, buid, name, 
       short_name, logo, domain, 
       contact_name, contact_phone, contact_addr, 
-      wx_qrcode, qq, banner, 
+      no_ad, wx_qrcode, qq, banner, 
       create_time, last_uptime, remark, 
       title, keyword, description
       )
     values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{shortName,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, 
       #{contactName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{contactAddr,jdbcType=VARCHAR}, 
-      #{wxQrcode,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{banner,jdbcType=VARCHAR}, 
+      #{noAd,jdbcType=CHAR}, #{wxQrcode,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{banner,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR}, 
       #{title,jdbcType=LONGVARCHAR}, #{keyword,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into site_info
-		(id,buid,name,short_name,logo,domain,contact_name,contact_phone,contact_addr,wx_qrcode,qq,banner,create_time,last_uptime,remark,title,keyword,description)
+		(id,buid,name,short_name,logo,domain,contact_name,contact_phone,contact_addr,no_ad,wx_qrcode,qq,banner,create_time,last_uptime,remark,title,keyword,description)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.shortName,jdbcType=VARCHAR},#{item.logo,jdbcType=VARCHAR},#{item.domain,jdbcType=VARCHAR},#{item.contactName,jdbcType=VARCHAR},#{item.contactPhone,jdbcType=VARCHAR},#{item.contactAddr,jdbcType=VARCHAR},#{item.wxQrcode,jdbcType=VARCHAR},#{item.qq,jdbcType=VARCHAR},#{item.banner,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=LONGVARCHAR},#{item.title,jdbcType=LONGVARCHAR},#{item.keyword,jdbcType=LONGVARCHAR},#{item.description,jdbcType=LONGVARCHAR})
+		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.shortName,jdbcType=VARCHAR},#{item.logo,jdbcType=VARCHAR},#{item.domain,jdbcType=VARCHAR},#{item.contactName,jdbcType=VARCHAR},#{item.contactPhone,jdbcType=VARCHAR},#{item.contactAddr,jdbcType=VARCHAR},#{item.noAd,jdbcType=CHAR},#{item.wxQrcode,jdbcType=VARCHAR},#{item.qq,jdbcType=VARCHAR},#{item.banner,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=LONGVARCHAR},#{item.title,jdbcType=LONGVARCHAR},#{item.keyword,jdbcType=LONGVARCHAR},#{item.description,jdbcType=LONGVARCHAR})
 	</foreach>
   </insert>
   <delete id="batchDel" >
@@ -184,7 +189,7 @@
 					#{item,jdbcType=INTEGER}
 				</foreach>
   </select>
-  <select id="findAll" resultMap="ResultMapWithBLOBs" >
+  <select id="findAll" resultMap="BaseResultMap" >
     select
 		<include refid="BaseColumnList" />
         ,
@@ -218,6 +223,9 @@
 			</if>
 			<if test="contactAddr != null and contactAddr != ''" >
 				and contact_addr = #{contactAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="noAd != null" >
+				and no_ad = #{noAd,jdbcType=CHAR}
 			</if>
 			<if test="wxQrcode != null and wxQrcode != ''" >
 				and wx_qrcode = #{wxQrcode,jdbcType=VARCHAR}

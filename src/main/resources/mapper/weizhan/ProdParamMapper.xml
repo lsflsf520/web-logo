@@ -142,17 +142,13 @@
 			<if test="priority != null and priority > 0" >
 				and priority = #{priority,jdbcType=INTEGER}
 			</if>
-			<!--<if test="queryParam != null">
-				<if test="queryParam.startDate != null and queryParam.startDate != '' ">
-					and create_time &gt;= #{queryParam.startDate, jdbcType=VARCHAR} 
+			<if test="queryParam != null">
+				<if test="queryParam.prodIds != null">
+					<foreach collection="queryParam.prodIds" item="item" separator="," open="(" close=")"> 
+					  ${item}
+				    </foreach>
 				</if>
-				<if test="queryParam.endDate != null and queryParam.endDate != ''">
-					and create_time &lt; date_add(#{queryParam.endDate, jdbcType=VARCHAR},interval 1 day)
-				</if>
-				<if test="queryParam.keyword != null and queryParam.keyword != ''">
-					and (name like concat('%', #{queryParam.keyword, jdbcType=VARCHAR}, '%') or other_col like concat('%', #{queryParam.keyword, jdbcType=VARCHAR}, '%') )
-				</if>
-			</if>-->
+			</if>
 		</trim>
 	</where>
   </select>

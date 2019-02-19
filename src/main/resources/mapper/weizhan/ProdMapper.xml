@@ -8,12 +8,13 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="short_name" property="shortName" jdbcType="VARCHAR" />
     <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_uptime" property="lastUptime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="BaseColumnList" >
-    id, buid, site_id, name, short_name, img, status, create_time, last_uptime
+    id, buid, site_id, name, short_name, img, priority, status, create_time, last_uptime
   </sql>
   <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,12 +29,12 @@
   <insert id="insert" parameterType="com.fshl.xy.weizhan.entity.Prod" >
     insert into prod (id, buid, site_id, 
       name, short_name, img, 
-      status, create_time, last_uptime
-      )
+      priority, status, create_time, 
+      last_uptime)
     values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
-      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}
-      )
+      #{priority,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUptime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPK" parameterType="com.fshl.xy.weizhan.entity.Prod" >
     update prod
@@ -53,6 +54,9 @@
       <if test="img != null" >
         img = #{img,jdbcType=VARCHAR},
       </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
       <if test="status != null" >
         status = #{status,jdbcType=CHAR},
       </if>
@@ -68,19 +72,19 @@
   <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.weizhan.entity.Prod" >
     insert into prod (id, buid, site_id, 
       name, short_name, img, 
-      status, create_time, last_uptime
-      )
+      priority, status, create_time, 
+      last_uptime)
     values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
-      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}
-      )
+      #{priority,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUptime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into prod
-		(id,buid,site_id,name,short_name,img,status,create_time,last_uptime)
+		(id,buid,site_id,name,short_name,img,priority,status,create_time,last_uptime)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.siteId,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.shortName,jdbcType=VARCHAR},#{item.img,jdbcType=VARCHAR},#{item.status,jdbcType=CHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP})
+		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.siteId,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.shortName,jdbcType=VARCHAR},#{item.img,jdbcType=VARCHAR},#{item.priority,jdbcType=INTEGER},#{item.status,jdbcType=CHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP})
 	</foreach>
   </insert>
   <delete id="batchDel" >
@@ -130,6 +134,9 @@
 			</if>
 			<if test="img != null and img != ''" >
 				and img = #{img,jdbcType=VARCHAR}
+			</if>
+			<if test="priority != null and priority > 0" >
+				and priority = #{priority,jdbcType=INTEGER}
 			</if>
 			<if test="status != null" >
 				and status = #{status,jdbcType=CHAR}

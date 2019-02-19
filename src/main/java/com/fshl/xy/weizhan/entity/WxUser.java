@@ -2,7 +2,7 @@ package com.fshl.xy.weizhan.entity;
 
 import java.util.Date;
 
-import com.fshl.xy.logo.constant.UType;
+import com.fshl.xy.weizhan.constant.UType;
 import com.xyz.tools.common.constant.CommonStatus;
 import com.xyz.tools.common.constant.Sex;
 import com.xyz.tools.db.bean.BaseEntity;
