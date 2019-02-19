@@ -9,6 +9,8 @@ public class ConsultLog extends BaseEntity<Integer> {
 
     private Integer buid;
 
+    private Integer siteId;
+
     private Integer uid;
 
     private String content;
@@ -35,6 +37,14 @@ public class ConsultLog extends BaseEntity<Integer> {
 
     public void setBuid(Integer buid) {
         this.buid = buid;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
 
     public Integer getUid() {

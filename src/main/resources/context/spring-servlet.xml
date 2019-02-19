@@ -60,31 +60,11 @@
 		<property name="maxInMemorySize" value="2048" />
 	</bean>
 	
-	<!--<bean id="excludeUrlSet" class="java.util.TreeSet">
-	  <constructor-arg>
-	    <set>
-            <value>/error/**</value>
-        </set>
-	  </constructor-arg>
-	</bean>
-	
-     <mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.yisi.stiku.interceptor.MenuInterceptor"/>
+            <mvc:mapping path="/wz/**"/>
+            <bean class="com.fshl.xy.weizhan.aop.DomainInterceptor"/>
         </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.yisi.stiku.web.interceptor.LoginInterceptor">
-              <property name="excludeUrls" ref="excludeUrlSet"/>
-            </bean>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.yisi.stiku.interceptor.AccessInterceptor">
-              <property name="excludeUrls" ref="excludeUrlSet"/>
-            </bean>
-        </mvc:interceptor>
-    </mvc:interceptors> -->
+    </mvc:interceptors> 
 
 </beans>

@@ -10,6 +10,7 @@ import com.fshl.xy.weizhan.service.ImgTextService;
 import com.fshl.xy.weizhan.service.SiteInfoService;
 
 @Controller
+@RequestMapping("wz")
 public class PageController {
 	
 	@Resource
@@ -17,7 +18,7 @@ public class PageController {
 	@Resource
 	private ImgTextService imgTextService;
 	
-	@RequestMapping("/")
+	@RequestMapping("index")
 	public ModelAndView toIndex() {
 		return new ModelAndView("weizhan/index");
 	}
@@ -25,7 +26,24 @@ public class PageController {
 	@RequestMapping("enviroment")
 	public ModelAndView toEnviroment() {
 		
-		return new ModelAndView("weizhan/enviroment");
+		return new ModelAndView("weizhan/environment");
+	}
+	
+	@RequestMapping("prodList")
+	public ModelAndView prodList() {
+		
+		return new ModelAndView("weizhan/prodList");
+	}
+	
+	@RequestMapping("dynamic")
+	public ModelAndView dynamic() {
+		
+		return new ModelAndView("weizhan/dynamic");
 	}
 
+	@RequestMapping("detail")
+	public ModelAndView prodDetail() {
+		
+		return new ModelAndView("weizhan/detail");
+	}
 }

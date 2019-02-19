@@ -7,6 +7,8 @@ public class ProdDetail extends BaseEntity<Integer> {
 
     private Integer buid;
 
+    private Integer siteId;
+
     private Integer prodId;
 
     private String detail;
@@ -27,6 +29,14 @@ public class ProdDetail extends BaseEntity<Integer> {
 
     public void setBuid(Integer buid) {
         this.buid = buid;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
 
     public Integer getProdId() {

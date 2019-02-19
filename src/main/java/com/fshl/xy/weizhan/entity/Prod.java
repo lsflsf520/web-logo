@@ -9,6 +9,8 @@ public class Prod extends BaseEntity<Integer> {
 
     private Integer buid;
 
+    private Integer siteId;
+
     private String name;
 
     private String shortName;
@@ -35,6 +37,14 @@ public class Prod extends BaseEntity<Integer> {
 
     public void setBuid(Integer buid) {
         this.buid = buid;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
 
     public String getName() {

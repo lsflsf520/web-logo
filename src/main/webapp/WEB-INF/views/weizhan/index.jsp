@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../common/taglibs.jsp" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -65,7 +66,7 @@
         <div class="z_minpz">
             <div>
                 <img src="${site.wxQrcode }" alt=""/>
-                <p>长按识别二维码加微信</p>
+                <p>长按识别加微信</p>
             </div>
         </div>
         <div class="z_minpy">
@@ -80,27 +81,27 @@
     <a class="kf_liaojie" href="#"><i></i><img src="/static/weizhan/image/xj_lxkf.jpg" alt=""/><p>点击了解更多</p></a>
     <div style="height: 8rem;"></div>
     <div class="db_daoh">
-        <a class="hover" href="/">
+        <a class="hover" title="首页-${site.shortName }" href="/">
             <div>
-                <img src="/static/weizhan/image/dbdht01.png" alt=""/>
+                <img src="/static/weizhan/image/dbdht01.png" alt="首页-${site.shortName }"/>
                 <p>首页</p>
             </div>
         </a>
-        <a href="page/environment.html">
+        <a href="/wz/enviroment.do" title="环境-${site.shortName }">
             <div>
-                <img src="/static/weizhan/image/dbdht02.png" alt=""/>
+                <img src="/static/weizhan/image/dbdht02.png" alt="环境-${site.shortName }"/>
                 <p>环境</p>
             </div>
         </a>
-        <a href="page/particulars.html">
+        <a href="/wz/prodList.do" title="产品-${site.shortName }">
             <div>
-                <img src="/static/weizhan/image/dbdht03.png" alt=""/>
+                <img src="/static/weizhan/image/dbdht03.png" alt="产品-${site.shortName }"/>
                 <p>产品</p>
             </div>
         </a>
-        <a href="page/dynamic.html">
+        <a href="/wz/dynamic.do" title="动态-${site.shortName }">
             <div>
-                <img src="/static/weizhan/image/dbdht04.png" alt=""/>
+                <img src="/static/weizhan/image/dbdht04.png" alt="动态-${site.shortName }"/>
                 <p>动态</p>
             </div>
         </a>

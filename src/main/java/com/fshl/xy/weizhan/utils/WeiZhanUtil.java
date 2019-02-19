@@ -8,4 +8,6 @@ public class WeiZhanUtil {
 	
 	public static final String BUSER_KEY = "buser";
 	
+	public static final String BUSER_ID_KEY = "buserId";
+	
 }

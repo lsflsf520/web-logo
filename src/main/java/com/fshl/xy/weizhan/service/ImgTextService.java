@@ -35,6 +35,7 @@ public class ImgTextService extends AbstractBaseService<Integer, ImgText> {
     
     public PageData<ImgText> loadBySiteId(int siteId, int currPage) {
     	ImgText query = new ImgText();
+    	query.setSiteId(siteId);
     	
     	return this.findByPage(query, currPage, 10);
     }

@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.fshl.xy.weizhan.entity.ImgText" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="buid" property="buid" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
     <result column="it_type" property="itType" jdbcType="CHAR" />
     <result column="img" property="img" jdbcType="VARCHAR" />
     <result column="data_time" property="dataTime" jdbcType="TIMESTAMP" />
@@ -15,7 +16,7 @@
     <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="BaseColumnList" >
-    id, buid, it_type, img, data_time, status, create_time, last_uptime
+    id, buid, site_id, it_type, img, data_time, status, create_time, last_uptime
   </sql>
   <sql id="Blob_Column_List" >
     remark
@@ -33,20 +34,23 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.fshl.xy.weizhan.entity.ImgText" >
-    insert into img_text (id, buid, it_type, 
-      img, data_time, status, 
-      create_time, last_uptime, remark
-      )
-    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{itType,jdbcType=CHAR}, 
-      #{img,jdbcType=VARCHAR}, #{dataTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR}
-      )
+    insert into img_text (id, buid, site_id, 
+      it_type, img, data_time, 
+      status, create_time, last_uptime, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
+      #{itType,jdbcType=CHAR}, #{img,jdbcType=VARCHAR}, #{dataTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <update id="updateByPK" parameterType="com.fshl.xy.weizhan.entity.ImgText" >
     update img_text
     <set >
       <if test="buid != null" >
         buid = #{buid,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
       </if>
       <if test="itType != null" >
         it_type = #{itType,jdbcType=CHAR},
@@ -75,6 +79,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fshl.xy.weizhan.entity.ImgText" >
     update img_text
     set buid = #{buid,jdbcType=INTEGER},
+      site_id = #{siteId,jdbcType=INTEGER},
       it_type = #{itType,jdbcType=CHAR},
       img = #{img,jdbcType=VARCHAR},
       data_time = #{dataTime,jdbcType=TIMESTAMP},
@@ -85,21 +90,21 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.weizhan.entity.ImgText" >
-    insert into img_text (id, buid, it_type, 
-      img, data_time, status, 
-      create_time, last_uptime, remark
-      )
-    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{itType,jdbcType=CHAR}, 
-      #{img,jdbcType=VARCHAR}, #{dataTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR}
-      )
+    insert into img_text (id, buid, site_id, 
+      it_type, img, data_time, 
+      status, create_time, last_uptime, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
+      #{itType,jdbcType=CHAR}, #{img,jdbcType=VARCHAR}, #{dataTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into img_text
-		(id,buid,it_type,img,data_time,status,create_time,last_uptime,remark)
+		(id,buid,site_id,it_type,img,data_time,status,create_time,last_uptime,remark)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.itType,jdbcType=CHAR},#{item.img,jdbcType=VARCHAR},#{item.dataTime,jdbcType=TIMESTAMP},#{item.status,jdbcType=CHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=LONGVARCHAR})
+		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.siteId,jdbcType=INTEGER},#{item.itType,jdbcType=CHAR},#{item.img,jdbcType=VARCHAR},#{item.dataTime,jdbcType=TIMESTAMP},#{item.status,jdbcType=CHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP},#{item.remark,jdbcType=LONGVARCHAR})
 	</foreach>
   </insert>
   <delete id="batchDel" >
@@ -137,6 +142,9 @@
 			</if>
 			<if test="buid != null and buid > 0" >
 				and buid = #{buid,jdbcType=INTEGER}
+			</if>
+			<if test="siteId != null and siteId > 0" >
+				and site_id = #{siteId,jdbcType=INTEGER}
 			</if>
 			<if test="itType != null" >
 				and it_type = #{itType,jdbcType=CHAR}

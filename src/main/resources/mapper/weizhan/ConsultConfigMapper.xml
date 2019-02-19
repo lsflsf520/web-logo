@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.fshl.xy.weizhan.entity.ConsultConfig" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="buid" property="buid" jdbcType="INTEGER" />
+    <result column="site_id" property="siteId" jdbcType="INTEGER" />
     <result column="field_name" property="fieldName" jdbcType="VARCHAR" />
     <result column="option_type" property="optionType" jdbcType="CHAR" />
     <result column="options" property="options" jdbcType="VARCHAR" />
@@ -12,7 +13,7 @@
     <result column="last_uptime" property="lastUptime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="BaseColumnList" >
-    id, buid, field_name, option_type, options, priority, create_time, last_uptime
+    id, buid, site_id, field_name, option_type, options, priority, create_time, last_uptime
   </sql>
   <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,18 +26,23 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.fshl.xy.weizhan.entity.ConsultConfig" >
-    insert into consult_config (id, buid, field_name, 
-      option_type, options, priority, 
-      create_time, last_uptime)
-    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{fieldName,jdbcType=VARCHAR}, 
-      #{optionType,jdbcType=CHAR}, #{options,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP})
+    insert into consult_config (id, buid, site_id, 
+      field_name, option_type, options, 
+      priority, create_time, last_uptime
+      )
+    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
+      #{fieldName,jdbcType=VARCHAR}, #{optionType,jdbcType=CHAR}, #{options,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <update id="updateByPK" parameterType="com.fshl.xy.weizhan.entity.ConsultConfig" >
     update consult_config
     <set >
       <if test="buid != null" >
         buid = #{buid,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null" >
+        site_id = #{siteId,jdbcType=INTEGER},
       </if>
       <if test="fieldName != null" >
         field_name = #{fieldName,jdbcType=VARCHAR},
@@ -60,19 +66,21 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.weizhan.entity.ConsultConfig" >
-    insert into consult_config (id, buid, field_name, 
-      option_type, options, priority, 
-      create_time, last_uptime)
-    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{fieldName,jdbcType=VARCHAR}, 
-      #{optionType,jdbcType=CHAR}, #{options,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP})
+    insert into consult_config (id, buid, site_id, 
+      field_name, option_type, options, 
+      priority, create_time, last_uptime
+      )
+    values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
+      #{fieldName,jdbcType=VARCHAR}, #{optionType,jdbcType=CHAR}, #{options,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastUptime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into consult_config
-		(id,buid,field_name,option_type,options,priority,create_time,last_uptime)
+		(id,buid,site_id,field_name,option_type,options,priority,create_time,last_uptime)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.fieldName,jdbcType=VARCHAR},#{item.optionType,jdbcType=CHAR},#{item.options,jdbcType=VARCHAR},#{item.priority,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP})
+		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.siteId,jdbcType=INTEGER},#{item.fieldName,jdbcType=VARCHAR},#{item.optionType,jdbcType=CHAR},#{item.options,jdbcType=VARCHAR},#{item.priority,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP})
 	</foreach>
   </insert>
   <delete id="batchDel" >
@@ -110,6 +118,9 @@
 			</if>
 			<if test="buid != null and buid > 0" >
 				and buid = #{buid,jdbcType=INTEGER}
+			</if>
+			<if test="siteId != null and siteId > 0" >
+				and site_id = #{siteId,jdbcType=INTEGER}
 			</if>
 			<if test="fieldName != null and fieldName != ''" >
 				and field_name = #{fieldName,jdbcType=VARCHAR}

@@ -13,7 +13,7 @@ import com.xyz.tools.common.exception.BaseRuntimeException;
 import com.xyz.tools.common.utils.ThreadUtil;
 import com.xyz.tools.web.aop.AbstractInterceptor;
 
-public class SiteIdInterceptor extends AbstractInterceptor {
+public class DomainInterceptor extends AbstractInterceptor {
 	
 	@Resource
 	private SiteInfoService siteInfoService;
@@ -41,10 +41,12 @@ public class SiteIdInterceptor extends AbstractInterceptor {
 		ThreadUtil.putIfAbsent(WeiZhanUtil.SITE_KEY, dbData);
 		ThreadUtil.putIfAbsent(WeiZhanUtil.SITE_ID_KEY, dbData.getId());
 		ThreadUtil.putIfAbsent(WeiZhanUtil.BUSER_KEY, wxUser);
+		ThreadUtil.putIfAbsent(WeiZhanUtil.BUSER_ID_KEY, wxUser.getId());
 		
 		request.setAttribute(WeiZhanUtil.SITE_KEY, dbData);
 		request.setAttribute(WeiZhanUtil.SITE_ID_KEY, dbData.getId());
 		request.setAttribute(WeiZhanUtil.BUSER_KEY, wxUser);
+		request.setAttribute(WeiZhanUtil.BUSER_ID_KEY, wxUser.getId());
 		
 		return true;
 	}
