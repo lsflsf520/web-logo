@@ -1,10 +1,11 @@
 package com.fshl.xy.weizhan.entity;
 
+import java.util.Date;
+
 import com.fshl.xy.logo.constant.UType;
 import com.xyz.tools.common.constant.CommonStatus;
 import com.xyz.tools.common.constant.Sex;
 import com.xyz.tools.db.bean.BaseEntity;
-import java.util.Date;
 
 public class WxUser extends BaseEntity<Integer> {
     private Integer id;
@@ -130,5 +131,9 @@ public class WxUser extends BaseEntity<Integer> {
     @Override
     public Integer getPK() {
         return id;
+    }
+    
+    public boolean isNormal() {
+    	return CommonStatus.Normal.equals(this.getStatus());
     }
 }

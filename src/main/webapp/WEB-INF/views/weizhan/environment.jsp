@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0" />
+    <title>工作环境-${site.shortName}</title>
+    <link rel="stylesheet" href="/static/weizhan/css/mui.min.css"/>
+    <link rel="stylesheet" href="/static/weizhan/css/index.css?v=1"/>
+</head>
+<body>
+    <div class="zpzhaos">
+            <img src="../image/424436_1471914687849.png" alt=""/>
+            <p>员工办公室</p>
+    </div>
+    <div class="zpzhaos">
+            <img src="../image/Img308075215.png" alt=""/>
+            <p>公司有自己的蔬菜种植基地，采取人工施肥料理的方式，为广大市民提供健康无公害绿色蔬菜食品。 <a href="#">详情&gt;&gt;&gt;</a></p>
+    </div>
+    <div class="zpzhaos">
+            <img src="../image/c160a0f3976d97d4c3ef0f8c432ef03c.png" alt=""/>
+            <p>总经理办公室</p>
+    </div>
+    <a class="lj_zhixun" href="#">立 即 咨 询</a>
+    <div style="height: 8rem;"></div>
+    <div class="db_daoh">
+        <a href="../index.html">
+            <div>
+                <img src="/static/weizhan/image/dbdht01.png" alt=""/>
+                <p>首页</p>
+            </div>
+        </a>
+        <a class="hover" href="environment.html">
+            <div>
+                <img src="/static/weizhan/image/dbdht02.png" alt=""/>
+                <p>环境</p>
+            </div>
+        </a>
+        <a href="particulars.html">
+            <div>
+                <img src="/static/weizhan/image/dbdht03.png" alt=""/>
+                <p>产品</p>
+            </div>
+        </a>
+        <a href="dynamic.html">
+            <div>
+                <img src="/static/weizhan/image/dbdht04.png" alt=""/>
+                <p>动态</p>
+            </div>
+        </a>
+    </div>
+    <script src="/static/weizhan/js/jquery-1.7.2.min.js"></script>
+    <script src="/static/weizhan/js/common.js?v=1"></script>
+</body>
+</html>

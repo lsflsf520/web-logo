@@ -1,11 +1,14 @@
 package com.fshl.xy.weizhan.service;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.fshl.xy.weizhan.dao.ImgTextDao;
 import com.fshl.xy.weizhan.entity.ImgText;
+import com.xyz.tools.db.bean.PageData;
 import com.xyz.tools.db.dao.IBaseDao;
 import com.xyz.tools.db.service.AbstractBaseService;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ImgTextService extends AbstractBaseService<Integer, ImgText> {
@@ -28,5 +31,11 @@ public class ImgTextService extends AbstractBaseService<Integer, ImgText> {
         }
         this.update(imgText);
         return imgText.getPK();
+    }
+    
+    public PageData<ImgText> loadBySiteId(int siteId, int currPage) {
+    	ImgText query = new ImgText();
+    	
+    	return this.findByPage(query, currPage, 10);
     }
 }

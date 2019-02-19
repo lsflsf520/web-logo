@@ -1,7 +1,11 @@
 package com.fshl.xy.weizhan.entity;
 
-import com.xyz.tools.db.bean.BaseEntity;
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.xyz.tools.common.utils.StringUtil;
+import com.xyz.tools.db.bean.BaseEntity;
 
 public class SiteInfo extends BaseEntity<Integer> {
     private Integer id;
@@ -11,6 +15,10 @@ public class SiteInfo extends BaseEntity<Integer> {
     private String name;
 
     private String shortName;
+    
+    private String logo;
+    
+    private String domain;
 
     private String contactName;
 
@@ -22,7 +30,8 @@ public class SiteInfo extends BaseEntity<Integer> {
 
     private String qq;
 
-    private String banner;
+//    private String banner;
+    private String[] banners;
 
     private Date createTime;
 
@@ -67,8 +76,24 @@ public class SiteInfo extends BaseEntity<Integer> {
     public void setShortName(String shortName) {
         this.shortName = shortName == null ? null : shortName.trim();
     }
+    
+    public String getLogo() {
+		return logo;
+	}
 
-    public String getContactName() {
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getContactName() {
         return contactName;
     }
 
@@ -109,11 +134,15 @@ public class SiteInfo extends BaseEntity<Integer> {
     }
 
     public String getBanner() {
-        return banner;
+//        return banner;
+    	return StringUtils.join(this.banners, ",");
     }
 
     public void setBanner(String banner) {
-        this.banner = banner == null ? null : banner.trim();
+//        this.banner = banner == null ? null : banner.trim();
+    	if(StringUtils.isNotBlank(banner)) {
+    		this.banners = StringUtil.toSet(banner).toArray(new String[0]);
+    	}
     }
 
     public Date getCreateTime() {
@@ -167,5 +196,21 @@ public class SiteInfo extends BaseEntity<Integer> {
     @Override
     public Integer getPK() {
         return id;
+    }
+    
+    public String[] getBanners() {
+    	return this.banners;
+    }
+    
+    public void setBanners(String[] banners) {
+    	this.banners = banners;
+    }
+    
+    public String getFirstBanner() {
+    	return this.banners == null || this.banners.length <= 0 ? null : this.banners[0];
+    }
+    
+    public String getLastBanner() {
+    	return this.banners == null || this.banners.length <= 0 ? null : this.banners[this.banners.length - 1];
     }
 }

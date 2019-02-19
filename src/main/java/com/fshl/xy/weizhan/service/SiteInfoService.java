@@ -1,11 +1,13 @@
 package com.fshl.xy.weizhan.service;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.fshl.xy.weizhan.dao.SiteInfoDao;
 import com.fshl.xy.weizhan.entity.SiteInfo;
 import com.xyz.tools.db.dao.IBaseDao;
 import com.xyz.tools.db.service.AbstractBaseService;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 
 @Service
 public class SiteInfoService extends AbstractBaseService<Integer, SiteInfo> {
@@ -28,5 +30,16 @@ public class SiteInfoService extends AbstractBaseService<Integer, SiteInfo> {
         }
         this.update(siteInfo);
         return siteInfo.getPK();
+    }
+    
+    /**
+     * 根据域名返回站点信息
+     * @return
+     */
+    public SiteInfo loadByDomain(String domain) {
+    	SiteInfo query = new SiteInfo();
+    	query.setDomain(domain);
+    	
+    	return this.findOne(query);
     }
 }

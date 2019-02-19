@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0" />
+    <title></title>
+    <link rel="stylesheet" href="css/mui.min.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <style>
+        .mui-slider .mui-slider-group .mui-slider-item img{height: 120px;}
+    </style>
+</head>
+<body>
+    <header class="indsy_top">
+        <img src="image/lunbotu01.jpg" alt=""/>
+        <span>某某农业科技开发有限公司</span>
+    </header>
+    <!--mui轮播开始-->
+    <div class="mui_lunbot">
+        <div id="slider" class="mui-slider" >
+            <div class="mui-slider-group mui-slider-loop">
+                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="image/yuantiao.jpg">
+                    </a>
+                </div>
+                <!-- 第一张 -->
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="image/shuijiao.jpg">
+                    </a>
+                </div>
+                <!-- 第二张 -->
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="image/muwu.jpg">
+                    </a>
+                </div>
+                <!-- 第三张 -->
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="image/cbd.jpg">
+                    </a>
+                </div>
+                <!-- 第四张 -->
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="image/yuantiao.jpg">
+                    </a>
+                </div>
+                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="image/shuijiao.jpg">
+                    </a>
+                </div>
+            </div>
+            <div class="mui-slider-indicator">
+                <div class="mui-indicator mui-active"></div>
+                <div class="mui-indicator"></div>
+                <div class="mui-indicator"></div>
+                <div class="mui-indicator"></div>
+            </div>
+        </div>
+    </div>
+    <!--mui轮播结束-->
+    <div class="neiro_text">
+        <p>某某农业科技开发有限公司始创于1992年，是一家集
+            科研、生产、销售、技术服务于一体的规模化专业型农业
+            科技公司。公司本着“科技为民所用”的原则，致力于农
+            业科技成果的转化和推广，在研发具有自主知识产权产品
+            的同时，以亚洲为中心，积极引进和筛选来自世界各地的
+            优质产品资源。目前，公司拥有子公司四个，经营着大田
+            作物种子、蔬菜种子和农化产品三块业务，在企业经营管
+            理上实行董事会领导下的总经理负责制。按照现代企业制
+            度的要求，坚持有利于科研、有利于生产、有利于销售的
+            “三个有利于”原则；在管理机构的设置上则坚持减少层
+            次、职责分明、提高效率的原则。
+        </p>
+    </div>
+    <div class="wdmx_pian">
+        <div class="z_minpz">
+            <div>
+                <img src="image/mp_erweim.jpg" alt=""/>
+                <p>长按识别二维码加微信</p>
+            </div>
+        </div>
+        <div class="z_minpy">
+            <div>
+                <p>联系人：XXX经理</p>
+                <p>手机号：17773130001</p>
+                <p>联系地址：湖南省长沙市岳麓区</p>
+            </div>
+        </div>
+    </div>
+    <a class="lj_zhixun" href="#">立 即 咨 询</a>
+    <a class="kf_liaojie" href="#"><i></i><img src="image/xj_lxkf.jpg" alt=""/><p>点击了解更多</p></a>
+    <div style="height: 8rem;"></div>
+    <div class="db_daoh">
+        <a class="hover" href="index.html">
+            <div>
+                <img src="image/dbdht01.png" alt=""/>
+                <p>首页</p>
+            </div>
+        </a>
+        <a href="page/environment.html">
+            <div>
+                <img src="image/dbdht02.png" alt=""/>
+                <p>环境</p>
+            </div>
+        </a>
+        <a href="page/particulars.html">
+            <div>
+                <img src="image/dbdht03.png" alt=""/>
+                <p>产品</p>
+            </div>
+        </a>
+        <a href="page/dynamic.html">
+            <div>
+                <img src="image/dbdht04.png" alt=""/>
+                <p>动态</p>
+            </div>
+        </a>
+    </div>
+
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/common.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init({
+            swipeBack:true //启用右滑关闭功能
+        });
+        var slider = mui("#slider");
+        slider.slider({
+            interval: 5000
+        });
+    </script>
+</body>
+</html>
