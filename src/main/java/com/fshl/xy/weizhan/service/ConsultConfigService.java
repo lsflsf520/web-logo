@@ -1,11 +1,13 @@
 package com.fshl.xy.weizhan.service;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.fshl.xy.weizhan.dao.ConsultConfigDao;
 import com.fshl.xy.weizhan.entity.ConsultConfig;
 import com.xyz.tools.db.dao.IBaseDao;
 import com.xyz.tools.db.service.AbstractBaseService;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ConsultConfigService extends AbstractBaseService<Integer, ConsultConfig> {
@@ -28,5 +30,12 @@ public class ConsultConfigService extends AbstractBaseService<Integer, ConsultCo
         }
         this.update(consultConfig);
         return consultConfig.getPK();
+    }
+    
+    public ConsultConfig loadBySiteId(int siteId) {
+    	ConsultConfig query = new ConsultConfig();
+    	query.setSiteId(siteId);
+    	
+    	return this.findOne(query);
     }
 }

@@ -52,6 +52,23 @@
         <property name="dataSource">
           <ref bean="weizhanDataSource"/>
         </property>  
+        <property name="plugins">
+          <array>
+            <bean class="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+              <property name="properties">
+                <value>dialectClass=com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect</value>
+              </property>
+            </bean>
+            <bean class="com.xyz.tools.db.aop.ModifyInterceptor">
+              <!-- <property name="properties">
+                <value>msgTables=dict;teacher;area;</value>
+              </property>
+              <property name="activeMQMsgSender" ref="mqMsgSender" />
+              <property name="destination" ref="dbModifyQueueDestination" /> -->
+            </bean>
+            <bean class="com.xyz.tools.db.aop.QueryInterceptor" />
+          </array>
+        </property>
         <property name="mapperLocations"  
             value="classpath:mapper/weizhan/*Mapper.xml" />  
    </bean> 

@@ -6,17 +6,22 @@
 <head lang="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0" />
-    <title>工作环境-${site.shortName}</title>
+    <title>动态-${site.shortName}</title>
     <link rel="stylesheet" href="/static/weizhan/css/mui.min.css"/>
     <link rel="stylesheet" href="/static/weizhan/css/index.css?v=1"/>
 </head>
 <body>
-   <c:forEach var="item" items="${dataPage.datas}" varStatus="status"> 
-    <div class="zpzhaos">
-            <img src="${item.img }" alt=""/>
-            <p>${item.remark }</p>
+    <div class="wo_dongt">
+        <c:forEach var="item" items="${dataPage.datas}" varStatus="status"> 
+		    <div class="gt_zhidt">
+	            <div class="dt_time">${item.dataTimeStr }</div>
+	            <div class="dt_tuwhp">
+	                <p>${item.remark }</p>
+	                <img src="${item.img }" alt=""/>
+	            </div>
+	        </div>
+		</c:forEach>
     </div>
-   </c:forEach>
     
     <a class="lj_zhixun" href="#">立 即 咨 询</a>
     <div style="height: 8rem;"></div>

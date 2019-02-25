@@ -41,6 +41,8 @@ body{background-color: #fff;}
 .sg_xianq .nq_toup2 p{font-size: 1.3rem;color: #3F3F3F;}
 .sg_xianq a{font-size: 1.3rem;color: #3F3F3F;}
 
+.nq_toup img{width:7rem;height:6rem;}
+
 .zd_xqtoub{border: 2px solid #23aa38;text-align: center;line-height: 4rem;position: relative;}
 .zd_xqtoub a{position: absolute;top: 0;left: 2rem;font-size: 1.4rem;color: #3F3F3F;}
 .zd_xqtoub p{margin: 0;font-size: 1.7rem;color: #3F3F3F;}

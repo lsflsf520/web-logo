@@ -82,36 +82,8 @@
     <a class="kf_liaojie" href="http://m.siyufank.cn/"><i></i><img src="/static/weizhan/image/xj_lxkf.jpg" alt=""/><p>点击了解更多</p></a>
    </c:if>
     <div style="height: 8rem;"></div>
-    <div class="db_daoh">
-        <a class="hover" title="首页-${site.shortName }" href="/">
-            <div>
-                <img src="/static/weizhan/image/dbdht01.png" alt="首页-${site.shortName }"/>
-                <p>首页</p>
-            </div>
-        </a>
-        <a href="/wz/enviroment.do" title="环境-${site.shortName }">
-            <div>
-                <img src="/static/weizhan/image/dbdht02.png" alt="环境-${site.shortName }"/>
-                <p>环境</p>
-            </div>
-        </a>
-        <a href="/wz/prodList.do" title="产品-${site.shortName }">
-            <div>
-                <img src="/static/weizhan/image/dbdht03.png" alt="产品-${site.shortName }"/>
-                <p>产品</p>
-            </div>
-        </a>
-        <a href="/wz/dynamic.do" title="动态-${site.shortName }">
-            <div>
-                <img src="/static/weizhan/image/dbdht04.png" alt="动态-${site.shortName }"/>
-                <p>动态</p>
-            </div>
-        </a>
-    </div>
-
-    <script src="/static/weizhan/js/jquery-1.7.2.min.js"></script>
-    <script src="/static/weizhan/js/mui.min.js"></script>
-    <script src="/static/weizhan/js/common.js?v=1"></script>
+    
+    <%@ include file="toolbar.jsp" %>
     <script type="text/javascript" charset="utf-8">
         mui.init({
             swipeBack:true //启用右滑关闭功能

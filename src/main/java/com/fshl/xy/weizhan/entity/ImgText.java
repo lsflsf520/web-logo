@@ -1,9 +1,11 @@
 package com.fshl.xy.weizhan.entity;
 
+import java.util.Date;
+
 import com.fshl.xy.weizhan.constant.ITType;
 import com.xyz.tools.common.constant.CommonStatus;
+import com.xyz.tools.common.utils.DateUtil;
 import com.xyz.tools.db.bean.BaseEntity;
-import java.util.Date;
 
 public class ImgText extends BaseEntity<Integer> {
     private Integer id;
@@ -109,5 +111,9 @@ public class ImgText extends BaseEntity<Integer> {
     @Override
     public Integer getPK() {
         return id;
+    }
+    
+    public String getDataTimeStr() {
+    	return DateUtil.formatDate(this.getDataTime(), "yyyy年MM月dd日");
     }
 }

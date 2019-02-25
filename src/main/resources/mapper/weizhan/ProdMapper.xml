@@ -155,4 +155,30 @@
 		</trim>
 	</where>
   </select>
+  
+  <resultMap id="prodListVOBaseResultMap" type="com.fshl.xy.weizhan.vo.ProdListVO" extends="BaseResultMap" />
+  <select id="loadProdListVOByPage" resultMap="prodListVOBaseResultMap">
+    select
+		<include refid="BaseColumnList"/>
+	from prod
+	<where>
+		<trim suffixOverrides="and" >
+			<if test="buid != null and buid > 0" >
+				and buid = #{buid,jdbcType=INTEGER}
+			</if>
+			<if test="siteId != null and siteId > 0" >
+				and site_id = #{siteId,jdbcType=INTEGER}
+			</if>
+			<if test="name != null and name != ''" >
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="shortName != null and shortName != ''" >
+				and short_name = #{shortName,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null" >
+				and status = #{status,jdbcType=CHAR}
+			</if>
+		</trim>
+	</where>
+  </select>
 </mapper>

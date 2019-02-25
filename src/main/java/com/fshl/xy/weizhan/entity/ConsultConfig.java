@@ -1,7 +1,9 @@
 package com.fshl.xy.weizhan.entity;
 
-import com.xyz.tools.db.bean.BaseEntity;
 import java.util.Date;
+
+import com.xyz.tools.common.constant.Bool;
+import com.xyz.tools.db.bean.BaseEntity;
 
 public class ConsultConfig extends BaseEntity<Integer> {
     private Integer id;
@@ -15,6 +17,8 @@ public class ConsultConfig extends BaseEntity<Integer> {
     private String optionType;
 
     private String options;
+    
+    private Bool required;
 
     private Integer priority;
 
@@ -69,8 +73,16 @@ public class ConsultConfig extends BaseEntity<Integer> {
     public void setOptions(String options) {
         this.options = options == null ? null : options.trim();
     }
+    
+    public Bool getRequired() {
+		return required;
+	}
 
-    public Integer getPriority() {
+	public void setRequired(Bool required) {
+		this.required = required;
+	}
+
+	public Integer getPriority() {
         return priority;
     }
 

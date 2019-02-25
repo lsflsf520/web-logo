@@ -131,9 +131,11 @@
 					#{item,jdbcType=INTEGER}
 				</foreach>
   </select>
-  <select id="findAll" resultMap="BaseResultMap" >
+  <select id="findAll" resultMap="ResultMapWithBLOBs" >
     select
-		<include refid="BaseColumnList"/>
+		<include refid="BaseColumnList" />
+        ,
+        <include refid="Blob_Column_List" />
 	from img_text
 	<where>
 		<trim suffixOverrides="and" >

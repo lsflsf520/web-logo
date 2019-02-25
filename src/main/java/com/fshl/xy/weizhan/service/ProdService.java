@@ -1,11 +1,17 @@
 package com.fshl.xy.weizhan.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.fshl.xy.weizhan.dao.ProdDao;
 import com.fshl.xy.weizhan.entity.Prod;
+import com.fshl.xy.weizhan.vo.ProdListVO;
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.xyz.tools.common.constant.CommonStatus;
 import com.xyz.tools.db.bean.PageData;
 import com.xyz.tools.db.dao.IBaseDao;
@@ -34,13 +40,15 @@ public class ProdService extends AbstractBaseService<Integer, Prod> {
         return prod.getPK();
     }
     
-    public PageData<Prod> loadByPage(int siteId, int currPage) {
+    public PageData<ProdListVO> loadProdListVOByPage(int siteId, int currPage) {
     	Prod query = new Prod();
     	query.setSiteId(siteId);
     	query.setStatus(CommonStatus.Normal);
     	
-    	PageData<Prod> dataPage = this.findByPage(query, currPage, 10, "priority.asc");
+    	PageBounds bounds = new PageBounds(currPage, 10, Order.formString("priority.asc"));
     	
-    	return dataPage;
+    	List<ProdListVO> dataPage = this.prodDao.loadProdListVOByPage(query, bounds);
+    	
+    	return new PageData<ProdListVO>((PageList<ProdListVO>)dataPage);
     }
 }

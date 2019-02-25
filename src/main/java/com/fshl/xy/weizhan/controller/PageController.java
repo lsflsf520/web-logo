@@ -21,6 +21,8 @@ import com.fshl.xy.weizhan.service.ProdParamService;
 import com.fshl.xy.weizhan.service.ProdService;
 import com.fshl.xy.weizhan.service.SiteInfoService;
 import com.fshl.xy.weizhan.utils.WeiZhanUtil;
+import com.fshl.xy.weizhan.vo.ProdListVO;
+import com.xyz.tools.common.bean.ResultModel;
 import com.xyz.tools.common.utils.ThreadUtil;
 import com.xyz.tools.db.bean.PageData;
 
@@ -41,42 +43,74 @@ public class PageController {
 	
 	@RequestMapping("index")
 	public ModelAndView toIndex() {
-		return new ModelAndView("weizhan/index");
+		return new ModelAndView("weizhan/index", "currPageName", "index");
 	}
 	
-	@RequestMapping("enviroment")
-	public ModelAndView toEnviroment(int currPage) {
+	@RequestMapping("environment")
+	public ModelAndView toEnvironment(int currPage) {
 		int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
 		PageData<ImgText> dataPage = imgTextService.loadEnvBySiteId(siteId, currPage);
-		return new ModelAndView("weizhan/environment", "dataPage", dataPage);
+		ModelAndView mav = new ModelAndView("weizhan/environment", "dataPage", dataPage);
+		mav.addObject("currPageName", "environment");
+		return mav;
 	}
 	
 	@RequestMapping("prodList")
-	public ModelAndView prodList(int currPage) {
+	public ModelAndView prodList() {
 		int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
-		PageData<Prod> dataPage = prodService.loadByPage(siteId, currPage);
+		
+		PageData<ProdListVO> dataPage = loadProdListVOByPage(siteId, 1);
 		
 		ModelAndView mav = new ModelAndView("weizhan/prodList", "dataPage", dataPage);
+		mav.addObject("currPageName", "prodList");
+		return mav;
+	}
+	
+	@RequestMapping("prodListByPage")
+	public ResultModel prodListByPage(int currPage) {
+        int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
+		
+		PageData<ProdListVO> dataPage = loadProdListVOByPage(siteId, currPage);
+		
+		return new ResultModel(dataPage);
+	}
+	
+	/**
+	 * 
+	 * @param siteId 站点ID
+	 * @param currPage 分页页码，从1开始
+	 * @return
+	 */
+	private PageData<ProdListVO> loadProdListVOByPage(int siteId, int currPage) {
+        PageData<ProdListVO> dataPage = prodService.loadProdListVOByPage(siteId, currPage);
 		
 		List<Integer> prodIds = new ArrayList<>();
 		if(!CollectionUtils.isEmpty(dataPage.getDatas())) {
-			for(Prod prod : dataPage.getDatas()) {
+			for(ProdListVO prod : dataPage.getDatas()) {
 				prodIds.add(prod.getId());
 			}
 			
 			Map<Integer, List<ProdParam>> paramMap = prodParamService.loadMainProdParamMap(prodIds.toArray(new Integer[0]));
 			
-			mav.addObject("paramMap", paramMap);
+			for(ProdListVO prod : dataPage.getDatas() ){
+				List<ProdParam> vals = paramMap.get(prod.getId());
+				if(!CollectionUtils.isEmpty(vals)) {
+					prod.setMainParams(vals);
+				}
+			}
 		}
 		
-		return mav;
+		return dataPage;
 	}
 	
 	@RequestMapping("dynamic")
 	public ModelAndView dynamic(int currPage) {
 		int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
 		PageData<ImgText> dataPage = imgTextService.loadDynamicBySiteId(siteId, currPage);
-		return new ModelAndView("weizhan/dynamic", "dataPage", dataPage);
+		ModelAndView mav = new ModelAndView("weizhan/dynamic", "dataPage", dataPage);
+		mav.addObject("currPageName", "dynamic");
+		
+		return mav;
 	}
 
 	@RequestMapping("detail")

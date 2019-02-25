@@ -2,6 +2,8 @@ package com.fshl.xy.weizhan.entity;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.xyz.tools.common.constant.CommonStatus;
 import com.xyz.tools.db.bean.BaseEntity;
 
@@ -109,5 +111,9 @@ public class Prod extends BaseEntity<Integer> {
     @Override
     public Integer getPK() {
         return id;
+    }
+    
+    public String getViewName() {
+    	return StringUtils.isNotBlank(this.getShortName()) ? this.shortName : this.getName();
     }
 }
