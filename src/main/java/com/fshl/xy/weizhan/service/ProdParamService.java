@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fshl.xy.weizhan.dao.ProdParamDao;
 import com.fshl.xy.weizhan.entity.ProdParam;
+import com.xyz.tools.common.constant.Bool;
 import com.xyz.tools.db.dao.IBaseDao;
 import com.xyz.tools.db.service.AbstractBaseService;
 
@@ -49,6 +50,7 @@ public class ProdParamService extends AbstractBaseService<Integer, ProdParam> {
     		return new ArrayList<>();
     	}
     	ProdParam query = new ProdParam();
+    	query.setMainParam(Bool.Y);
     	query.addQueryParam("prodIds", prodIds);
     	
     	return this.findByEntity(query, "priority.asc");

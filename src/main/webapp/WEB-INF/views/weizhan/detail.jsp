@@ -56,6 +56,7 @@
     <div style="height: 3rem;"></div>
     <a class="lj_zhixun" href="#">立 即 咨 询</a>
     
+    <%@ include file="script.jsp" %>
     <%@ include file="zixun_dialog.jsp" %>
 </body>
 </html>

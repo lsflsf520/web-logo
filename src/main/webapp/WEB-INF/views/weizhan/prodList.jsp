@@ -30,8 +30,8 @@
                                 <div class="nq_toup"><img src="${item.img }" alt="${item.shortName }"/></div>
                                 <div class="nq_toup2">
                                     <p>产品名称：${item.viewName }</p>
-                                   <c:forEach var="param" items="${item.mainParams }" varStatus="paramStat">
-                                    <p style=<c:if test="${paramStat.last ? 'margin-bottom: 0;' : '' }"></c:if>>${param.paramName }：${param.paramVal }</p>
+                                   <c:forEach var="paramItem" items="${item.mainParams }" varStatus="paramStat">
+                                    <p style=${paramStat.last ? 'margin-bottom: 0;' : '' }>${paramItem.paramName }：${paramItem.paramVal }</p>
                                    </c:forEach>
                                 </div>
                             </td>
@@ -53,7 +53,7 @@
     
     <%@ include file="toolbar.jsp" %>
     <script>
-
+/*
     mui.init({
         pullRefresh: {
             container: '#pullrefresh',
@@ -72,7 +72,7 @@
            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
     	   return;
        }
-       NetUtil.ajaxload('/weizhan/prodListByPage.do?currPage=' + currPage, function(result){
+       NetUtil.ajaxload('/wz/prodListByPage.do?currPage=' + currPage, function(result){
 	       var html = '';
 	       $(result.model.datas).each(function(i, d){
 	    	  var paramHtml = '';
@@ -97,7 +97,7 @@
 	       $('#nq_sheque').append(html)
        });
     }
-
+*/
 </script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.fshl.xy.weizhan.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -32,10 +34,10 @@ public class ConsultConfigService extends AbstractBaseService<Integer, ConsultCo
         return consultConfig.getPK();
     }
     
-    public ConsultConfig loadBySiteId(int siteId) {
+    public List<ConsultConfig> loadBySiteId(int siteId) {
     	ConsultConfig query = new ConsultConfig();
     	query.setSiteId(siteId);
     	
-    	return this.findOne(query);
+    	return this.findByEntity(query, "priority.asc");
     }
 }

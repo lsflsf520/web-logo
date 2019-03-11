@@ -1,8 +1,10 @@
 package com.fshl.xy.weizhan.entity;
 
-import com.fshl.xy.weizhan.constant.Quality;
-import com.xyz.tools.db.bean.BaseEntity;
 import java.util.Date;
+
+import com.fshl.xy.weizhan.constant.Quality;
+import com.xyz.tools.common.constant.CommonStatus;
+import com.xyz.tools.db.bean.BaseEntity;
 
 public class ConsultLog extends BaseEntity<Integer> {
     private Integer id;
@@ -11,13 +13,15 @@ public class ConsultLog extends BaseEntity<Integer> {
 
     private Integer siteId;
 
-    private Integer uid;
+    private Integer wxUid;
 
-    private String content;
+    private String consuleInfo;
 
     private Quality quality;
 
     private String remark;
+
+    private CommonStatus status;
 
     private Date createTime;
 
@@ -47,20 +51,20 @@ public class ConsultLog extends BaseEntity<Integer> {
         this.siteId = siteId;
     }
 
-    public Integer getUid() {
-        return uid;
+    public Integer getWxUid() {
+        return wxUid;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setWxUid(Integer wxUid) {
+        this.wxUid = wxUid;
     }
 
-    public String getContent() {
-        return content;
+    public String getConsuleInfo() {
+        return consuleInfo;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setConsuleInfo(String consuleInfo) {
+        this.consuleInfo = consuleInfo == null ? null : consuleInfo.trim();
     }
 
     public Quality getQuality() {
@@ -77,6 +81,14 @@ public class ConsultLog extends BaseEntity<Integer> {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public CommonStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CommonStatus status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

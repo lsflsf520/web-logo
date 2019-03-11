@@ -1,8 +1,14 @@
 package com.fshl.xy.weizhan.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.util.CollectionUtils;
+
+import com.fshl.xy.weizhan.constant.OptionType;
 import com.xyz.tools.common.constant.Bool;
+import com.xyz.tools.common.utils.StringUtil;
 import com.xyz.tools.db.bean.BaseEntity;
 
 public class ConsultConfig extends BaseEntity<Integer> {
@@ -14,9 +20,10 @@ public class ConsultConfig extends BaseEntity<Integer> {
 
     private String fieldName;
 
-    private String optionType;
+    private OptionType optionType;
 
-    private String options;
+//    private String option;
+    private Set<String> options;
     
     private Bool required;
 
@@ -58,23 +65,31 @@ public class ConsultConfig extends BaseEntity<Integer> {
         this.fieldName = fieldName == null ? null : fieldName.trim();
     }
 
-    public String getOptionType() {
+    public OptionType getOptionType() {
         return optionType;
     }
 
-    public void setOptionType(String optionType) {
-        this.optionType = optionType == null ? null : optionType.trim();
+    public void setOptionType(OptionType optionType) {
+        this.optionType = optionType;
     }
 
-    public String getOptions() {
-        return options;
-    }
+    public String getOpt() {
+		return CollectionUtils.isEmpty(this.options) ? null : StringUtils.join(this.options, ",");
+	}
 
-    public void setOptions(String options) {
-        this.options = options == null ? null : options.trim();
-    }
-    
-    public Bool getRequired() {
+	public void setOpt(String opt) {
+		this.options = StringUtil.toSet(opt);
+	}
+	
+	public Set<String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(Set<String> options) {
+		this.options = options;
+	}
+
+	public Bool getRequired() {
 		return required;
 	}
 

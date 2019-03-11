@@ -7,14 +7,14 @@
     <result column="site_id" property="siteId" jdbcType="INTEGER" />
     <result column="field_name" property="fieldName" jdbcType="VARCHAR" />
     <result column="option_type" property="optionType" jdbcType="CHAR" />
-    <result column="options" property="options" jdbcType="VARCHAR" />
+    <result column="opt" property="opt" jdbcType="VARCHAR" />
     <result column="required" property="required" jdbcType="CHAR" />
     <result column="priority" property="priority" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_uptime" property="lastUptime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="BaseColumnList" >
-    id, buid, site_id, field_name, option_type, options, required, priority, create_time, 
+    id, buid, site_id, field_name, option_type, opt, required, priority, create_time, 
     last_uptime
   </sql>
   <select id="findByPK" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,11 +29,11 @@
   </delete>
   <insert id="insert" parameterType="com.fshl.xy.weizhan.entity.ConsultConfig" >
     insert into consult_config (id, buid, site_id, 
-      field_name, option_type, options, 
+      field_name, option_type, opt, 
       required, priority, create_time, 
       last_uptime)
     values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
-      #{fieldName,jdbcType=VARCHAR}, #{optionType,jdbcType=CHAR}, #{options,jdbcType=VARCHAR}, 
+      #{fieldName,jdbcType=VARCHAR}, #{optionType,jdbcType=CHAR}, #{opt,jdbcType=VARCHAR}, 
       #{required,jdbcType=CHAR}, #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{lastUptime,jdbcType=TIMESTAMP})
   </insert>
@@ -52,8 +52,8 @@
       <if test="optionType != null" >
         option_type = #{optionType,jdbcType=CHAR},
       </if>
-      <if test="options != null" >
-        options = #{options,jdbcType=VARCHAR},
+      <if test="opt != null" >
+        opt = #{opt,jdbcType=VARCHAR},
       </if>
       <if test="required != null" >
         required = #{required,jdbcType=CHAR},
@@ -72,20 +72,20 @@
   </update>
   <insert id="insertReturnPK" useGeneratedKeys="true" keyProperty="id" parameterType="com.fshl.xy.weizhan.entity.ConsultConfig" >
     insert into consult_config (id, buid, site_id, 
-      field_name, option_type, options, 
+      field_name, option_type, opt, 
       required, priority, create_time, 
       last_uptime)
     values (#{id,jdbcType=INTEGER}, #{buid,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, 
-      #{fieldName,jdbcType=VARCHAR}, #{optionType,jdbcType=CHAR}, #{options,jdbcType=VARCHAR}, 
+      #{fieldName,jdbcType=VARCHAR}, #{optionType,jdbcType=CHAR}, #{opt,jdbcType=VARCHAR}, 
       #{required,jdbcType=CHAR}, #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{lastUptime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertBatch" parameterType="java.util.List" >
     insert into consult_config
-		(id,buid,site_id,field_name,option_type,options,required,priority,create_time,last_uptime)
+		(id,buid,site_id,field_name,option_type,opt,required,priority,create_time,last_uptime)
 	values 
 	<foreach collection="list" item="item" separator="," index="index">
-		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.siteId,jdbcType=INTEGER},#{item.fieldName,jdbcType=VARCHAR},#{item.optionType,jdbcType=CHAR},#{item.options,jdbcType=VARCHAR},#{item.required,jdbcType=CHAR},#{item.priority,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP})
+		(#{item.id,jdbcType=INTEGER},#{item.buid,jdbcType=INTEGER},#{item.siteId,jdbcType=INTEGER},#{item.fieldName,jdbcType=VARCHAR},#{item.optionType,jdbcType=CHAR},#{item.opt,jdbcType=VARCHAR},#{item.required,jdbcType=CHAR},#{item.priority,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.lastUptime,jdbcType=TIMESTAMP})
 	</foreach>
   </insert>
   <delete id="batchDel" >
@@ -133,8 +133,8 @@
 			<if test="optionType != null and optionType != ''" >
 				and option_type = #{optionType,jdbcType=CHAR}
 			</if>
-			<if test="options != null and options != ''" >
-				and options = #{options,jdbcType=VARCHAR}
+			<if test="opt != null and opt != ''" >
+				and opt = #{opt,jdbcType=VARCHAR}
 			</if>
 			<if test="required != null" >
 				and required = #{required,jdbcType=CHAR}

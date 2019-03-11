@@ -8,7 +8,8 @@ var MsgUtil = {
 	 * layer.close(index); });
 	 */
 	alert : function(content, options, yes) {
-		mui.alert(content, options, yes);
+		// mui.alert(content, options, yes);
+		alert(content);
 	},
 
 	error : function(content) {
@@ -65,7 +66,8 @@ var MsgUtil = {
 
 	// 消息提示框，会自动消失
 	toast : function(content, options, end) {
-		mui.msg(content, options, end);
+		// mui.msg(content, options, end);
+		alert(content);
 	},
 
 	// 弹出加载层
