@@ -64,9 +64,13 @@ $('.zx_xintx .nk_bot .ot_sex>div').on('click', 'div', function() {
 $('.zx_xintx .nk_bot .ot_hobby>div').on('click', 'div', function() {
 	$(this).toggleClass('hover');
 });
-$('.lj_zhixun').on('click', function() {
+$('.lj_zhixun,#ljzx').on('click', function() {
 	$('.zx_xintx').toggle(0, '.show_hide')
 });
+$("#closeI").on('click', function() {
+	$('.zx_xintx').hide();
+});
+
 $('.tx_bskuank .nk_top').on('click', 'i', function() {
 	$('.zx_xintx').toggle(0, '.show_hide')
 });

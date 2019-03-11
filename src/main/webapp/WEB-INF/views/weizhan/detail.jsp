@@ -27,7 +27,7 @@
                   <p>${item.paramName }：${item.paramVal }</p>
                 </c:if>
               </c:forEach>
-                <a href="#">立即咨询</a>
+                <a href="#" id="ljzx">立即咨询</a>
             </div>
         </div>
     </div>
