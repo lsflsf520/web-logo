@@ -50,6 +50,6 @@ public class ImgTextService extends AbstractBaseService<Integer, ImgText> {
     	query.setItType(ITType.Dynamic);
     	query.setStatus(CommonStatus.Normal);
     	
-    	return this.findByPage(query, currPage, 10, "id.desc");
+    	return this.findByPage(query, currPage, 10, "data_time.desc");
     }
 }
