@@ -53,26 +53,27 @@
     
     <%@ include file="toolbar.jsp" %>
     <script>
-/*
-    mui.init({
-        pullRefresh: {
-            container: '#pullrefresh',
-            up: {
-                auto:true,
-                contentrefresh: '正在加载...',
-                callback: pullupRefresh
-            }
-        }
-    });
-    
-    var totalPage = ${dataPage.totalPages};
-    var currPage = 1;
-    function pullupRefresh() {
-       if(totalPage < ++currPage) {
+      var totalPage = ${dataPage.totalPages};
+	  var currPage = 1;
+	  if(currPage < totalPage) {
+	 	 mui.init({
+	 	        pullRefresh: {
+	 	            container: '#pullrefresh',
+	 	            up: {
+	 	                auto:true,
+	 	                contentrefresh: '正在加载...',
+	 	                callback: pullupRefresh
+	 	            }
+	 	        }
+	 	 });
+	  }
+	  
+      function pullupRefresh() {
+         if(totalPage < ++currPage) {
            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
     	   return;
-       }
-       NetUtil.ajaxload('/wz/prodListByPage.do?currPage=' + currPage, function(result){
+         }
+         NetUtil.ajaxload('/wz/prodListByPage.do?currPage=' + currPage, function(result){
 	       var html = '';
 	       $(result.model.datas).each(function(i, d){
 	    	  var paramHtml = '';
@@ -95,9 +96,10 @@
 	               '</tr>';
 	       });
 	       $('#nq_sheque').append(html)
-       });
-    }
-*/
+         });
+         mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+      }
+
 </script>
 </body>
 </html>

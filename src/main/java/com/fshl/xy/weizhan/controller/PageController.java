@@ -48,12 +48,22 @@ public class PageController {
 	}
 	
 	@RequestMapping("environment")
-	public ModelAndView toEnvironment(int currPage) {
+	public ModelAndView toEnvironment() {
 		int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
-		PageData<ImgText> dataPage = imgTextService.loadEnvBySiteId(siteId, currPage);
+		PageData<ImgText> dataPage = imgTextService.loadEnvBySiteId(siteId, 1);
 		ModelAndView mav = new ModelAndView("weizhan/environment", "dataPage", dataPage);
 		mav.addObject("currPageName", "environment");
 		return mav;
+	}
+	
+	@RequestMapping("envByPage")
+	@ResponseBody
+	public ResultModel envByPage(int currPage) {
+        int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
+		
+		PageData<ImgText> dataPage = imgTextService.loadEnvBySiteId(siteId, currPage);
+		
+		return new ResultModel(dataPage);
 	}
 	
 	@RequestMapping("prodList")
@@ -106,13 +116,23 @@ public class PageController {
 	}
 	
 	@RequestMapping("dynamic")
-	public ModelAndView dynamic(int currPage) {
+	public ModelAndView dynamic() {
 		int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
-		PageData<ImgText> dataPage = imgTextService.loadDynamicBySiteId(siteId, currPage);
+		PageData<ImgText> dataPage = imgTextService.loadDynamicBySiteId(siteId, 1);
 		ModelAndView mav = new ModelAndView("weizhan/dynamic", "dataPage", dataPage);
 		mav.addObject("currPageName", "dynamic");
 		
 		return mav;
+	}
+	
+	@RequestMapping("dynamicByPage")
+	@ResponseBody
+	public ResultModel dynamicByPage(int currPage) {
+        int siteId = ThreadUtil.get(WeiZhanUtil.SITE_ID_KEY);
+		
+		PageData<ImgText> dataPage = imgTextService.loadDynamicBySiteId(siteId, currPage);
+		
+		return new ResultModel(dataPage);
 	}
 
 	@RequestMapping("detail")

@@ -1,3 +1,8 @@
+
+insert into img_text(buid, site_id, it_type, img, remark, data_time, status, create_time, last_uptime) 
+ select 1, 10001, 'Dynamic', 'http://static.siyufank.cn/zhaozhaoying/def_logo.png', concat(SUBSTR(user_name,1,1), '老板委托朝朝盈代理注册商标“', SUBSTR(logo_name,1,1), '**”'), create_time, 'Normal', create_time, create_time from logo_test.busi_logo where order_type = 0;
+
+
 create table gupiao(
     id int primary key auto_increment,
     name varchar(50) comment '股票名称',
