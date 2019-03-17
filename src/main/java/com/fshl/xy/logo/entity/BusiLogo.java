@@ -17,6 +17,8 @@ public class BusiLogo extends BaseEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	
+	private Integer saleUid;
 
     @DateTimeFormat(pattern="yyyy-M-d")
     private Date createTime;
@@ -82,8 +84,16 @@ public class BusiLogo extends BaseEntity<Integer> {
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    public Integer getSaleUid() {
+		return saleUid;
+	}
 
-    public Date getCreateTime() {
+	public void setSaleUid(Integer saleUid) {
+		this.saleUid = saleUid;
+	}
+
+	public Date getCreateTime() {
         return createTime;
     }
 

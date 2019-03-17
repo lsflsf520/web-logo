@@ -12,7 +12,7 @@
 </head>
 <body>
     <header class="zd_xqtoub">
-        <a href="particulars.html">&lt;返回</a>
+        <a href="/wz/prodList.do">&lt;返回</a>
         <p>${prod.viewName }</p>
     </header>
     <div class="dh_pmianzs">

@@ -61,6 +61,7 @@
        <input type="button" value="下载委托书" onclick="downloadDoc('delegate')" style="margin-left:3px;">
        <input type="button" value="下载协议书" onclick="downloadDoc('agent')" style="margin-left:3px;">
        <input type="button" value="下载申请书" onclick="downloadDoc('apply')" style="margin-left:3px;">
+       <a href="/sys/doLogout.do">退出登录</a>
        <span style="color:red;" id="dlErrMsg" style="margin-left:3px;"></span>
       </form>
     </div>

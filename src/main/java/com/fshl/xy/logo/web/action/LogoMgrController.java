@@ -22,10 +22,12 @@ import com.fshl.xy.logo.entity.BusiLogo;
 //import com.fshl.xy.logo.service.impl.BackupService;
 import com.fshl.xy.logo.service.impl.BusiLogoService;
 import com.fshl.xy.logo.util.DocUtil;
+import com.fshl.xy.logo.util.PassportUtil;
 import com.google.gson.Gson;
 import com.xyz.tools.common.bean.ResultModel;
 import com.xyz.tools.common.utils.BaseConfig;
 import com.xyz.tools.common.utils.DateUtil;
+import com.xyz.tools.common.utils.LogUtils;
 import com.xyz.tools.common.utils.RegexUtil;
 import com.xyz.tools.web.util.WebUtils;
 
@@ -78,12 +80,19 @@ public class LogoMgrController {
 	}
 	
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, String yearMonth, Integer status, 
+	public String list(HttpServletRequest request, HttpServletResponse response, String yearMonth, Integer status, 
 			          Integer timeType, String startDate, String endDate, Integer ordType, String partner){
-        String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token) && !PassportController.READONLY_VALUE.equals(token)){
+		String token = WebUtils.getCookieValue(request, "_tk_");
+		int uid = 0;
+        boolean isReadOnly = true;
+        try {
+        	uid = PassportUtil.getUidByToken(token);
+        	isReadOnly = PassportUtil.isReadOnly(token);
+        } catch (Exception e) {
+        	LogUtils.warn("not logon for curr token %s", token);
         	return "redirect:/sys/tologin.do";
         }
+        
 		String keyword = request.getParameter("keyword");
 		List<String> timeList = getLast3YearMonth();
 		if(StringUtils.isBlank(yearMonth)){
@@ -105,9 +114,9 @@ public class LogoMgrController {
 		List<BusiLogo> logoList = null;
 		timeType = (timeType == null ? 0 : timeType);
 		if(timeType == 0){
-			logoList = busiLogoServiceImpl.queryBusiLogo(yearMonth, keyword, ordType, partner, status);
+			logoList = busiLogoServiceImpl.queryBusiLogo(isReadOnly ? null : uid, yearMonth, keyword, ordType, partner, status);
 		}else{
-			logoList = busiLogoServiceImpl.queryBusiLogo(sDate, eDate, keyword, ordType, partner, status);
+			logoList = busiLogoServiceImpl.queryBusiLogo(isReadOnly ? null : uid, sDate, eDate, keyword, ordType, partner, status);
 		}
 		String[] partners = BaseConfig.getValueArr("up.partners");
 		request.setAttribute("logoList", logoList);
@@ -127,7 +136,6 @@ public class LogoMgrController {
 		request.setAttribute("typeMap", typeMap);
 		
 		request.setAttribute("timeList", timeList);
-		
 		
 		int totalMoney = 0, totalProfit = 0, totalDesignFee = 0, totalDesignProfit = 0, hasGetProfit = 0, hasGetMoney = 0, logoNum = 0;
 		if(logoList != null && !logoList.isEmpty()){
@@ -157,7 +165,7 @@ public class LogoMgrController {
 		request.setAttribute("hasGetMoney", hasGetMoney); //已经收到的总金额，即已经结清的订单的总金额
 		request.setAttribute("logoNum", logoNum); //商标总数
 		
-		if(PassportController.TK_VALUE.equals(token)){
+		if(!isReadOnly){
 			return "logo/list";
 		}
 		
@@ -166,9 +174,8 @@ public class LogoMgrController {
 	
 	@RequestMapping("/saveLogo")
 	public void saveLogo(HttpServletRequest request, HttpServletResponse response, BusiLogo logo){
-		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
-        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+		int uid = checkPriv(request, response, true);
+        if(uid <= 0) {
         	return;
         }
 		if(logo.getNum() == null || logo.getLogoFee() == null){
@@ -206,6 +213,7 @@ public class LogoMgrController {
 		}
 		
 		if(logo.getId() == null){
+			logo.setSaleUid(uid);
 			busiLogoServiceImpl.insert(logo);
 		}else{
 			busiLogoServiceImpl.update(logo);
@@ -216,9 +224,8 @@ public class LogoMgrController {
 	
 	@RequestMapping("/delOrder")
 	public void delOrder(HttpServletRequest request, HttpServletResponse response, int orderId){
-		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
-        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+		int uid = checkPriv(request, response, true);
+        if(uid <= 0) {
         	return;
         }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
@@ -235,9 +242,8 @@ public class LogoMgrController {
 	
 	@RequestMapping("/payRemainFee")
 	public void payRemainFee(HttpServletRequest request, HttpServletResponse response, int orderId, int who){
-		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
-        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+		int uid = checkPriv(request, response, true);
+        if(uid <= 0) {
         	return;
         }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
@@ -265,11 +271,11 @@ public class LogoMgrController {
 	
 	@RequestMapping("/updateExpress")
 	public void updateExpress(HttpServletRequest request, HttpServletResponse response, int orderId){
-		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
-        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+		int uid = checkPriv(request, response, true);
+        if(uid <= 0) {
         	return;
         }
+		
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
 		if(logo == null){
 			WebUtils.writeJson(new ResultModel("NOT_EXIST", "订单不存在！"), request, response);
@@ -285,9 +291,8 @@ public class LogoMgrController {
 	
 	@RequestMapping("/downloadDoc")
 	public void downloadDoc(HttpServletRequest request, HttpServletResponse response, int orderId, String type){
-		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
-        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+		int uid = checkPriv(request, response, false);
+        if(uid <= 0) {
         	return;
         }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
@@ -347,9 +352,8 @@ public class LogoMgrController {
 	
 	@RequestMapping("/updateStatus")
 	public void updateStatus(HttpServletRequest request, HttpServletResponse response, int orderId, int status){
-		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token) && !PassportController.READONLY_VALUE.equals(token)){
-        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+		int uid = checkPriv(request, response, true);
+        if(uid <= 0) {
         	return;
         }
 		BusiLogo logo = busiLogoServiceImpl.findById(orderId);
@@ -379,9 +383,8 @@ public class LogoMgrController {
 	
 	@RequestMapping("/backupData")
 	public void backupData(HttpServletRequest request, HttpServletResponse response){
-		String token = WebUtils.getCookieValue(request, "_tk_");
-        if(!PassportController.TK_VALUE.equals(token)){
-        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        int uid = checkPriv(request, response, true);
+        if(uid <= 0) {
         	return;
         }
 		try{
@@ -395,6 +398,37 @@ public class LogoMgrController {
 		}
 		
 	}
+	
+	private int checkPriv(HttpServletRequest request, HttpServletResponse response, boolean needWritePriv) {
+		String token = WebUtils.getCookieValue(request, "_tk_");
+		int uid = 0;
+        boolean isReadOnly = true;
+        try {
+        	uid = PassportUtil.getUidByToken(token);
+        	isReadOnly = PassportUtil.isReadOnly(token);
+        	if(isReadOnly && needWritePriv) {
+        		LogUtils.warn("no priv to delOrder for currUid %d", uid);
+        		WebUtils.writeJson(new ResultModel("当前账号不支持此操作"), request, response);
+        		return 0;
+        	}
+        } catch (Exception e) {
+        	WebUtils.writeJson(new ResultModel("请先登录"), request, response);
+        	return 0;
+        }
+        return uid;
+	}
+	
+	/*private boolean isReadOnly(HttpServletRequest request) {
+		String token = WebUtils.getCookieValue(request, "_tk_");
+		boolean isReadOnly = true;
+        try {
+        	isReadOnly = PassportUtil.isReadOnly(token);
+        } catch (Exception e) {
+        	LogUtils.warn("error found priv for token %s", token);
+        }
+        return isReadOnly;
+		
+	}*/
 	
 	private List<String> getLast3YearMonth(){
 		Date currDate = new Date();

@@ -25,7 +25,7 @@ public class BusiLogoService extends AbstractBaseService<Integer, BusiLogo> {
     	return busiLogoDao;
     }
     
-    public List<BusiLogo> queryBusiLogo(String yearMonth, String keyword, Integer ordType, String partner, Integer status){
+    public List<BusiLogo> queryBusiLogo(Integer saleUid, String yearMonth, String keyword, Integer ordType, String partner, Integer status){
     	Date startDate = null;
     	Date endDate = null;
     	if(StringUtils.isNotBlank(yearMonth)){
@@ -36,10 +36,10 @@ public class BusiLogoService extends AbstractBaseService<Integer, BusiLogo> {
     	}
     	
     	
-    	return queryBusiLogo(startDate, endDate, keyword, ordType, partner, status);
+    	return queryBusiLogo(saleUid, startDate, endDate, keyword, ordType, partner, status);
     }
     
-    public List<BusiLogo> queryBusiLogo(Date startDate, Date endDate, String keyword, Integer ordType, String partner, Integer status){
+    public List<BusiLogo> queryBusiLogo(Integer saleUid, Date startDate, Date endDate, String keyword, Integer ordType, String partner, Integer status){
     	if(StringUtils.isNotBlank(keyword)){
     		keyword = "%" + keyword + "%";
     	}else{
@@ -48,6 +48,6 @@ public class BusiLogoService extends AbstractBaseService<Integer, BusiLogo> {
     	if(StringUtils.isBlank(partner)){
     		partner = null;
     	}
-    	return busiLogoDao.queryBusiLogo(startDate, endDate, keyword, ordType, partner, status);
+    	return busiLogoDao.queryBusiLogo(saleUid, startDate, endDate, keyword, ordType, partner, status);
     }
 }
