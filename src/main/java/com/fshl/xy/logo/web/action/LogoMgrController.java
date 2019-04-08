@@ -365,7 +365,7 @@ public class LogoMgrController {
 	
 	@RequestMapping("/updateStatus")
 	public void updateStatus(HttpServletRequest request, HttpServletResponse response, int orderId, int status){
-		int uid = checkPriv(request, response, true);
+		int uid = checkPriv(request, response, false);
         if(uid <= 0) {
         	return;
         }
