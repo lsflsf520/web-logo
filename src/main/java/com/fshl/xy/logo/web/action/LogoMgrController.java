@@ -29,6 +29,7 @@ import com.xyz.tools.common.utils.BaseConfig;
 import com.xyz.tools.common.utils.DateUtil;
 import com.xyz.tools.common.utils.LogUtils;
 import com.xyz.tools.common.utils.RegexUtil;
+import com.xyz.tools.web.util.ExportUtil;
 import com.xyz.tools.web.util.WebUtils;
 
 @Controller
@@ -303,14 +304,16 @@ public class LogoMgrController {
 		
 		if("delegate".equals(type)){
 			//下载委托书
-			Map<String, Object> dataMap = new HashMap<String, Object>();
+			Map<String, String> dataMap = new HashMap<String, String>();
 			dataMap.put("company", logo.getCompany());
 			dataMap.put("logoName", logo.getLogoName());
-			dataMap.put("customerAddr", logo.getCustomerAddr());
-			dataMap.put("date", DateUtil.formatDate(logo.getCreateTime(), "yyyy 年  MM 月 dd 日"));
+			dataMap.put("address", logo.getCustomerAddr());
+			dataMap.put("day", DateUtil.formatDate(logo.getCreateTime(), "yyyy 年  MM 月 dd 日"));
 			
 			try{
-				DocUtil.writeHttpResponse(response, "delegate", dataMap, logo.getLogoName() + "商标代理委托书");
+//				DocUtil.writeHttpResponse(response, "delegate", dataMap, logo.getLogoName() + "商标代理委托书");
+			    String tmplPath = getDocTmplPath("weituoshu.doc");
+				ExportUtil.writeDoc4HttpResponse(tmplPath, dataMap, logo.getLogoName() + "商标代理委托书", response);
 			}catch(Exception e){
 				WebUtils.writeJson(new ResultModel("DOWNLOAD_ERROR", logo.getLogoName() + "商标代理委托书 下载失败！"), request, response);
 				LOG.error(logo.getLogoName() + "商标代理委托书 下载失败！ orderId:" + orderId);
@@ -348,6 +351,16 @@ public class LogoMgrController {
 				LOG.error(logo.getLogoName() + "商标申请书 下载失败！ orderId:" + orderId);
 			}
 		}
+	}
+	
+	private String getDocTmplPath(String tmplFileName) {
+		String basePath = BaseConfig.getPath("application.properties");
+		if(basePath.startsWith("file:/")){
+			basePath = basePath.replace("file:", "");
+		}
+		basePath = basePath.replace("application.properties", "doctmpl");
+		
+		return basePath + "/" + tmplFileName;
 	}
 	
 	@RequestMapping("/updateStatus")
