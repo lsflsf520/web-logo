@@ -200,6 +200,8 @@
       <a target="_blank" href="http://www.zxripr.com/inner?bd1?bd?sbzcej?sbzccx-shangbiaochaxunzhuce">细软网商标查询</a>
       <a target="_blank" href="http://www.haotm.com/">好标网商标查询</a>
       <a target="_blank" href="http://www.sbfl.cn/">尼斯商标分类网</a>
+      <a target="_blank" href="https://www.ilovepdf.com/zh-cn/jpg_to_pdf">图片转PDF</a>
+      <a target="_blank" href="https://www.ilovepdf.com/zh-cn/pdf_to_jpg">PDF转图片</a>
     </div>
     
     <table style="display:none;">
