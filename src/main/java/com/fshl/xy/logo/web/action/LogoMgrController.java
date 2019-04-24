@@ -66,6 +66,7 @@ public class LogoMgrController {
 		typeMap.put(2, "著作权");
 		typeMap.put(1, "商标异议");
 		typeMap.put(3, "专利");
+		typeMap.put(11, "二维码");
 		typeMap.put(10, "商标补正");
 		typeMap.put(4, "商标购买");
 		typeMap.put(5, "商标变更");
