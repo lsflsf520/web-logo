@@ -132,13 +132,18 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.4.2.v20170220</version>
 				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<scanIntervalSeconds>0</scanIntervalSeconds>
 					<webApp>
 						<contextPath>/</contextPath>
 					</webApp>
 					<httpConnector>
 						<port>8080</port>
 					</httpConnector>
+					<contextXml>src/test/java/jetty-contexts.xml</contextXml>
+					<webAppConfig>
+						<defaultsDescriptor>src/test/java/webdefault.xml</defaultsDescriptor>
+						<contextPath>/</contextPath>
+					</webAppConfig>
 				</configuration>
 			</plugin>
 		</plugins>

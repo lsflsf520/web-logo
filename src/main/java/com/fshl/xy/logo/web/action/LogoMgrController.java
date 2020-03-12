@@ -202,7 +202,7 @@ public class LogoMgrController {
 			}else if(logo.getMyFeeStatus() == 1){
 				logo.setMyFeeTime(logo.getCreateTime());
 				logo.setStatus(1);
-			}if(logo.getChenFeeStatus() == 1){
+			}else if(logo.getChenFeeStatus() == 1){
 				logo.setChenFeeTime(logo.getCreateTime());
 				logo.setStatus(1);
 			}else{
