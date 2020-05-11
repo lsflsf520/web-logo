@@ -12,13 +12,13 @@
   <title>商标分类首页-朝朝盈</title>
   <meta name="keywords" content="商标分类,2019商标分类,2020商标分类,商标分类查询">
   <meta name="description" content="在这里可以查询所有45个商标分类及其子分类信息">
-  <link href="https://lstatic.educity.cn/public/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="http://static.siyufank.cn/css/common.css?v=1" />
-  <link rel="stylesheet" type="text/css" href="http://static.siyufank.cn/css/index.css?v=1" />
+  <link href="//static.siyufank.cn/common/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/common/css/common.css?v=1" />
+  <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/cms/index/css/index.css?v=1" />
   
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   
-  <script src="https://lstatic.educity.cn//public/js/jquery-2.1.1.min.js"></script>
+  <script src="//static.siyufank.cn/common/js/jquery-2.1.1.min.js"></script>
   
   
 </head>
@@ -28,7 +28,7 @@
     <div class="bannerBox">
       <div class="bannerMain">
         <div class="bannerLogo fix">
-          <a href="/" target="_blank"><img class="logo fl" src="http://static.siyufank.cn/zhaozhaoying/logo.png" alt="北京朝朝盈知识产权代理有限公司"></a>
+          <a href="/" target="_blank"><img class="logo fl" src="//static.siyufank.cn/common/images/logo.png" alt="北京朝朝盈知识产权代理有限公司"></a>
           <div class="logoLine fl"></div>
           <div class="logoFont fl"><a href="/jjcy/" target="_blank">商标分类</a></div>
         </div>
@@ -436,10 +436,10 @@
         <li><a href='http://wpa.qq.com/msgrd?V=1&uin=3531915226&Site=朝朝盈&Menu=yes' target='_blank'><img src='http://wpa.qq.com/pa?p=1:3531915226:4' border='0' alt='QQ' />QQ咨询 </a></li>
       </ul>
       <div class="side_ewm">
-        <img src="http://static.siyufank.cn/images/banshangbiao_wx.png" alt="商标咨询" />
+        <img src="//static.siyufank.cn/common/images/banshangbiao_wx.png" alt="商标咨询" />
         <p>微信扫码咨询</p>
       </div>
-      <a href="javascript:goTop();" class="backtop"><img src="https://lstatic.educity.cn//educity/pc/www/images/zhaosheng/backtop.png" />返回顶部</a>
+      <a href="javascript:goTop();" class="backtop"><img src="//static.siyufank.cn/common/images/backtop.png" />返回顶部</a>
     </div>
     <!-- 右侧导航结束 -->
   
