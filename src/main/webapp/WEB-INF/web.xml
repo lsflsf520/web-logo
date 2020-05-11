@@ -64,6 +64,11 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     
+    <servlet-mapping>
+        <servlet-name>appServlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    
     <!-- 下边这些静态资源，不需要springmvc处理 -->
     <servlet-mapping>  
         <servlet-name>default</servlet-name>  
