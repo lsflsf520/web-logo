@@ -14,97 +14,32 @@
     <meta name="description" content="专注于企业或个人的专利、商标、版权等知识产权服务，现已服务于企业23000+，代理商标申请数65000+，商标申请成功率达95%，版权申请数8000+，专利申请数2000+">
 
    <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/common/css/common.css?v=1" />
-   <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/cms/index/index1_files/css.css">
+   <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/cms/index/index1_files/css.css?v=1">
    <script src="index1_files/a.txt"></script><script src="//static.siyufank.cn/cms/index/index1_files/jquery-1.js"></script>
    <script type="text/javascript" src="//static.siyufank.cn/cms/index/index1_files/jquery-1_002.js"></script>
    <script type="text/javascript" src="//static.siyufank.cn/cms/index/index1_files/jquery.js"></script>
-   <script>  
-   	window.onscroll = function () {
-    //获取界面滚动条高度
-		var gdt=document.documentElement.scrollTop || document.body.scrollTop;
-		//获取界面可视区域高度
-		var ksqy=document.documentElement.clientHeight;
-		//alert('滚动条高度'+gdt+'可视区域高度'+ksqy);return 0;
-		if(gdt<=ksqy/2)
-		{
-			$(".evt_nav_right").css('display','none');
-		//滚动条的高度小于或等于可视我区域的高度 左菜单栏隐藏	
-		}else{
-			//滚动条的高度大于可视我区域的高度 左菜单栏显示
-			$(".evt_nav_right").css('display','block');
-			}
-}
-        $(function(){  
-		
-            $(".evt_link").click(function(){
-                $(this).addClass("active");
-                $(this).siblings(".evt_link").removeClass("active");
-            });
-            var mk=$(".mk");
-            var kk=0;
-            $(window).scroll(function(){
-                kk = document.documentElement.scrollTop || document.body.scrollTop;
-                for(var i =0;i<mk.length;i++){
-					if(i==0){
-						$(".evt_link").eq(i).addClass('active');
-						$(".evt_link").eq(i+1).removeClass('active');
-					}
-				  if(kk>mk.eq(i).offset().top){
-					
-						   $(".evt_link").removeClass('active');
-                        $(".evt_link").eq(i+1).addClass('active');
-					 
-                       
-                    }
-                }
-            });
-        });
-    </script> 
-     <style type="text/css" media="screen">  
-        
-        .evt_nav_right{position:fixed;top:100px;left:0px;width:40px;  z-index:9999; background:#515151; display:none}  
-        
-        .evt_nav_right a.active{ background:#3886fa; color:#fff;}
-		.evt_nav_right a{display:inline-block;width:40px; font-size:15px; text-align:center; color:#b1b0b0; padding:10px 0px; line-height:25px}
-		.evt_nav_right a:before{content: "";
-    display: block;
-    margin-top: -10px;margin-bottom:8px;
-    margin-left: 6px;
-    width: 28px;
-    height: 1px;
-    background: #868686;}
-	.evt_nav_right a.db{ background:#cccccc; color:#fff;}
-	
-	
-	
-    </style>   
 </head>
 
 <body>
    
 <!--banner图-->
-    <div class="bannerBox">
-      <div class="bannerMain" style="width: 1200px;">
+    <div class="bannerBox" style="height: 126px;">
+      <div class="bannerMain">
         <div class="bannerLogo fix">
           <a href="/" target="_blank"><img class="logo fl" src="//static.siyufank.cn/common/images/logo.png" alt="北京朝朝盈知识产权代理有限公司"></a>
-          
         </div>
         <h1 class="bannerTittle">北京朝朝盈知识产权代理有限公司</h1>
         <div class="bannerFont fix">
           
           <div class="bannerFontR fr">
             <div class="mb-20 fix">
-              <div class="fl ml-10">专业代理商标注册、版权登记、专利申请、Logo设计等业务</div>
+              <div class="fl ml-10">专业代理商标注册、版权登记、专利申请、Logo设计等业务，咨询电话：15201019610（王经理）</div>
             </div>
-            
+          </div>
         </div>
       </div>
 </div>
 <!--banner图结束-->
-
-
-
-
 
 <!--产品服务模块开始-->
 <div class="cpmodule mk" id="test01">

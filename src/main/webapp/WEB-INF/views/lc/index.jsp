@@ -14,7 +14,7 @@
   <meta name="description" content="在这里可以查询所有45个商标分类及其子分类信息">
   <link href="//static.siyufank.cn/common/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/common/css/common.css?v=1" />
-  <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/cms/index/css/index.css?v=1" />
+  <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/cms/lc/css/index.css?v=1" />
   
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   
