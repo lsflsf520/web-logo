@@ -15,8 +15,8 @@
 			<artifactId>common-tools</artifactId>
 			<exclusions>
 			   <exclusion>
-			     <groupId>org.javassist</groupId>
-			     <artifactId>javassist</artifactId>
+			     <groupId>com.alibaba</groupId>
+		         <artifactId>dubbo</artifactId>
 			   </exclusion>
 			</exclusions>
 		</dependency>

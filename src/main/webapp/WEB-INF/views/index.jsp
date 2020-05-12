@@ -10,7 +10,7 @@
     <meta name="Copyright" content="朝朝盈">
 
     <title>北京朝朝盈知识产权代理有限公司</title>
-    <meta name="keyword" content="朝朝盈,朝朝盈收益,朝朝盈知识产权,商标注册,北京商标注册,版权申请,专利申请,商标转让" >
+    <meta name="keyword" content="朝朝盈,北京朝朝盈,朝朝盈收益,朝朝盈知识产权,商标注册,北京商标注册,版权登记,专利申请,商标转让,Logo设计,条形码申请" >
     <meta name="description" content="专注于企业或个人的专利、商标、版权等知识产权服务，现已服务于企业23000+，代理商标申请数65000+，商标申请成功率达95%，版权申请数8000+，专利申请数2000+">
 
    <link rel="stylesheet" type="text/css" href="//static.siyufank.cn/common/css/common.css?v=1" />
