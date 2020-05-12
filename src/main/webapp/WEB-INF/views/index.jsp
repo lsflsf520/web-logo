@@ -166,7 +166,7 @@
 					商标免费查询，<br>有效提升注册成功率
 				</p>
 				
-				<a href="#" title="立即查询">立即查询</a>
+				<a href="/lc/index.html" title="立即查询">立即查询</a>
 				<div class="img"></div>
 			</li>
 			<li class="img02">

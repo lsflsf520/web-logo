@@ -184,7 +184,7 @@
 		   <!--
             <a href="javascript:;" class="tgimg"><img src="https://lstatic.educity.cn//educity/pc/www/images/zhaosheng/img_20.png" alt="" /></a>
            -->
-			<p>笔、墨、纸、砚；纸板；印刷品；装订用品；照片；文具；文具或家庭用粘合剂；美术用品；画笔；打字机和办公用品（家具除外）；教育或教学用品（仪器除外）；包装用塑料物品（不属别类的）；印刷铅字；印版；室内模型物。</p>
+			<p>笔、墨、纸、砚；纸板；印刷品；装订用品；照片；文具；美术用品；画笔；打字机和办公用品（家具除外）；教育或教学用品（仪器除外）；包装用塑料物品（不属别类的）；室内模型。</p>
             <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAzNjM5Nl80MzM3MTVfNDAwNzc3MTIxOF8yXw" target="_blank" class="zxbm zxClick">查看详情</a>
           </li>
           <li>
